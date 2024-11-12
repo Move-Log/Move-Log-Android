@@ -58,4 +58,6 @@ dependencies {
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.datastore)
 }
