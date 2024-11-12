@@ -23,3 +23,5 @@ rootProject.name = "MoveLog"
 include(":app")
 include(":presentation")
 include(":domain")
+include(":data")
+include(":core:util")
