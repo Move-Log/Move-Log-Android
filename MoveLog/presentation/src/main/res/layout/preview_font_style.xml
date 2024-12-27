@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title Section -->
+        <TextView
+            style="@style/ibm_plex_t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Title Styles" />
+
+        <TextView
+            style="@style/ibm_plex_t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T1 - IBM Plex Sans KR Bold 48sp" />
+
+        <TextView
+            style="@style/ibm_plex_t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T2 - IBM Plex Sans KR SemiBold 20sp" />
+
+        <!-- Heading Section -->
+        <TextView
+            style="@style/ibm_plex_t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="Heading Styles" />
+
+        <TextView
+            style="@style/ibm_plex_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H1 - IBM Plex Sans KR SemiBold 15sp" />
+
+        <TextView
+            style="@style/ibm_plex_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H2 - IBM Plex Sans KR Medium 15sp" />
+
+        <TextView
+            style="@style/ibm_plex_h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H3 - IBM Plex Sans KR Regular 15sp" />
+
+        <!-- Label Section -->
+        <TextView
+            style="@style/ibm_plex_t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="Label Styles" />
+
+        <TextView
+            style="@style/ibm_plex_l1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L1 - IBM Plex Sans KR Medium 14sp" />
+
+        <TextView
+            style="@style/ibm_plex_l2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L2 - IBM Plex Sans KR SemiBold 12sp" />
+
+        <TextView
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L3 - IBM Plex Sans KR Medium 12sp" />
+
+        <TextView
+            style="@style/ibm_plex_l4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L4 - IBM Plex Sans KR Regular 12sp" />
+
+        <TextView
+            style="@style/ibm_plex_l5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L5 - IBM Plex Sans KR Medium 13sp" />
+
+    </LinearLayout>
+</ScrollView>
