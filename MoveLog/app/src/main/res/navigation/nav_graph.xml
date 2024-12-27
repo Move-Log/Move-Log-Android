@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/sign_in">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.ilgusu.presentation.view.home.HomeFragment"
+        android:label="HomeFragment"
+        app:route="home" >
+        <action
+            android:id="@+id/action_home_to_sign_in"
+            app:destination="@id/sign_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/sign_in"
+        android:name="com.ilgusu.presentation.view.signIn.SignInFragment"
+        android:label="SignInFragment"
+        app:route="sign_in" >
+        <action
+            android:id="@+id/action_sign_in_to_home"
+            app:destination="@id/home" />
+    </fragment>
+</navigation>

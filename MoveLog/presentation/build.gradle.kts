@@ -32,10 +32,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation(project(":core:util"))
+    implementation(project(":core:navigation"))
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
