@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.googleKsp) apply false
+    alias(libs.plugins.navigation.safeargs) apply false
 }
