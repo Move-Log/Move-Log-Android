@@ -1,12 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.navigation.safeargs)
     alias(libs.plugins.hilt)
     alias(libs.plugins.googleKsp)
 }
 
 android {
-    namespace = "com.ilgusu.presentation"
+    namespace = "com.ilgusu.navigation"
     compileSdk = 34
 
     defaultConfig {
@@ -32,15 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(project(":core:navigation"))
-    implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -51,4 +47,7 @@ dependencies {
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.javax.inject)
+    implementation(libs.bundles.navigation.bundle)
 }

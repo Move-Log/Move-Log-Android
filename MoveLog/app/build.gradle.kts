@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":presentation"))
     implementation(project(":core:util"))
+    implementation(project(":core:navigation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -58,4 +59,6 @@ dependencies {
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.bundles.navigation.bundle)
 }
