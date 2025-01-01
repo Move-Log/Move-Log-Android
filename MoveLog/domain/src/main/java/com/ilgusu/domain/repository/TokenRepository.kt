@@ -9,6 +9,4 @@ interface TokenRepository {
     fun getTokens(): Flow<TokenPreferences>
 
     suspend fun clearTokens(): Result<Unit>
-
-    suspend fun refreshToken(refreshToken: String): Result<TokenPreferences>
 }
