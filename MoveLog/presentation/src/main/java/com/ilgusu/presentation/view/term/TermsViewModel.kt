@@ -1,4 +1,4 @@
-package com.ilgusu.presentation.view.signIn
+package com.ilgusu.presentation.view.term
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,38 +14,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
-    private val socialLoginUseCase: SocialLoginUseCase,
+class TermsViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _loginState = MutableLiveData<UiState<Boolean>>()
     val loginState: LiveData<UiState<Boolean>> get() = _loginState
 
-    fun login(provider: AuthProvider) {
-        _loginState.value = UiState.Loading
-        viewModelScope.launch {
-            try {
-                socialLoginUseCase.invoke(provider)
-                    .onSuccess { idToken ->
-                        LoggerUtil.d("${provider.name} 로그인 성공: $idToken")
-                        serverLogin(idToken, provider)
-                    }.onFailure { e ->
-                        _loginState.value = UiState.Error(message = e.message ?: "소셜 로그인 실패")
-                    }
-            } catch (e: Exception) {
-                _loginState.value = UiState.Error(message = e.message ?: "소셜 로그인 중 예외 발생")
-            }
-        }
-    }
-
-    private fun serverLogin(idToken: String, provider: AuthProvider) {
+    fun login(idToken: String, provider: AuthProvider) {
         _loginState.value = UiState.Loading
         viewModelScope.launch {
             try {
                 loginUseCase.invoke(idToken, provider)
-                    .onSuccess {
-                        _loginState.value = UiState.Success(it)
+                    .onSuccess { idToken ->
+                        LoggerUtil.d("로그인 성공: $idToken")
+                        _loginState.value = UiState.Success(idToken)
                     }.onFailure { e ->
                         _loginState.value = UiState.Error(message = e.message ?: "로그인 실패")
                     }

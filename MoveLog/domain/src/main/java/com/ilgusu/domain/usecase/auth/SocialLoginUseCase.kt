@@ -8,6 +8,6 @@ class SocialLoginUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     suspend operator fun invoke(provider: AuthProvider): Result<String> {
-        return authRepository.login(provider)
+        return authRepository.socialLogin(provider)
     }
 }

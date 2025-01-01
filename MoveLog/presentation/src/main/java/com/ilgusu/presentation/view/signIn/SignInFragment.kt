@@ -1,5 +1,7 @@
 package com.ilgusu.presentation.view.signIn
 
+import android.graphics.Color
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.domain.model.AuthProvider
@@ -17,20 +19,26 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
     private val viewModel: SignInViewModel by viewModels()
 
     override fun initView() {
+        requireActivity().window?.apply {
+            this.statusBarColor = Color.TRANSPARENT
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
     }
 
     override fun initListener() {
         super.initListener()
 
-        binding.btnNavigate.setOnClickListener {
-//            lifecycleScope.launch {
-//                navigationManager.navigate(
-//                    NavigationCommand.ToRoute(NavigationRoutes.Home)
-//                )
-//            }
-
-            viewModel.login(AuthProvider.KAKAO)
+        binding.llLoginKakao.setOnClickListener {
+            doLogin(AuthProvider.KAKAO)
         }
+
+        binding.llLoginGoogle.setOnClickListener {
+            doLogin(AuthProvider.GOOGLE)
+        }
+    }
+
+    private fun doLogin(provider: AuthProvider) {
+        viewModel.login(provider)
     }
 
     override fun setObserver() {
@@ -40,8 +48,19 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
             when(it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> { showToast(it.message) }
-                is UiState.Success -> { showToast(it.data) }
+                is UiState.Success -> {
+                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Term
+                    moveToNext(route)
+                }
             }
+        }
+    }
+
+    private fun moveToNext(route: NavigationRoutes){
+        lifecycleScope.launch {
+            navigationManager.navigate(
+                NavigationCommand.ToRoute(route)
+            )
         }
     }
 }
