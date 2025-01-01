@@ -51,4 +51,8 @@ dependencies {
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 }
