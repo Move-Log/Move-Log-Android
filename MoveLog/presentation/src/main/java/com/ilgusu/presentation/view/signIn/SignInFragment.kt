@@ -10,6 +10,7 @@ import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentSignInBinding
 import com.ilgusu.presentation.util.UiState
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,6 +44,21 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
 
     override fun setObserver() {
         super.setObserver()
+
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> { showToast(it.message) }
+                is UiState.Success -> {
+                    if(it.data) {
+                        LoggerUtil.e("true")
+                        moveToNext(NavigationRoutes.Home)
+                    } else {
+                        LoggerUtil.e("false")
+                    }
+                }
+            }
+        }
 
         viewModel.loginState.observe(viewLifecycleOwner) {
             when(it) {
