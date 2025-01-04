@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilgusu.domain.model.AuthProvider
-import com.ilgusu.domain.usecase.auth.LoginUseCase
 import com.ilgusu.domain.usecase.auth.SignUpUseCase
-import com.ilgusu.domain.usecase.auth.SocialLoginUseCase
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
