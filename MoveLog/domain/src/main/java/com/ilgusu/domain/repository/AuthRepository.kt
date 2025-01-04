@@ -12,5 +12,7 @@ interface AuthRepository {
 
     suspend fun login(idToken: String, provider: AuthProvider): Result<Boolean>
 
+    suspend fun signUp(): Result<Boolean>
+
     suspend fun withdraw(): Result<Boolean>
 }

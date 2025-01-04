@@ -8,6 +8,7 @@ import com.ilgusu.data.service.auth.AuthService
 import com.ilgusu.domain.model.AuthProvider
 import com.ilgusu.domain.repository.TokenRepository
 import kotlinx.coroutines.flow.first
+import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -24,7 +25,12 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun withdraw(): Response<OnlyMsgDTO> {
         val tokens = tokenRepository.getTokens().first()
-        return service.withdraw(tokens.accessToken)
+        return service.withdraw("Bearer " + tokens.accessToken)
+    }
+
+    override suspend fun signUp(): Response<ResponseBody> {
+        val tokens = tokenRepository.getTokens().first()
+        return service.signUp("Bearer " + tokens.accessToken)
     }
 
     override suspend fun refreshToken(refreshToken: String): TokenResponse {

@@ -80,6 +80,19 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun signUp(): Result<Boolean> {
+        return try {
+            val response = dataSource.signUp()
+            if(response.isSuccessful) {
+                Result.success(true)
+            } else {
+                throw Exception("Request is failure")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun withdraw(): Result<Boolean> {
         return try {
             val response = dataSource.withdraw()

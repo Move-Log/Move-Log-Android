@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.model.AuthProvider
 import com.ilgusu.domain.usecase.auth.LoginUseCase
+import com.ilgusu.domain.usecase.auth.SignUpUseCase
 import com.ilgusu.domain.usecase.auth.SocialLoginUseCase
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
@@ -15,25 +16,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TermsViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
-    private val _loginState = MutableLiveData<UiState<Boolean>>()
-    val loginState: LiveData<UiState<Boolean>> get() = _loginState
+    private val _uiState = MutableLiveData<UiState<Boolean>>()
+    val uiState: LiveData<UiState<Boolean>> get() = _uiState
 
-    fun login(idToken: String, provider: AuthProvider) {
-        _loginState.value = UiState.Loading
+    fun signUp() {
+        _uiState.value = UiState.Loading
         viewModelScope.launch {
             try {
-                loginUseCase.invoke(idToken, provider)
+                signUpUseCase.invoke()
                     .onSuccess { idToken ->
-                        LoggerUtil.d("로그인 성공: $idToken")
-                        _loginState.value = UiState.Success(idToken)
+                        LoggerUtil.d("회원가입 성공: $idToken")
+                        _uiState.value = UiState.Success(idToken)
                     }.onFailure { e ->
-                        _loginState.value = UiState.Error(message = e.message ?: "로그인 실패")
+                        _uiState.value = UiState.Error(message = e.message ?: "회원가입 실패")
                     }
             } catch (e: Exception) {
-                _loginState.value = UiState.Error(message = e.message ?: "로그인 중 예외 발생")
+                _uiState.value = UiState.Error(message = e.message ?: "회원가입 중 예외 발생")
             }
         }
     }
