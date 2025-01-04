@@ -1,29 +1,82 @@
 package com.ilgusu.presentation.view.signIn
 
+import android.graphics.Color
+import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.ilgusu.domain.model.AuthProvider
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentSignInBinding
+import com.ilgusu.presentation.util.UiState
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignInFragment: BaseFragment<FragmentSignInBinding>() {
 
-    override fun initView() {
+    private val viewModel: SignInViewModel by viewModels()
 
+    override fun initView() {
+        requireActivity().window?.apply {
+            this.statusBarColor = Color.TRANSPARENT
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
     }
 
     override fun initListener() {
         super.initListener()
 
-        binding.btnNavigate.setOnClickListener {
-            lifecycleScope.launch {
-                navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Home)
-                )
+        binding.llLoginKakao.setOnClickListener {
+            doLogin(AuthProvider.KAKAO)
+        }
+
+        binding.llLoginGoogle.setOnClickListener {
+            doLogin(AuthProvider.GOOGLE)
+        }
+    }
+
+    private fun doLogin(provider: AuthProvider) {
+        viewModel.login(provider)
+    }
+
+    override fun setObserver() {
+        super.setObserver()
+
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> { showToast(it.message) }
+                is UiState.Success -> {
+                    if(it.data) {
+                        LoggerUtil.e("true")
+                        moveToNext(NavigationRoutes.Home)
+                    } else {
+                        LoggerUtil.e("false")
+                    }
+                }
             }
+        }
+
+        viewModel.loginState.observe(viewLifecycleOwner) {
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> { showToast(it.message) }
+                is UiState.Success -> {
+                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Term
+                    moveToNext(route)
+                }
+            }
+        }
+    }
+
+    private fun moveToNext(route: NavigationRoutes){
+        lifecycleScope.launch {
+            navigationManager.navigate(
+                NavigationCommand.ToRoute(route)
+            )
         }
     }
 }

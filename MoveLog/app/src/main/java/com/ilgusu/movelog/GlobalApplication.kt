@@ -2,6 +2,7 @@ package com.ilgusu.movelog
 
 import android.app.Application
 import com.ilgusu.util.LoggerUtil
+import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -11,6 +12,7 @@ class GlobalApplication : Application() {
         super.onCreate()
 
         printStartingLog()
+        KakaoSdk.init(this, BuildConfig.KAKAO_NATIVE_KEY)
     }
 
     private fun printStartingLog() =
