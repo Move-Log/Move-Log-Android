@@ -14,10 +14,16 @@ class AppNavigatorImpl @Inject constructor(
             is NavigationCommand.ToRoute -> {
                 navController.navigate(command.route.route)
             }
+
+            is NavigationCommand.ToRouteWithId -> {
+                navController.navigate(command.id, command.bundle)
+            }
+
             is NavigationCommand.Back -> navController.navigateUp()
             is NavigationCommand.PopUpTo -> {
                 navController.popBackStack(command.route.route, command.inclusive)
             }
+
             is NavigationCommand.ToRouteAndClear -> {
                 navController.navigate(
                     route = command.route.route,
