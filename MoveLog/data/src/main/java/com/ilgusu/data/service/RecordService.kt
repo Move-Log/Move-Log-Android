@@ -20,7 +20,7 @@ interface RecordService {
         @Part("createRecordReq") createRecordReq: RequestBody
     ): Response<BasicResponse<String>>
 
-    @GET("/api/record/today")
+    @GET("/record/today")
     suspend fun getTodayRecord(
         @Header("Authorization") accessToken: String
     ): Response<BasicResponse<List<Int>>>
