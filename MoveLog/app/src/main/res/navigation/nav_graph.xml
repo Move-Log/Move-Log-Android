@@ -5,33 +5,41 @@
     app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.ilgusu.presentation.view.home.HomeFragment"
-        android:label="HomeFragment"
-        app:route="home">
-        <action
-            android:id="@+id/action_home_to_sign_in"
-            app:destination="@id/signInFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/signInFragment"
         android:name="com.ilgusu.presentation.view.signIn.SignInFragment"
         android:label="SignInFragment"
         app:route="sign_in">
         <action
-            android:id="@+id/action_sign_in_to_home"
-            app:destination="@id/home" />
-        <action
-            android:id="@+id/action_sign_in_to_termsFragment"
+            android:id="@+id/action_signInFragment_to_termsFragment"
             app:destination="@id/termsFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/termsFragment"
         android:name="com.ilgusu.presentation.view.term.TermsFragment"
         android:label="TermsFragment"
         app:route="terms">
         <action
-            android:id="@+id/action_termsFragment_to_home"
-            app:destination="@id/home" />
+            android:id="@+id/action_termsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ilgusu.presentation.view.home.HomeFragment"
+        android:label="HomeFragment"
+        app:route="home">
+        <action
+            android:id="@+id/action_homeFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.ilgusu.presentation.view.record.RecordFragment"
+        android:label="RecordFragment"
+        app:route="record"/>
 </navigation>

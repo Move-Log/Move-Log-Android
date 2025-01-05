@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="next">다음</string>
+
     <string name="login_kakao">카카오로 시작하기</string>
     <string name="login_google">구글로 시작하기</string>
 
@@ -9,5 +12,17 @@
     <string name="term_all">모든 약관에 동의 합니다.</string>
     <string name="term_start_btn">시작하기</string>
 
+    <string name="record_toolbar_title">기록</string>
+    <string name="record_type_title">나는 오늘</string>
+    <string name="record_word_title">명사 작성</string>
+    <string name="record_word_hint">20자 글자 이내의 단어로 작성해 주세요.</string>
+
+    <string name="record_type_0">했어요</string>
+    <string name="record_type_1">갔어요</string>
+    <string name="record_type_2">먹었어요</string>
+
+    <string name="time_hour">HOURS</string>
+    <string name="time_minute">MINUTES</string>
+    <string name="time_second">SECONDS</string>
 
 </resources>
