@@ -3,12 +3,9 @@ package com.ilgusu.presentation.view.home
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilgusu.domain.model.MyRecentNewsEntity
-import com.ilgusu.navigation.NavigationCommand
-import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {

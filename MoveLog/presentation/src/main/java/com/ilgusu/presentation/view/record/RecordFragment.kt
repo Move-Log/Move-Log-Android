@@ -13,7 +13,12 @@ import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentRecordBinding
 import com.ilgusu.presentation.util.DateUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

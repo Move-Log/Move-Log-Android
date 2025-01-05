@@ -3,13 +3,9 @@ package com.ilgusu.data.util
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Process
 import com.ilgusu.domain.repository.TokenRepository
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
