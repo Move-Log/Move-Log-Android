@@ -49,6 +49,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Image Load
+    implementation(libs.glide)
+
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }
