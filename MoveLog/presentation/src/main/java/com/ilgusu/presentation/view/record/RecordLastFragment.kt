@@ -131,5 +131,13 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         binding.btnMakeNews.setOnClickListener {
             viewModel.doRecord(false)
         }
+
+        binding.btnBack.setOnClickListener {
+            timeJob?.cancel()
+            
+            lifecycleScope.launch {
+                navigationManager.navigate(NavigationCommand.Back)
+            }
+        }
     }
 }

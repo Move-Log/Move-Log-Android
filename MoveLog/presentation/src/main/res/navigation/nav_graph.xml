@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/signInFragment">
 
@@ -8,7 +9,8 @@
         android:id="@+id/signInFragment"
         android:name="com.ilgusu.presentation.view.signIn.SignInFragment"
         android:label="SignInFragment"
-        app:route="sign_in">
+        app:route="sign_in"
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_termsFragment"
             app:destination="@id/termsFragment" />
@@ -21,7 +23,8 @@
         android:id="@+id/termsFragment"
         android:name="com.ilgusu.presentation.view.term.TermsFragment"
         android:label="TermsFragment"
-        app:route="terms">
+        app:route="terms"
+        tools:layout="@layout/fragment_terms">
         <action
             android:id="@+id/action_termsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -31,17 +34,22 @@
         android:id="@+id/homeFragment"
         android:name="com.ilgusu.presentation.view.home.HomeFragment"
         android:label="HomeFragment"
-        app:route="home">
+        app:route="home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.ilgusu.presentation.view.record.RecordFragment"
         android:label="RecordFragment"
-        app:route="record">
+        app:route="record"
+        tools:layout="@layout/fragment_record">
         <action
             android:id="@+id/action_recordFragment_to_recordLastFragment"
             app:destination="@id/recordLastFragment" />
@@ -50,7 +58,8 @@
         android:id="@+id/recordLastFragment"
         android:name="com.ilgusu.presentation.view.record.RecordLastFragment"
         android:label="RecordLastFragment"
-        app:route="record_last">
+        app:route="record_last"
+        tools:layout="@layout/fragment_record_last">
         <argument
             android:name="type"
             app:argType="integer" />
@@ -58,4 +67,10 @@
             android:name="word"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.ilgusu.presentation.view.setting.SettingFragment"
+        android:label="fragment_setting"
+        app:route="setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

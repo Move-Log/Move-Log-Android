@@ -11,18 +11,11 @@ class RecordViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private val _currentStep = MutableLiveData(1)
-    val currentStep: LiveData<Int> get() = _currentStep
-
     private val _recordWord = MutableLiveData<String>()
     val recordWord: LiveData<String> get() = _recordWord
 
     private val _recordType = MutableLiveData<Int>()
     val recordType: LiveData<Int> get() = _recordType
-
-    fun setStep(step: Int) {
-        _currentStep.value = step
-    }
 
     fun setRecordWord(word: String) {
         _recordWord.value = word

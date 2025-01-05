@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.presentation.R
@@ -26,11 +27,21 @@ import java.util.Locale
 @AndroidEntryPoint
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
+    private val viewModel: RecordViewModel by viewModels()
     private var timeJob: Job? = null
 
     override fun initView() {
-        binding.stepProgressView.setCurrentStep(1)
+        binding.stepProgressView.setCurrentStep(if (viewModel.recordWord.value.isNullOrBlank()) 1 else 2)
         setTime()
+        binding.ibClear.visibility = View.GONE
+
+        viewModel.recordWord.value?.let {
+            binding.etRecordWord.setText(it)
+        }
+        viewModel.recordType.value?.let {
+            setRecordType(it)
+            changeRecordTypeColor()
+        }
     }
 
     private fun setTime() {
@@ -89,6 +100,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
                 override fun afterTextChanged(editable: Editable?) {
                     editable?.let {
                         ibClear.visibility = if (it.isNotBlank()) View.VISIBLE else View.GONE
+                        viewModel.setRecordWord(editable.toString())
                         setNextButton()
                     }
                 }
@@ -114,7 +126,10 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
             etRecordWord.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) hideKeyboard()
             }
-            ibClear.setOnClickListener { etRecordWord.text.clear() }
+            ibClear.setOnClickListener {
+                etRecordWord.text.clear()
+                viewModel.setRecordWord("")
+            }
         }
     }
 
@@ -133,6 +148,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
             groupRecordWord.visibility = View.GONE
             setTypesClickable(true)
             changeRecordTypeColor()
+            binding.etRecordWord.text.clear()
         }
     }
 
@@ -158,15 +174,25 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         }
 
         lifecycleScope.launch {
-            navigationManager.navigate(NavigationCommand.ToRouteWithId(
-                R.id.action_recordFragment_to_recordLastFragment, bundle
-            ))
+            navigationManager.navigate(
+                NavigationCommand.ToRouteWithId(
+                    R.id.action_recordFragment_to_recordLastFragment, bundle
+                )
+            )
         }
     }
 
     private fun findSelectedType(): Int {
-        listOf(binding.ivType0, binding.ivType1, binding.ivType2).forEachIndexed { index, imageView ->
-            if(imageView.imageTintList!!.defaultColor == ContextCompat.getColor(requireContext(), R.color.gray_66)) {
+        listOf(
+            binding.ivType0,
+            binding.ivType1,
+            binding.ivType2
+        ).forEachIndexed { index, imageView ->
+            if (imageView.imageTintList!!.defaultColor == ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray_66
+                )
+            ) {
                 return index
             }
         }
@@ -216,6 +242,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
                 if (index == typeNum) secondaryColor else defaultColor
             )
         }
+        viewModel.setRecordType(typeNum)
         setNextButton()
     }
 
