@@ -1,12 +1,16 @@
 package com.ilgusu.data.di
 
+import android.content.Context
 import com.google.gson.GsonBuilder
 import com.ilgusu.data.BuildConfig
+import com.ilgusu.data.util.AuthInterceptor
 import com.ilgusu.data.util.PrettyJsonLogger
+import com.ilgusu.domain.repository.TokenRepository
 import com.kakao.sdk.user.UserApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,6 +21,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ClientModule {
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(
+        tokenRepository: TokenRepository,
+        @ApplicationContext context: Context
+    ): AuthInterceptor = AuthInterceptor(tokenRepository, context)
 
     @Provides
     @Singleton
@@ -31,9 +42,11 @@ class ClientModule {
     @Provides
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
     }
 
