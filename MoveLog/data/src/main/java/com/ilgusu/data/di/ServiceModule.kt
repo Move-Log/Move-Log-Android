@@ -2,6 +2,7 @@ package com.ilgusu.data.di
 
 import android.content.Context
 import com.ilgusu.data.service.KakaoAuthService
+import com.ilgusu.data.service.RecordService
 import com.ilgusu.data.service.auth.AuthService
 import com.kakao.sdk.user.UserApiClient
 import dagger.Module
@@ -25,4 +26,9 @@ internal class ServiceModule {
     fun providesAuthService(
         client: Retrofit
     ): AuthService = client.create(AuthService::class.java)
+
+    @Provides
+    fun providesRecordService(
+        client: Retrofit
+    ): RecordService = client.create(RecordService::class.java)
 }
