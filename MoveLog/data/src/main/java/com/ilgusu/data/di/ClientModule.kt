@@ -3,6 +3,7 @@ package com.ilgusu.data.di
 import com.google.gson.GsonBuilder
 import com.ilgusu.data.BuildConfig
 import com.ilgusu.data.util.PrettyJsonLogger
+import com.kakao.sdk.user.UserApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +46,8 @@ class ClientModule {
             .baseUrl(BuildConfig.BASE_URL)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideKakaoUserClient(): UserApiClient = UserApiClient.instance
 }
