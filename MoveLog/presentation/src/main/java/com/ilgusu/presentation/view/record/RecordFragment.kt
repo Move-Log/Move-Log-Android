@@ -1,13 +1,13 @@
 package com.ilgusu.presentation.view.record
 
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
-import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentRecordBinding
@@ -139,17 +139,34 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
     private fun onNextButtonClick() {
         if (isFinish() && binding.etRecordWord.text.isNotBlank()) {
-            navigateToHome()
+            navigateToStep3()
         } else {
             startStep2()
         }
     }
 
-    private fun navigateToHome() {
+    private fun navigateToStep3() {
         timeJob?.cancel()
-        lifecycleScope.launch {
-            navigationManager.navigate(NavigationCommand.ToRoute(NavigationRoutes.Home))
+        val bundle = Bundle().apply {
+            putInt("type", findSelectedType())
+            putString("word", binding.etRecordWord.text.toString())
         }
+
+        lifecycleScope.launch {
+            navigationManager.navigate(NavigationCommand.ToRouteWithId(
+                R.id.action_recordFragment_to_recordLastFragment, bundle
+            ))
+        }
+    }
+
+    private fun findSelectedType(): Int {
+        listOf(binding.ivType0, binding.ivType1, binding.ivType2).forEachIndexed { index, imageView ->
+            if(imageView.imageTintList!!.defaultColor == ContextCompat.getColor(requireContext(), R.color.gray_66)) {
+                return index
+            }
+        }
+
+        return 0
     }
 
     private fun startStep2() {

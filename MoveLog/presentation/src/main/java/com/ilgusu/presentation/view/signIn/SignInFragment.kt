@@ -61,7 +61,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
                 is UiState.Loading -> {}
                 is UiState.Error -> { showToast(it.message) }
                 is UiState.Success -> {
-                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Term
+                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Terms
                     moveToNext(route)
                 }
             }
