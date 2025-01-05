@@ -2,5 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="8dp" /> <!-- 반지름 설정 -->
-    <stroke android:color="@color/gray_f3" android:width="2dp"/> <!-- 배경색 설정 -->
+    <solid android:color="@color/gray_f3" /> <!-- 배경색 설정 -->
+    <stroke android:color="@color/gray_e1" android:width="2dp"/>
 </shape>
