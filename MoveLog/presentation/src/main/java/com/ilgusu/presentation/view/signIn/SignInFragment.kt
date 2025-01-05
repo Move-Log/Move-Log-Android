@@ -10,7 +10,6 @@ import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentSignInBinding
 import com.ilgusu.presentation.util.UiState
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -51,10 +50,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
                 is UiState.Error -> { showToast(it.message) }
                 is UiState.Success -> {
                     if(it.data) {
-                        LoggerUtil.e("true")
                         moveToNext(NavigationRoutes.Home)
-                    } else {
-                        LoggerUtil.e("false")
                     }
                 }
             }
@@ -65,7 +61,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
                 is UiState.Loading -> {}
                 is UiState.Error -> { showToast(it.message) }
                 is UiState.Success -> {
-                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Term
+                    val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Terms
                     moveToNext(route)
                 }
             }

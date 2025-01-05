@@ -80,4 +80,12 @@
         <item name="android:textSize">20sp</item>
         <item name="lineHeight">32sp</item>
     </style>
+
+    <style name="ibm_plex_t3">
+        <item name="fontFamily">@font/ibm_plex_sans_kr</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">32sp</item>
+        <item name="lineHeight">48sp</item>
+    </style>
 </resources>

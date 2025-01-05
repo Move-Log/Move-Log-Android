@@ -1,13 +1,22 @@
 package com.ilgusu.presentation.view.home
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.ilgusu.domain.model.MyRecentNewsEntity
+import com.ilgusu.navigation.NavigationCommand
+import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentHomeBinding
+import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import kotlin.math.abs
 import kotlin.random.Random
@@ -15,10 +24,13 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var myRecentNewsAdapter: RvMyRecentNewsAdapter
 
     override fun initView() {
-
+        requireActivity().window?.apply {
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -114,12 +126,41 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         binding.tvWiseSaying.text = saying
         binding.tvWiseSayingWho.text = author
 
-//        binding.btnSetting.setOnClickListener {
-//            lifecycleScope.launch {
-//                navigationManager.navigate(
-//                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
-//                )
-//            }
-//        }
+        binding.btnRecord.setOnClickListener {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Record)
+                )
+            }
+        }
+
+        binding.btnSetting.setOnClickListener {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
+                )
+            }
+        }
+    }
+
+    override fun setObserver() {
+        super.setObserver()
+
+        viewModel.recordState.observe(viewLifecycleOwner){
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> showToast(it.message)
+                is UiState.Success -> {
+                    val secondaryColor = ContextCompat.getColor(requireContext(), R.color.secondary)
+                    it.data.forEach { type ->
+                         when(type) {
+                             0 -> binding.ivType0.imageTintList = ColorStateList.valueOf(secondaryColor)
+                             1 -> binding.ivType1.imageTintList = ColorStateList.valueOf(secondaryColor)
+                             2 -> binding.ivType2.imageTintList = ColorStateList.valueOf(secondaryColor)
+                         }
+                    }
+                }
+            }
+        }
     }
 }
