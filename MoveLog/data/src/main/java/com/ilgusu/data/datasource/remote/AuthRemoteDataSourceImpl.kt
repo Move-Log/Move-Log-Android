@@ -35,6 +35,6 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun refreshToken(refreshToken: String): TokenResponse {
 //        return authApi.refreshToken(refreshToken)
-        return TokenResponse("test_access_token", "test_refresh_token")
+        return TokenResponse(AuthProvider.KAKAO ,"test_access_token", "test_refresh_token")
     }
 }

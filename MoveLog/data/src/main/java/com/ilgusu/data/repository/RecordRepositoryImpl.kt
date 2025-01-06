@@ -13,7 +13,7 @@ class RecordRepositoryImpl @Inject constructor(
     override suspend fun record(file: File?, type: Int, word: String): Result<Boolean> {
         return try {
             val response = dataSource.record(file, type, word)
-            LoggerUtil.i(response.toString())
+
             if(response.isSuccessful) {
                 val body = response.body()
                 if(body != null) {
