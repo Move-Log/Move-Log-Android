@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/step_progress_view">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -194,7 +194,7 @@
                     android:layout_marginTop="16dp"
                     android:contentDescription="@null"
                     android:paddingHorizontal="16dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="16:9"
                     app:layout_constraintTop_toBottomOf="@id/tv_record_photo_title" />
@@ -206,7 +206,6 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/gray_e1"
             app:layout_constraintBottom_toTopOf="@id/btn_save"
@@ -223,11 +222,10 @@
             android:layout_marginBottom="16dp"
 
             android:background="@drawable/shape_radius_8_with_stroke"
-            android:backgroundTint="@color/gray_e1"
             android:gravity="center"
 
             android:text="@string/save"
-            android:textColor="@color/gray_66"
+            android:textColor="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_make_news"
@@ -242,11 +240,11 @@
             android:layout_marginBottom="16dp"
 
             android:background="@drawable/shape_radius_8"
-            android:backgroundTint="@color/gray_e1"
+            android:backgroundTint="@color/primary"
             android:gravity="center"
 
             android:text="@string/make_news"
-            android:textColor="@color/gray_66"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_save" />
