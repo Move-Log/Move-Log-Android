@@ -22,10 +22,16 @@ class SignInViewModel @Inject constructor(
     private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
 
+    private val _uiState = MutableLiveData<UiState<Boolean>>()
+    val uiState: LiveData<UiState<Boolean>> get() = _uiState
+
+    private val _loginState = MutableLiveData<UiState<Boolean>>()
+    val loginState: LiveData<UiState<Boolean>> get() = _loginState
+
     init {
         viewModelScope.launch {
             val tokens = getTokenUseCase.invoke().first()
-            LoggerUtil.i(tokens.toString())
+
             if(tokens.accessToken.isNotBlank()) {
                 _uiState.value = UiState.Success(true)
             } else {
@@ -33,12 +39,6 @@ class SignInViewModel @Inject constructor(
             }
         }
     }
-
-    private val _uiState = MutableLiveData<UiState<Boolean>>()
-    val uiState: LiveData<UiState<Boolean>> get() = _uiState
-
-    private val _loginState = MutableLiveData<UiState<Boolean>>()
-    val loginState: LiveData<UiState<Boolean>> get() = _loginState
 
     fun login(provider: AuthProvider) {
         _loginState.value = UiState.Loading

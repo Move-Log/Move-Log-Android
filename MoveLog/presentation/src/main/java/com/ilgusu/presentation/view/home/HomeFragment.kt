@@ -2,7 +2,6 @@ package com.ilgusu.presentation.view.home
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels

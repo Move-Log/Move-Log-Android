@@ -8,7 +8,7 @@ interface AuthRepository {
 
     suspend fun socialSignOut(provider: AuthProvider): Result<Boolean>
 
-    suspend fun socialWithdraw(provider: AuthProvider): Result<Boolean>
+    suspend fun socialWithdraw(): Result<Boolean>
 
     suspend fun login(idToken: String, provider: AuthProvider): Result<Boolean>
 

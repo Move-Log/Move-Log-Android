@@ -5,6 +5,7 @@ import com.ilgusu.data.service.KakaoAuthService
 import com.ilgusu.domain.model.AuthProvider
 import com.ilgusu.domain.repository.AuthRepository
 import com.ilgusu.domain.repository.TokenRepository
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -45,9 +46,9 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun socialWithdraw(provider: AuthProvider): Result<Boolean> {
+    override suspend fun socialWithdraw(): Result<Boolean> {
         return try {
-            when (provider) {
+            when (tokenRepository.getTokens().first().provider) {
                 AuthProvider.KAKAO -> {
                     kakaoAuthService.withdraw()
                     Result.success(true)
@@ -67,7 +68,7 @@ class AuthRepositoryImpl @Inject constructor(
             if(response.isSuccessful) {
                 val body = response.body()
                 if(body != null) {
-                    tokenRepository.saveTokens(body.accessToken, "")
+                    tokenRepository.saveTokens(provider, body.accessToken, "")
                     Result.success(body.isRegistered)
                 } else {
                     throw Exception("Body is null")
