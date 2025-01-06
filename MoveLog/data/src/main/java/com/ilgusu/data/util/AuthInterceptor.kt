@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.ilgusu.domain.repository.TokenRepository
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -21,6 +22,7 @@ class AuthInterceptor @Inject constructor(
         val response = chain.proceed(chain.request())
 
         if (response.code == 401) {
+            LoggerUtil.i(response.toString())
             runBlocking(Dispatchers.IO) {
                 tokenRepository.clearTokens()
             }
