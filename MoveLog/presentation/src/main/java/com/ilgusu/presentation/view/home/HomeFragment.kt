@@ -16,8 +16,15 @@ import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentHomeBinding
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -25,22 +32,31 @@ import kotlin.random.Random
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
+    private var timeJob: Job? = null
     private lateinit var myRecentNewsAdapter: RvMyRecentNewsAdapter
 
     override fun initView() {
         requireActivity().window?.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+        setTime()
+    }
+
+    private fun setTime() {
+        timeJob = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                val currentTime =
+                    SimpleDateFormat("yyyy년 MM월 dd일 (E) hh:mm:ss", Locale.getDefault()).format(Date())
+                binding.tvTime.text = currentTime
+
+                delay(1000)
+            }
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
     override fun initListener() {
         super.initListener()
-
-        val currentTime: Long = System.currentTimeMillis() // ms로 반환
-
-        val dataFormat1 = SimpleDateFormat("yyyy년 MM월 dd일 (E) hh:mm:ss") // 년 월 일
-        binding.tvTime.text = dataFormat1.format(currentTime)
 
         val data = mutableListOf<MyRecentNewsEntity>()
         data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
@@ -127,6 +143,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         binding.tvWiseSayingWho.text = author
 
         binding.btnRecord.setOnClickListener {
+            timeJob?.cancel()
             lifecycleScope.launch {
                 navigationManager.navigate(
                     NavigationCommand.ToRoute(NavigationRoutes.Record)
@@ -135,6 +152,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
 
         binding.btnSetting.setOnClickListener {
+            timeJob?.cancel()
             lifecycleScope.launch {
                 navigationManager.navigate(
                     NavigationCommand.ToRoute(NavigationRoutes.Setting)
@@ -162,5 +180,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        timeJob?.cancel()
     }
 }

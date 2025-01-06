@@ -78,6 +78,7 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
                 is UiState.Loading -> {}
                 is UiState.Error -> { showToast(it.message) }
                 is UiState.Success -> {
+                    timeJob?.cancel()
                     lifecycleScope.launch {
                         navigationManager.navigate(NavigationCommand.ToRouteAndClear(
                             NavigationRoutes.Home
@@ -139,5 +140,10 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
                 navigationManager.navigate(NavigationCommand.Back)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timeJob?.cancel()
     }
 }

@@ -37,6 +37,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
         viewModel.recordWord.value?.let {
             binding.etRecordWord.setText(it)
+            binding.groupRecordWord.visibility = View.VISIBLE
         }
         viewModel.recordType.value?.let {
             setRecordType(it)
