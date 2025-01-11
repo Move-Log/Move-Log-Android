@@ -4,29 +4,27 @@ import android.content.Context
 import com.ilgusu.util.LoggerUtil
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class KakaoAuthService @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val client: UserApiClient,
 ) {
 
-    private val isKakaoTalkLoginAvailable: Boolean
-        get() = client.isKakaoTalkLoginAvailable(context)
+    private fun Context.isKakaoTalkLoginAvailable(): Boolean
+        = client.isKakaoTalkLoginAvailable(this)
 
-    suspend fun signInWithKakao(): String {
+    suspend fun signInWithKakao(context: Context): String {
         return suspendCoroutine { continuation ->
-            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            val handleLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 try {
                     if (error != null) {
                         LoggerUtil.e("로그인 실패 ${error.message}", error)
-                        throw IllegalStateException(error.message)
+                        continuation.resumeWithException(IllegalStateException("로그인 실패: ${error.message}"))
                     } else if (token == null) {
-                        throw IllegalStateException("토큰 발급 실패")
+                        continuation.resumeWithException(IllegalStateException("토큰 발급 실패"))
                     } else {
                         val idToken = token.idToken ?: throw IllegalStateException("토큰이 빈 문자열")
                         continuation.resume(idToken)
@@ -36,10 +34,17 @@ class KakaoAuthService @Inject constructor(
                 }
             }
 
-            if (isKakaoTalkLoginAvailable) {
-                client.loginWithKakaoTalk(context, callback = callback)
+            if (context.isKakaoTalkLoginAvailable()) {
+                client.loginWithKakaoTalk(context) { token, error ->
+                    if (error != null) {
+                        LoggerUtil.e("카카오톡 로그인 실패: ${error.message}, 카카오 계정 로그인 시도", error)
+                        client.loginWithKakaoAccount(context, callback = handleLoginCallback)
+                    } else {
+                        handleLoginCallback(token, null)
+                    }
+                }
             } else {
-                client.loginWithKakaoAccount(context, callback = callback)
+                client.loginWithKakaoAccount(context, callback = handleLoginCallback)
             }
         }
     }

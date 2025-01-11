@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SocialLoginUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(provider: AuthProvider): Result<String> {
-        return authRepository.socialLogin(provider)
+    suspend operator fun invoke(context: Any, provider: AuthProvider): Result<String> {
+        return authRepository.socialLogin(context, provider)
     }
 }

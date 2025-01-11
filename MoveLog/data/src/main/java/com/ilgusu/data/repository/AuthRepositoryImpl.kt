@@ -1,5 +1,7 @@
 package com.ilgusu.data.repository
 
+import android.app.Activity
+import android.content.Context
 import com.ilgusu.data.datasource.remote.AuthRemoteDataSource
 import com.ilgusu.data.service.KakaoAuthService
 import com.ilgusu.domain.model.AuthProvider
@@ -14,11 +16,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val tokenRepository: TokenRepository
 ) : AuthRepository {
 
-    override suspend fun socialLogin(provider: AuthProvider): Result<String> {
+    override suspend fun socialLogin(context: Any, provider: AuthProvider): Result<String> {
         return try {
             when (provider) {
                 AuthProvider.KAKAO -> {
-                    val idToken = kakaoAuthService.signInWithKakao()
+                    val idToken = kakaoAuthService.signInWithKakao(context as Activity)
                     Result.success(idToken)
                 }
                 AuthProvider.GOOGLE -> {
