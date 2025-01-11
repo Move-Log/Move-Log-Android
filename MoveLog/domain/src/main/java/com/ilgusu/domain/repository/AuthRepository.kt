@@ -4,7 +4,7 @@ import com.ilgusu.domain.model.AuthProvider
 
 interface AuthRepository {
 
-    suspend fun socialLogin(provider: AuthProvider): Result<String>
+    suspend fun socialLogin(context: Any, provider: AuthProvider): Result<String>
 
     suspend fun socialSignOut(provider: AuthProvider): Result<Boolean>
 

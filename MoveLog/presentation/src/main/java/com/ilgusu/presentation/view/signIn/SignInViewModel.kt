@@ -1,5 +1,6 @@
 package com.ilgusu.presentation.view.signIn
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,11 +41,16 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun login(provider: AuthProvider) {
+    fun login(context: Context, provider: AuthProvider) {
+        if(provider == AuthProvider.GOOGLE) {
+            _loginState.value = UiState.Error("준비중 입니다")
+            return
+        }
+
         _loginState.value = UiState.Loading
         viewModelScope.launch {
             try {
-                socialLoginUseCase.invoke(provider)
+                socialLoginUseCase.invoke(context, provider)
                     .onSuccess { idToken ->
                         LoggerUtil.d("${provider.name} 로그인 성공: $idToken")
                         serverLogin(idToken, provider)

@@ -38,7 +38,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
     }
 
     private fun doLogin(provider: AuthProvider) {
-        viewModel.login(provider)
+        viewModel.login(requireActivity(), provider)
     }
 
     override fun setObserver() {
