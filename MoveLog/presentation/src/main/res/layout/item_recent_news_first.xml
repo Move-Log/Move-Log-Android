@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:paddingTop="16dp"
+    android:paddingBottom="32dp">
+
+    <ImageView
+        android:id="@+id/iv_news_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null"/>
+
+    <TextView
+        android:id="@+id/tv_news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_news_image"
+        tools:text="주말 약속 취소해야겠다, 아 원래 없구나fffffffffffffff"
+        style="@style/ibm_plex_t2"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/gray_1c"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/tv_news_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_news_title"
+        android:layout_marginTop="4dp"
+        style="@style/ibm_plex_l3"
+        android:textColor="@color/gray_66"
+        tools:text="했어요 · 주말 약속 · 37분전"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

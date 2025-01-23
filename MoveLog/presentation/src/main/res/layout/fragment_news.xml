@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:id="@+id/tb_news_recent"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_logo"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            style="@style/ibm_plex_l3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/ic_title_for_time"
+            android:gravity="center"
+            android:textColor="@color/gray_1c"
+            android:textSize="12sp"
+            tools:text="test text" />
+
+    </Toolbar>
+
+    <TextView
+        android:id="@+id/tv_news_recent_title"
+        style="@style/ibm_plex_t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:text="최근 생성한 뉴스"
+        android:textColor="@color/gray_1c"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_news_recent" />
+
+    <Button
+        android:id="@+id/btn_date_news"
+        style="@style/ibm_plex_l5"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:text="날짜 선택 >"
+        android:textColor="@color/gray_66"
+        app:layout_constraintBottom_toBottomOf="@id/tv_news_recent_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_news_recent_title" />
+
+    <LinearLayout
+        android:id="@+id/chip_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/shape_chip"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@id/chip_do"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_news_recent_title">
+
+        <TextView
+            android:id="@+id/tv_chip_all"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chip_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/shape_chip_disable"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/chip_all"
+        app:layout_constraintEnd_toStartOf="@id/chip_go"
+        app:layout_constraintStart_toEndOf="@id/chip_all"
+        app:layout_constraintTop_toTopOf="@id/chip_all">
+
+        <ImageView
+            android:id="@+id/iv_chip_do"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_hand_peace"
+            app:tint="@color/gray_66" />
+
+        <TextView
+            android:id="@+id/tv_chip_do"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="했어요"
+            android:textColor="@color/gray_4d" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chip_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/shape_chip_disable"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/chip_all"
+        app:layout_constraintEnd_toStartOf="@id/chip_eat"
+        app:layout_constraintStart_toEndOf="@id/chip_do"
+        app:layout_constraintTop_toTopOf="@id/chip_all">
+
+        <ImageView
+            android:id="@+id/iv_chip_go"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_foot_prints"
+            app:tint="@color/gray_66" />
+
+        <TextView
+            android:id="@+id/tv_chip_go"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="갔어요"
+            android:textColor="@color/gray_4d" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chip_eat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/shape_chip_disable"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/chip_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/chip_go"
+        app:layout_constraintTop_toTopOf="@id/chip_all">
+
+        <ImageView
+            android:id="@+id/iv_chip_eat"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_fork_knife"
+            app:tint="@color/gray_66" />
+
+        <TextView
+            android:id="@+id/tv_chip_eat"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="먹었어요"
+            android:textColor="@color/gray_4d" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_e1"
+        app:layout_constraintTop_toBottomOf="@id/chip_all" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recent_news"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/tv_empty_view"
+        style="@style/ibm_plex_h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="최근 7일 이내에 생성한 뉴스가 없습니다."
+        android:textColor="@color/gray_1c"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rv_recent_news"
+        app:layout_constraintTop_toTopOf="@id/rv_recent_news" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_post_news"
+        style="@style/ibm_plex_l1"
+        android:layout_width="106dp"
+        android:layout_height="42dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_radius_100"
+        android:gravity="center"
+        android:text="+  뉴스 생성"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <include
+        android:id="@+id/bottom_nav"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

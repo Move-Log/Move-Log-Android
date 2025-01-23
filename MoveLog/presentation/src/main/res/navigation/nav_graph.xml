@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
 
     <fragment
@@ -73,4 +76,14 @@
         android:label="fragment_setting"
         app:route="setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.ilgusu.presentation.view.news.recent.NewsFragment"
+        android:label="NewsFragment"
+        app:route="news_recent"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
