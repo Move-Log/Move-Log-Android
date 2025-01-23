@@ -39,6 +39,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         setTime()
+        setBottomNav()
     }
 
     private fun setTime() {
@@ -177,6 +178,29 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                          }
                     }
                 }
+            }
+        }
+    }
+
+    private fun setBottomNav(){
+        binding.bottomNav.ivHome.setImageResource(R.drawable.ic_home_enabled)
+        binding.bottomNav.tvHome.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
+
+        binding.bottomNav.menuNews.setOnClickListener {
+            timeJob?.cancel()
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.NewsRecent)
+                )
+            }
+        }
+
+        binding.bottomNav.menuChart.setOnClickListener {
+            timeJob?.cancel()
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Home)
+                )
             }
         }
     }
