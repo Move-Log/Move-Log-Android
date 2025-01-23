@@ -1,5 +1,6 @@
 package com.ilgusu.data.di
 
+import com.ilgusu.data.service.NewsService
 import com.ilgusu.data.service.RecordService
 import com.ilgusu.data.service.auth.AuthService
 import dagger.Module
@@ -21,4 +22,9 @@ internal class ServiceModule {
     fun providesRecordService(
         client: Retrofit
     ): RecordService = client.create(RecordService::class.java)
+
+    @Provides
+    fun providesNewsService(
+        client: Retrofit
+    ): NewsService = client.create(NewsService::class.java)
 }
