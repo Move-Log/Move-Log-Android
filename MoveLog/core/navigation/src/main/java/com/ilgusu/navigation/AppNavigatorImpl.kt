@@ -1,6 +1,7 @@
 package com.ilgusu.navigation
 
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.ilgusu.navigation.extension.printBackStack
 import javax.inject.Inject
@@ -12,7 +13,12 @@ class AppNavigatorImpl @Inject constructor(
     override fun navigate(command: NavigationCommand) {
         when (command) {
             is NavigationCommand.ToRoute -> {
-                navController.navigate(command.route.route)
+                navController.navigate(
+                    route = command.route.route,
+                    navOptions = navOptions {
+                        popUpTo(command.route.route) { inclusive = false }
+                        launchSingleTop = true
+                    })
             }
 
             is NavigationCommand.ToRouteWithId -> {
