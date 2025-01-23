@@ -9,7 +9,7 @@ class RecordRepositoryImpl @Inject constructor(
     private val dataSource: RecordRemoteDataSource,
 ) : RecordRepository {
 
-    override suspend fun record(file: File?, type: Int, word: String): Result<Boolean> {
+    override suspend fun record(file: File?, type: String, word: String): Result<Boolean> {
         return try {
             val response = dataSource.record(file, type, word)
 
@@ -34,7 +34,13 @@ class RecordRepositoryImpl @Inject constructor(
             if(response.isSuccessful) {
                 val body = response.body()
                 if(body != null) {
-                    Result.success(body.information)
+                    val result = mutableListOf<Int>()
+                    body.body.information.let {
+                        if(it.optionDo) result.add(0)
+                        if(it.optionGo) result.add(1)
+                        if(it.optionEat) result.add(2)
+                    }
+                    Result.success(result)
                 } else {
                     throw Exception("Body is null")
                 }
