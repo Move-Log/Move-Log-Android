@@ -1,6 +1,10 @@
 package com.ilgusu.data.datasource.remote
 
 import com.ilgusu.data.model.BasicResponse
+import com.ilgusu.data.model.OnlyMsgDTO
+import com.ilgusu.data.model.news.GetRecentRecordImageDTO
+import com.ilgusu.data.model.news.SearchRecordDTO
+import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import retrofit2.Response
 import java.io.File
 
@@ -8,9 +12,13 @@ interface RecordRemoteDataSource {
 
     suspend fun record(
         file: File?,
-        type: Int,
+        type: String,
         word: String
-    ): Response<BasicResponse<String>>
+    ): Response<BasicResponse<OnlyMsgDTO>>
 
-    suspend fun getTodayRecord(): Response<BasicResponse<List<Int>>>
+    suspend fun getTodayRecord(): Response<BasicResponse<TodayRecordResponseDTO>>
+
+    suspend fun searchRecord(): Response<BasicResponse<List<SearchRecordDTO>>>
+
+    suspend fun getRecentRecordImages(keywordId: Int): Response<BasicResponse<List<GetRecentRecordImageDTO>>>
 }

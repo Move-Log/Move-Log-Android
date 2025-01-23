@@ -1,5 +1,6 @@
 package com.ilgusu.domain.usecase.record
 
+import com.ilgusu.domain.enum.RecordOption
 import com.ilgusu.domain.repository.RecordRepository
 import java.io.File
 import javax.inject.Inject
@@ -9,6 +10,6 @@ class RecordUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(file: File?, type: Int, word: String): Result<Boolean> {
-        return repository.record(file, type, word)
+        return repository.record(file, RecordOption.entries[type].koValue, word)
     }
 }
