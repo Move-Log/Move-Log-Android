@@ -1,8 +1,10 @@
 package com.ilgusu.presentation.util
 
+import android.icu.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 object DateUtil {
 
@@ -38,5 +40,26 @@ object DateUtil {
         val minute = calendar.get(Calendar.MINUTE)   // 분
         val second = calendar.get(Calendar.SECOND)   // 초
         return Triple(hour, minute, second)
+    }
+
+    fun getRelativeTime(createdAt: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
+        val sdf = SimpleDateFormat(dateFormat, Locale.getDefault())
+
+        return try {
+            val createdDate = sdf.parse(createdAt)
+            val now = Date()
+
+            val diff = now.time - (createdDate?.time ?: now.time)
+
+            when {
+                diff < TimeUnit.MINUTES.toMillis(1) -> "방금 전"
+                diff < TimeUnit.HOURS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toMinutes(diff)}분 전"
+                diff < TimeUnit.DAYS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toHours(diff)}시간 전"
+                diff < TimeUnit.DAYS.toMillis(7) -> "${TimeUnit.MILLISECONDS.toDays(diff)}일 전"
+                else -> SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(createdDate!!)
+            }
+        } catch (e: Exception) {
+            "알 수 없음"
+        }
     }
 }
