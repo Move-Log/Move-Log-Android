@@ -12,14 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
-import com.ilgusu.domain.model.news.NewsContent
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentNewsBinding
 import com.ilgusu.presentation.util.UiState
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -50,7 +48,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         binding.btnPostNews.setOnClickListener {
             lifecycleScope.launch {
                 navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Home)
+                    NavigationCommand.ToRoute(NavigationRoutes.NewsCreate)
                 )
             }
         }

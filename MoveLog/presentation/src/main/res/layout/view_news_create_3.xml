@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_news_create_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_3_title"
+        style="@style/ibm_plex_h2"
+        android:textColor="@color/gray_1c"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_3_sub_title"
+        style="@style/ibm_plex_l5"
+        android:textColor="@color/gray_4d"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_news_create_desc"
+        android:layout_marginTop="32dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recommend_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
+        android:paddingVertical="16dp"
+        tools:listitem="@layout/item_upload_image"
+        tools:itemCount="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/tv_direct_title"/>
+
+    <TextView
+        android:id="@+id/tv_direct_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_3_ask_other_img"
+        style="@style/ibm_plex_l5"
+        android:textColor="@color/gray_4d"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@id/rv_recommend_data"
+        android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:id="@+id/tv_selected_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_3_do_other_img"
+        style="@style/ibm_plex_l3"
+        android:textColor="@color/gray_7f"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_direct_search_bg"
+        app:layout_constraintTop_toBottomOf="@id/tv_direct_title"
+        android:layout_marginTop="32dp"/>
+
+    <ImageView
+        android:id="@+id/iv_selected_data"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toTopOf="@id/tv_selected_data"
+        app:layout_constraintBottom_toBottomOf="@id/tv_selected_data"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="@null"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

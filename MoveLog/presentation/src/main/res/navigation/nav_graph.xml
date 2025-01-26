@@ -85,5 +85,14 @@
         <action
             android:id="@+id/action_newsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_newsCreateFragment"
+            app:destination="@id/newsCreateFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newsCreateFragment"
+        android:name="com.ilgusu.presentation.view.news.create.NewsCreateFragment"
+        android:label="NewsCreateFragment"
+        app:route="news_create"
+        tools:layout="@layout/fragment_news_create"/>
 </navigation>
