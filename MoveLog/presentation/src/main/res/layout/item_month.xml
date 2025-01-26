@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_sun"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/sunday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_mon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_mon"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/monday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_tue"
+            app:layout_constraintStart_toEndOf="@id/tv_sun"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+        <TextView
+            android:id="@+id/tv_tue"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/tuesday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_wed"
+            app:layout_constraintStart_toEndOf="@id/tv_mon"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+        <TextView
+            android:id="@+id/tv_wed"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/wednesday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_thu"
+            app:layout_constraintStart_toEndOf="@id/tv_tue"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+        <TextView
+            android:id="@+id/tv_thu"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/thursday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_fri"
+            app:layout_constraintStart_toEndOf="@id/tv_wed"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+        <TextView
+            android:id="@+id/tv_fri"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/friday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_sat"
+            app:layout_constraintStart_toEndOf="@id/tv_thu"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+        <TextView
+            android:id="@+id/tv_sat"
+            style="@style/ibm_plex_l5"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/saturday"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_fri"
+            app:layout_constraintTop_toTopOf="@id/tv_sun" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_month_day_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_day"
+        app:layout_constraintTop_toBottomOf="@id/cl_day"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

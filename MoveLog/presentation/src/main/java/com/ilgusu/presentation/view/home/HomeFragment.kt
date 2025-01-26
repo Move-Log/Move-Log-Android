@@ -57,6 +57,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         super.initListener()
 
+        val currentTime: Long = System.currentTimeMillis() // ms로 반환
+
+        val dataFormat1 = SimpleDateFormat("yyyy년 MM월 dd일 (E) hh:mm:ss") // 년 월 일
+        binding.tvTime.text = dataFormat1.format(currentTime)
+
         val data = mutableListOf<MyRecentNewsEntity>()
         data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
         data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
@@ -108,6 +113,14 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             R.drawable.indicator_dot_on,
             0
         )
+
+//        binding.tvChooseDate.setOnClickListener {
+//            lifecycleScope.launch {
+//                navigationManager.navigate(
+//                    NavigationCommand.ToRoute(NavigationRoutes.Calendar)
+//                )
+//            }
+//        }
 
         binding.btn1.setOnClickListener {
             binding.imgComplete1.visibility = View.VISIBLE
