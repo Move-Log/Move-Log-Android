@@ -2,12 +2,12 @@ package com.ilgusu.presentation.view.setting
 
 import android.content.Intent
 import android.net.Uri
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
+import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentSettingBinding
-import androidx.fragment.app.viewModels
-import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

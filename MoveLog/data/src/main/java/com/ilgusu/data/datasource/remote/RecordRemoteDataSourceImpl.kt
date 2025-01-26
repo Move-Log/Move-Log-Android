@@ -4,6 +4,7 @@ import com.ilgusu.data.model.BasicResponse
 import com.ilgusu.data.model.OnlyMsgDTO
 import com.ilgusu.data.model.news.GetRecentRecordImageDTO
 import com.ilgusu.data.model.news.SearchRecordDTO
+import com.ilgusu.data.model.record.GetDateRecordCalendarResponseDTO
 import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import com.ilgusu.data.service.RecordService
 import com.ilgusu.domain.repository.TokenRepository
@@ -51,5 +52,12 @@ class RecordRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getRecentRecordImages(keywordId: Int): Response<BasicResponse<List<GetRecentRecordImageDTO>>> {
         return service.getRecentRecordImages(getAccessTokenWithPrefix(), keywordId)
+    }
+
+    override suspend fun getCalendarRecords(
+        date: String,
+        page: Int
+    ): Response<BasicResponse<GetDateRecordCalendarResponseDTO>> {
+        return service.getCalendarRecords(getAccessTokenWithPrefix(), date, page)
     }
 }

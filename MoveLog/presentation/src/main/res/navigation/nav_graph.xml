@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_recordFragment_to_recordLastFragment"
             app:destination="@id/recordLastFragment" />
+        <action
+            android:id="@+id/action_recordFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/recordLastFragment"
@@ -73,4 +76,10 @@
         android:label="fragment_setting"
         app:route="setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.ilgusu.presentation.view.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        app:route="calendar"
+        tools:layout="@layout/fragment_calendar" />
 </navigation>

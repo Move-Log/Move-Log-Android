@@ -1,7 +1,6 @@
 package com.ilgusu.data.repository
 
 import android.app.Activity
-import android.content.Context
 import com.ilgusu.data.datasource.remote.AuthRemoteDataSource
 import com.ilgusu.data.service.KakaoAuthService
 import com.ilgusu.domain.model.AuthProvider

@@ -1,6 +1,8 @@
 package com.ilgusu.data.repository
 
 import com.ilgusu.data.datasource.remote.RecordRemoteDataSource
+import com.ilgusu.domain.model.Pageable
+import com.ilgusu.domain.model.RecordCalendarContent
 import com.ilgusu.domain.model.news.ImageInfo
 import com.ilgusu.domain.model.news.RecommendKeyword
 import com.ilgusu.domain.repository.RecordRepository
@@ -85,6 +87,40 @@ class RecordRepositoryImpl @Inject constructor(
                     Result.success(body.body.information.map {
                         ImageInfo(
                             it.imageUrl, it.createAt
+                        )
+                    })
+                } else {
+                    throw Exception("Body is null")
+                }
+            } else {
+                throw Exception("Request is failure")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getCalendarRecords(
+        date: String,
+        page: Int
+    ): Result<Pageable<RecordCalendarContent>> {
+        return try {
+            val response = dataSource.getCalendarRecords(date, page)
+
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(body.body.information.let { it ->
+                        Pageable(
+                            content = it.content.map {
+                                RecordCalendarContent(
+                                    recordId = it.recordId,
+                                    recordImageUrl = it.recordImageUrl,
+                                    verb = it.verb,
+                                    noun = it.noun,
+                                    createdAt = it.createdAt
+                                )
+                            }, last = it.last, totalPage = it.totalPages
                         )
                     })
                 } else {
