@@ -2,12 +2,16 @@ package com.ilgusu.presentation.view.home
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.ilgusu.domain.model.MyRecentNewsEntity
+import com.ilgusu.navigation.NavigationCommand
+import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import kotlin.math.abs
 import kotlin.random.Random
@@ -81,6 +85,14 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             R.drawable.indicator_dot_on,
             0
         )
+
+        binding.tvChooseDate.setOnClickListener {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Calendar)
+                )
+            }
+        }
 
         binding.btn1.setOnClickListener {
             binding.imgComplete1.visibility = View.VISIBLE

@@ -15,6 +15,33 @@
     <string name="about_service">서비스 이용 약관</string>
     <string name="about_privacy">개인정보처리방침</string>
     <string name="delete_account">탈퇴하기</string>
+    <string name="logo">logo</string>
+    <string name="my_move_log">나의 일거수일투족 현황</string>
+    <string name="select_date"><![CDATA[날짜 선택]]></string>
+    <string name="recent_news">뉴스 생성 현황</string>
+    <string name="complete">complete</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="record_until_today">오늘까지의 기록 현황</string>
+    <string name="ate_it">ate it</string>
+    <string name="did_it">did it</string>
+    <string name="went_it">went_it</string>
+    <string name="record_news">+ 기록하기</string>
+    <string name="go_back">go back</string>
+    <string name="right_arrow">right arrow</string>
+    <string name="record_of_this_month">이 달의 기록 수</string>
+    <string name="prev_month">prev month</string>
+    <string name="next_month">next month</string>
+    <string name="sunday">일</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
 
 
 </resources>
