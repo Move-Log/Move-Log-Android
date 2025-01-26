@@ -1,5 +1,6 @@
 package com.ilgusu.presentation.view.signIn
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,10 +23,16 @@ class SignInViewModel @Inject constructor(
     private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
 
+    private val _uiState = MutableLiveData<UiState<Boolean>>()
+    val uiState: LiveData<UiState<Boolean>> get() = _uiState
+
+    private val _loginState = MutableLiveData<UiState<Boolean>>()
+    val loginState: LiveData<UiState<Boolean>> get() = _loginState
+
     init {
         viewModelScope.launch {
             val tokens = getTokenUseCase.invoke().first()
-            LoggerUtil.i(tokens.toString())
+
             if(tokens.accessToken.isNotBlank()) {
                 _uiState.value = UiState.Success(true)
             } else {
@@ -34,17 +41,16 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private val _uiState = MutableLiveData<UiState<Boolean>>()
-    val uiState: LiveData<UiState<Boolean>> get() = _uiState
+    fun login(context: Context, provider: AuthProvider) {
+        if(provider == AuthProvider.GOOGLE) {
+            _loginState.value = UiState.Error("준비중 입니다")
+            return
+        }
 
-    private val _loginState = MutableLiveData<UiState<Boolean>>()
-    val loginState: LiveData<UiState<Boolean>> get() = _loginState
-
-    fun login(provider: AuthProvider) {
         _loginState.value = UiState.Loading
         viewModelScope.launch {
             try {
-                socialLoginUseCase.invoke(provider)
+                socialLoginUseCase.invoke(context, provider)
                     .onSuccess { idToken ->
                         LoggerUtil.d("${provider.name} 로그인 성공: $idToken")
                         serverLogin(idToken, provider)

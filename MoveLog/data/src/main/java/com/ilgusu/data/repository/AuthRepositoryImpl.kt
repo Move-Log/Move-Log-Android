@@ -1,10 +1,13 @@
 package com.ilgusu.data.repository
 
+import android.app.Activity
+import android.content.Context
 import com.ilgusu.data.datasource.remote.AuthRemoteDataSource
 import com.ilgusu.data.service.KakaoAuthService
 import com.ilgusu.domain.model.AuthProvider
 import com.ilgusu.domain.repository.AuthRepository
 import com.ilgusu.domain.repository.TokenRepository
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -13,11 +16,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val tokenRepository: TokenRepository
 ) : AuthRepository {
 
-    override suspend fun socialLogin(provider: AuthProvider): Result<String> {
+    override suspend fun socialLogin(context: Any, provider: AuthProvider): Result<String> {
         return try {
             when (provider) {
                 AuthProvider.KAKAO -> {
-                    val idToken = kakaoAuthService.signInWithKakao()
+                    val idToken = kakaoAuthService.signInWithKakao(context as Activity)
                     Result.success(idToken)
                 }
                 AuthProvider.GOOGLE -> {
@@ -45,9 +48,9 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun socialWithdraw(provider: AuthProvider): Result<Boolean> {
+    override suspend fun socialWithdraw(): Result<Boolean> {
         return try {
-            when (provider) {
+            when (tokenRepository.getTokens().first().provider) {
                 AuthProvider.KAKAO -> {
                     kakaoAuthService.withdraw()
                     Result.success(true)
@@ -67,7 +70,7 @@ class AuthRepositoryImpl @Inject constructor(
             if(response.isSuccessful) {
                 val body = response.body()
                 if(body != null) {
-                    tokenRepository.saveTokens(body.accessToken, "")
+                    tokenRepository.saveTokens(provider, body.accessToken, "")
                     Result.success(body.isRegistered)
                 } else {
                     throw Exception("Body is null")

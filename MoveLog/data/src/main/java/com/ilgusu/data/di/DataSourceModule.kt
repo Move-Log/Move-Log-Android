@@ -4,6 +4,10 @@ import com.ilgusu.data.datasource.local.TokenLocalDataSource
 import com.ilgusu.data.datasource.local.TokenLocalDataSourceImpl
 import com.ilgusu.data.datasource.remote.AuthRemoteDataSource
 import com.ilgusu.data.datasource.remote.AuthRemoteDataSourceImpl
+import com.ilgusu.data.datasource.remote.NewsRemoteDataSource
+import com.ilgusu.data.datasource.remote.NewsRemoteDataSourceImpl
+import com.ilgusu.data.datasource.remote.RecordRemoteDataSource
+import com.ilgusu.data.datasource.remote.RecordRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,4 +29,16 @@ abstract class DataSourceModule {
     abstract fun bindAuthRemoteDataSource(
         authRemoteDataSourceImpl: AuthRemoteDataSourceImpl
     ): AuthRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindRecordRemoteDataSource(
+        recordRemoteDataSourceImpl: RecordRemoteDataSourceImpl
+    ): RecordRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindNewsRemoteDataSource(
+        impl: NewsRemoteDataSourceImpl
+    ): NewsRemoteDataSource
 }
