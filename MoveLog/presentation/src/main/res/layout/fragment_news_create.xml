@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="뉴스 생성"
+            android:text="@string/create_top_title"
             android:textColor="@color/gray_1c" />
 
     </Toolbar>
@@ -44,9 +44,21 @@
         android:background="@color/gray_f3"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        tools:src="@drawable/bg_image_400_780"
         app:layout_constraintDimensionRatio="360:84"
-        app:layout_constraintTop_toBottomOf="@id/tb_news" />
+        app:layout_constraintTop_toBottomOf="@id/tb_news"
+        tools:src="@drawable/bg_image_400_780" />
+
+    <View
+        android:id="@+id/news_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#66000000"
+        android:contentDescription="@null"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/iv_news"
+        app:layout_constraintEnd_toEndOf="@id/iv_news"
+        app:layout_constraintStart_toStartOf="@id/iv_news"
+        app:layout_constraintTop_toTopOf="@id/iv_news" />
 
     <LinearLayout
         android:id="@+id/ll_chip"

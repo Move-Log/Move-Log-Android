@@ -13,10 +13,13 @@ import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import com.ilgusu.data.service.NewsService
 import com.ilgusu.data.service.RecordService
 import com.ilgusu.domain.repository.TokenRepository
+import com.ilgusu.util.LoggerUtil
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -33,15 +36,15 @@ class NewsRemoteDataSourceImpl @Inject constructor(
         file: File,
         headLine: String
     ): Response<BasicResponse<OnlyMsgDTO>> {
-        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
         val body = MultipartBody.Part.createFormData("img", file.name, requestFile)
 
         val createRecordReqJson = """
             {
-                "headLine:"$headLine"
+                "headLine": "$headLine"
             }
         """
-        val createRecordReq = RequestBody.create("application/json".toMediaTypeOrNull(), createRecordReqJson)
+        val createRecordReq = createRecordReqJson.toRequestBody("application/json".toMediaTypeOrNull())
 
         return service.postNews(getAccessTokenWithPrefix(), keywordId, body, createRecordReq)
     }

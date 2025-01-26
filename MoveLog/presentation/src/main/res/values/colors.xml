@@ -27,4 +27,12 @@
     <color name="orange">#FFA726</color>
     <color name="green">#43A047</color>
     <color name="purple">#8E24AA</color>
+
+    <!-- Headline -->
+    <color name="headline_mint">#81FEEA</color>
+    <color name="headline_red">#FDB0B0</color>
+    <color name="headline_yellow">#FFD338</color>
+    <color name="headline_green">#48F987</color>
+    <color name="headline_pink">#F983E0</color>
+
 </resources>

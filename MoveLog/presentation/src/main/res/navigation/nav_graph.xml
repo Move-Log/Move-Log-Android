@@ -94,5 +94,19 @@
         android:name="com.ilgusu.presentation.view.news.create.NewsCreateFragment"
         android:label="NewsCreateFragment"
         app:route="news_create"
-        tools:layout="@layout/fragment_news_create"/>
+        tools:layout="@layout/fragment_news_create">
+        <action
+            android:id="@+id/action_newsCreateFragment_to_newsResultFragment"
+            app:destination="@id/newsResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsResultFragment"
+        android:name="com.ilgusu.presentation.view.news.result.NewsResultFragment"
+        android:label="NewsResultFragment"
+        app:route="news_result"
+        tools:layout="@layout/fragment_news_result">
+        <action
+            android:id="@+id/action_newsResultFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

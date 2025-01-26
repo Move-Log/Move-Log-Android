@@ -50,7 +50,7 @@
         android:background="@drawable/selector_search_bg"
         android:hint="@string/create_4_headline_hint"
         android:inputType="text"
-        android:maxLength="16"
+        android:maxLength="12"
         android:textColor="@color/gray_4d"
         android:textColorHint="@color/gray_7f"
         app:layout_constraintTop_toBottomOf="@id/tv_option_2"

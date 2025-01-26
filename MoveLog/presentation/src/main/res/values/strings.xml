@@ -55,5 +55,10 @@
     <string name="create_4_title">마음에 드는 헤드라인을 선택해주세요.</string>
     <string name="create_4_headline_hint">직접 헤드라인을 작성해보세요.</string>
 
-
+    <!-- news result -->
+    <string name="news_result_step_1">오늘의 특별한 뉴스를 준비하고 있어요.</string>
+    <string name="news_result_step_2">뉴스를 인쇄하고 있어요.</string>
+    <string name="news_result_step_3">기사님이 신문을 배달하고 있어요.</string>
+    <string name="news_result_sub_title">뉴스를 확인해보세요!</string>
+    <string name="news_result_save_image">이미지 저장하기</string>
 </resources>

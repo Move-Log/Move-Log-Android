@@ -1,6 +1,7 @@
 package com.ilgusu.presentation.view.news.create
 
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -100,6 +101,8 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                         Headline: ${viewModel.selectedHeadline.value}
                     """.trimIndent()
                     )
+
+                    createNews()
                 } else {
                     viewModel.setCurrentStep(currentStep + 1)
                 }
@@ -159,6 +162,22 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
             }
         })
+    }
+
+    private fun createNews() {
+        val bundle = Bundle().apply {
+            putInt("keywordId", viewModel.selectedKeyword.value?.keywordId!!)
+            putString("headline", viewModel.selectedHeadline.value)
+            putSerializable("path", viewModel.selectedFile.value?.absolutePath)
+        }
+
+        lifecycleScope.launch {
+            navigationManager.navigate(
+                NavigationCommand.ToRouteWithId(
+                    R.id.action_newsCreateFragment_to_newsResultFragment, bundle
+                )
+            )
+        }
     }
 
     private fun setHeadlineType(type: String?) {
@@ -346,6 +365,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 )
 
                 binding.tvHeadline.visibility = View.VISIBLE
+                binding.newsOverlay.visibility = View.INVISIBLE
                 binding.ivNews.setImageResource(0)
                 viewModel.setHeadline(null)
 
@@ -354,6 +374,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
             4 -> {
                 viewModel.recommendHeadlines()
+                binding.newsOverlay.visibility = View.VISIBLE
                 binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                 binding.tvHeadline.setTextColor(
