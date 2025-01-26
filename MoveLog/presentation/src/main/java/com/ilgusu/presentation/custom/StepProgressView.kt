@@ -10,11 +10,11 @@ import com.ilgusu.presentation.R
 class StepProgressView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var currentStep: Int = 1
-    private val totalSteps: Int = 3
+    private var totalSteps: Int = 1
 
     private val filledCircleRes = R.drawable.ic_step_filled
     private val emptyCircleRes = R.drawable.ic_step
@@ -64,7 +64,8 @@ class StepProgressView @JvmOverloads constructor(
         }
     }
 
-    fun setCurrentStep(step: Int) {
+    fun setCurrentStep(step: Int, totalStep: Int? = null) {
+        if(totalStep != null) totalSteps = totalStep
         currentStep = step.coerceIn(1, totalSteps)
         setupSteps()
     }

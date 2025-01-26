@@ -42,7 +42,7 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         }
 
     override fun initView() {
-        binding.stepProgressView.setCurrentStep(3)
+        binding.stepProgressView.setCurrentStep(3, 3)
         setTime()
 
         arguments?.let {
