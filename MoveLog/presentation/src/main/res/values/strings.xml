@@ -63,5 +63,9 @@
     <string name="time_hour">HOURS</string>
     <string name="time_minute">MINUTES</string>
     <string name="time_second">SECONDS</string>
+    <string name="tv_calendar_date">2024년 10월 28일 (월)</string>
+    <string name="dot">·</string>
+    <string name="kor_did_it">했어요</string>
+    <string name="tv_if_no_record">기록이 없어요.\n다른 날짜를 선택해주세요!</string>
 
 </resources>

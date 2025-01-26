@@ -12,7 +12,6 @@ import java.util.Date
 class MonthAdapter(
     private var currentMonthOffset: Int,
     private var selectedDate: Date?,
-//    private val monthExpList: List<GetMonthExpInfoItem>
 ) :
     RecyclerView.Adapter<MonthAdapter.MonthView>() {
     private var calendar = Calendar.getInstance()

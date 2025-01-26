@@ -6,5 +6,5 @@ sealed class NavigationRoutes(val route: String) {
     data object Terms : NavigationRoutes("terms")
     data object Record : NavigationRoutes("record")
     data object Setting : NavigationRoutes("setting")
-
+    data object Calendar : NavigationRoutes("calendar")
 }

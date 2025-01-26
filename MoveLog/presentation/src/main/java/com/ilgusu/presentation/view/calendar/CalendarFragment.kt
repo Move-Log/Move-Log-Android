@@ -1,13 +1,17 @@
 package com.ilgusu.presentation.view.calendar
 
 import android.annotation.SuppressLint
+import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentCalendarBinding
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -17,13 +21,18 @@ import java.util.Locale
 class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
 
     private lateinit var monthAdapter: MonthAdapter
+    private lateinit var recordRvAdapter: RecordRvAdapter
     private lateinit var monthListManager: LinearLayoutManager
     private val viewModel : CalendarViewModel by viewModels()
 
     private val calendar = Calendar.getInstance()
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
+    private val dateFormatForTv = SimpleDateFormat("yyyy년 MM월 dd일 (EE)", Locale.KOREAN)
 
     override fun initView() {
-        viewModel.fetchData()
+        viewModel.fetchData(dateFormat.format(Date()))
+        binding.tvCalendarDate.text = dateFormatForTv.format(Date())
+        setupRecyclerView()
         setCalendar()
         updateMonthDisplay()
     }
@@ -32,6 +41,13 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
         super.initListener()
 
         initCalendarListener()
+        binding.imgLeftArrow.setOnClickListener {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.Back
+                )
+            }
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -50,10 +66,16 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
     override fun setObserver() {
         viewModel.monthState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Error -> LoggerUtil.e("해당 달 경험치 정보 조회 실패: ${it.message}")
+                is UiState.Error -> LoggerUtil.e("해당 달 정보 조회 실패: ${it.message}")
                 is UiState.Loading -> {}
                 is UiState.Success -> {
-
+                    if (it.data.isEmpty()) {
+                        binding.tvIfNoRecord.visibility = View.VISIBLE
+                    }
+                    else {
+                        binding.tvIfNoRecord.visibility = View.GONE
+                        recordRvAdapter.submitList(it.data)
+                    }
                 }
             }
         }
@@ -78,10 +100,11 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
             MonthAdapter.OnDateSelectedListener {
             @SuppressLint("SetTextI18n")
             override fun onDateSelected(date: Date) {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
                 val formattedDate = dateFormat.format(date)
 
-                viewModel.fetchData()
+                binding.tvCalendarDate.text = dateFormatForTv.format(date)
+
+                viewModel.fetchData(formattedDate)
             }
         })
 
@@ -94,6 +117,15 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
 
             // 좌우 스크롤 막기
             setOnTouchListener { _, _ -> true }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        // RecordRvAdapter 설정
+        recordRvAdapter = RecordRvAdapter()
+        binding.rvRecord.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = recordRvAdapter
         }
     }
 }
