@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.model.RecordCalendarContent
 import com.ilgusu.domain.usecase.record.GetTodayRecordListUseCase
 import com.ilgusu.presentation.util.UiState
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,6 +41,7 @@ class CalendarViewModel @Inject constructor(
                     pageIsFinish = it.last
                 }
                 .onFailure {
+                    LoggerUtil.e(it.message.toString(), it)
                     _monthState.value = UiState.Error(it.message.toString())
                 }
         }

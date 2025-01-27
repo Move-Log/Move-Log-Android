@@ -15,6 +15,7 @@ import com.bumptech.glide.request.target.Target
 import com.ilgusu.domain.model.RecordCalendarContent
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemRecordedNewsBinding
+import com.ilgusu.presentation.util.DateUtil
 import com.ilgusu.presentation.util.dpToPx
 
 class RecordRvAdapter :
@@ -51,7 +52,8 @@ class RecordRvAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RecordCalendarContent) {
             binding.tvTitle.text = item.noun
-            binding.tvRecordTime.text = item.createdAt
+            binding.tvRecordTime.text = DateUtil.extractTimeFlexible(item.createdAt)
+
             binding.tvChip.text = item.verb
             if (item.verb == "했어요") {
                 binding.ivChip.setBackgroundResource(R.drawable.ic_hand_peace)

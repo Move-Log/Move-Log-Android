@@ -100,6 +100,26 @@ class RecordRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getRecentCurrentImages(): Result<List<String>> {
+        return try {
+            val response = dataSource.getRecentCurrentImages()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(body.body.information.map {
+                        it.imageUrl
+                    })
+                } else {
+                    throw Exception("Body is null")
+                }
+            } else {
+                throw Exception("Request is failure")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override suspend fun getCalendarRecords(
         date: String,
         page: Int
@@ -110,15 +130,15 @@ class RecordRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    Result.success(body.body.information.let { it ->
+                    Result.success(body.body.information.let {
                         Pageable(
-                            content = it.content.map {
+                            content = it.content.map { item ->
                                 RecordCalendarContent(
-                                    recordId = it.recordId,
-                                    recordImageUrl = it.recordImageUrl,
-                                    verb = it.verb,
-                                    noun = it.noun,
-                                    createdAt = it.createdAt
+                                    recordId = item.recordId,
+                                    recordImageUrl = item.recordImageUrl,
+                                    verb = item.verb,
+                                    noun = item.noun,
+                                    createdAt = item.createdAt
                                 )
                             }, last = it.last, totalPage = it.totalPages
                         )

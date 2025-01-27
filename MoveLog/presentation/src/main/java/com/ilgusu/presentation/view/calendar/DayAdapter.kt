@@ -63,7 +63,6 @@ class DayAdapter(
                     selectedDate = calendar.time
                     notifyDataSetChanged() // 모든 항목 다시 그리기
                     onDateSelected(calendar.time)
-                    LoggerUtil.i(selectedDate.toString())
                 }
             }
         }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_news_create_desc"
+        style="@style/ibm_plex_h2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_4_title"
+        android:textColor="@color/gray_1c"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_option_1"
+        style="@style/ibm_plex_h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_recommend_keyword"
+        android:maxLines="1"
+        android:textColor="@color/gray_4d"
+        app:layout_constraintTop_toBottomOf="@id/tv_news_create_desc"
+        tools:text="밤 티라미수 30초 만에 매진..." />
+
+    <TextView
+        android:id="@+id/tv_option_2"
+        style="@style/ibm_plex_h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_recommend_keyword"
+        android:maxLines="1"
+        android:textColor="@color/gray_4d"
+        app:layout_constraintTop_toBottomOf="@id/tv_option_1"
+        tools:text="밤 티라미수 30초 만에 매진..." />
+
+    <EditText
+        android:id="@+id/et_headline"
+        style="@style/ibm_plex_h3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/selector_search_bg"
+        android:hint="@string/create_4_headline_hint"
+        android:inputType="text"
+        android:maxLength="12"
+        android:textColor="@color/gray_4d"
+        android:textColorHint="@color/gray_7f"
+        app:layout_constraintTop_toBottomOf="@id/tv_option_2"
+        tools:ignore="Autofill" />
+
+    <ImageButton
+        android:id="@+id/ib_clear"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/et_headline"
+        app:layout_constraintEnd_toEndOf="@id/et_headline"
+        app:layout_constraintTop_toTopOf="@id/et_headline"
+        app:tint="@color/gray_66" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

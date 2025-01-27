@@ -46,9 +46,10 @@
     </Toolbar>
 
     <ScrollView
+        android:id="@+id/sv_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintTop_toBottomOf="@+id/frag_main_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -447,13 +448,20 @@
         android:layout_width="106dp"
         android:layout_height="42dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/btn_record"
-        android:fontFamily="@font/ibm_plex_sans_kr"
+        style="@style/ibm_plex_l1"
         android:text="@string/record_news"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/bottom_nav"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

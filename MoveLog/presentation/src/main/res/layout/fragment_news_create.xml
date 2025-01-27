@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <Toolbar
+        android:id="@+id/tb_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentInsetStart="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_arrow" />
+
+        <TextView
+            style="@style/ibm_plex_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/create_top_title"
+            android:textColor="@color/gray_1c" />
+
+    </Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e1"
+        app:layout_constraintTop_toBottomOf="@id/tb_news" />
+
+    <ImageView
+        android:id="@+id/iv_news"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/gray_f3"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="360:84"
+        app:layout_constraintTop_toBottomOf="@id/tb_news"
+        tools:src="@drawable/bg_image_400_780" />
+
+    <View
+        android:id="@+id/news_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#66000000"
+        android:contentDescription="@null"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/iv_news"
+        app:layout_constraintEnd_toEndOf="@id/iv_news"
+        app:layout_constraintStart_toStartOf="@id/iv_news"
+        app:layout_constraintTop_toTopOf="@id/iv_news" />
+
+    <LinearLayout
+        android:id="@+id/ll_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/shape_chip_disable"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/tv_headline"
+        app:layout_constraintEnd_toStartOf="@id/tv_noun"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_news"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:id="@+id/iv_chip"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            app:tint="@color/gray_66"
+            tools:src="@drawable/ic_hand_peace" />
+
+        <TextView
+            android:id="@+id/tv_chip"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/gray_4d"
+            tools:text="했어요" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_noun"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/ll_chip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ll_chip"
+        app:layout_constraintTop_toTopOf="@id/ll_chip"
+        tools:text="헬스" />
+
+    <TextView
+        android:id="@+id/tv_headline"
+        style="@style/ibm_plex_h1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@color/secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/iv_news"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_chip"
+        tools:text="헤드라인입니다" />
+
+    <com.ilgusu.presentation.custom.StepProgressView
+        android:id="@+id/step_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_news" />
+
+    <ScrollView
+        android:id="@+id/sv_news_create"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@id/divider"
+        app:layout_constraintTop_toBottomOf="@id/step_progress_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/view_create_1"
+                layout="@layout/view_news_create_1"
+                android:visibility="visible" />
+
+            <include
+                android:id="@+id/view_create_2"
+                layout="@layout/view_news_create_2"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/view_create_3"
+                layout="@layout/view_news_create_3"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/view_create_4"
+                layout="@layout/view_news_create_4"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/gray_e1"
+        app:layout_constraintBottom_toTopOf="@id/btn_next"
+        app:layout_constraintVertical_bias="1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        style="@style/ibm_plex_h1"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+
+        android:background="@drawable/shape_radius_8"
+        android:backgroundTint="@color/gray_e1"
+        android:gravity="center"
+
+        android:text="@string/next"
+        android:textColor="@color/gray_66"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

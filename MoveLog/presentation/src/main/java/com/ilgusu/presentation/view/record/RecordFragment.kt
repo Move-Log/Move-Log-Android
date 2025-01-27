@@ -31,7 +31,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     private var timeJob: Job? = null
 
     override fun initView() {
-        binding.stepProgressView.setCurrentStep(if (viewModel.recordWord.value.isNullOrBlank()) 1 else 2)
+        binding.stepProgressView.setCurrentStep(if (viewModel.recordWord.value.isNullOrBlank()) 1 else 2, 3)
         setTime()
         binding.ibClear.visibility = View.GONE
 

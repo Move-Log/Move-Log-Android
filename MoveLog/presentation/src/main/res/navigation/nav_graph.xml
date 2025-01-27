@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
 
     <fragment
@@ -76,6 +79,39 @@
         android:label="fragment_setting"
         app:route="setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.ilgusu.presentation.view.news.recent.NewsFragment"
+        android:label="NewsFragment"
+        app:route="news_recent"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_newsCreateFragment"
+            app:destination="@id/newsCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsCreateFragment"
+        android:name="com.ilgusu.presentation.view.news.create.NewsCreateFragment"
+        android:label="NewsCreateFragment"
+        app:route="news_create"
+        tools:layout="@layout/fragment_news_create">
+        <action
+            android:id="@+id/action_newsCreateFragment_to_newsResultFragment"
+            app:destination="@id/newsResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsResultFragment"
+        android:name="com.ilgusu.presentation.view.news.result.NewsResultFragment"
+        android:label="NewsResultFragment"
+        app:route="news_result"
+        tools:layout="@layout/fragment_news_result">
+        <action
+            android:id="@+id/action_newsResultFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.ilgusu.presentation.view.calendar.CalendarFragment"

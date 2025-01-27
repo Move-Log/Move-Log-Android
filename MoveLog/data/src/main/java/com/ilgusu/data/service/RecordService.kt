@@ -4,6 +4,7 @@ import com.ilgusu.data.model.BasicResponse
 import com.ilgusu.data.model.OnlyMsgDTO
 import com.ilgusu.data.model.news.GetRecentRecordImageDTO
 import com.ilgusu.data.model.news.SearchRecordDTO
+import com.ilgusu.data.model.record.CurrentImageUrlDTO
 import com.ilgusu.data.model.record.GetDateRecordCalendarResponseDTO
 import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import okhttp3.MultipartBody
@@ -43,10 +44,16 @@ interface RecordService {
         @Path("keywordId") keywordId: Int
     ): Response<BasicResponse<List<GetRecentRecordImageDTO>>>
 
+    @GET("/api/v1/record/current")
+    suspend fun getRecentCurrentImages(
+        @Header("Authorization") accessToken: String
+    ): Response<BasicResponse<List<CurrentImageUrlDTO>>>
+
     @GET("/api/v1/record/calendar/{date}")
     suspend fun getCalendarRecords(
         @Header("Authorization") accessToken: String,
         @Path("date") date: String,
         @Query("page") page: Int = 0
     ): Response<BasicResponse<GetDateRecordCalendarResponseDTO>>
+
 }

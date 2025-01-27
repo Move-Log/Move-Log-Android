@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:minWidth="100dp"
+    android:layout_marginStart="16dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_news_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@id/tv_date"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_pencil_enabled" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/ibm_plex_l4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/gray_66"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/iv_news_image"
+        app:layout_constraintEnd_toEndOf="@id/iv_news_image"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/iv_news_image"
+        tools:text="2024.12.13" />
+</androidx.constraintlayout.widget.ConstraintLayout>

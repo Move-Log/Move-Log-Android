@@ -33,7 +33,7 @@ class RecordLastViewModel @Inject constructor(
         _recordType.value = type
     }
 
-    private var imageFile: File? = null
+    var imageFile: File? = null
 
     fun setImageFile(context: Context, uri: Uri) {
         imageFile = ImageUtil.createImageFile(context, uri)

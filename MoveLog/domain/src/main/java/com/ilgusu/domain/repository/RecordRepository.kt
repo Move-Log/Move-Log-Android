@@ -16,6 +16,8 @@ interface RecordRepository {
 
     suspend fun getRecentRecordImages(keywordId: Int): Result<List<ImageInfo>>
 
+    suspend fun getRecentCurrentImages(): Result<List<String>>
+    
     suspend fun getCalendarRecords(
         date: String,
         page: Int = 0

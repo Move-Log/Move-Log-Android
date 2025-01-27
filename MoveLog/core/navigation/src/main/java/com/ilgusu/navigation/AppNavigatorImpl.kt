@@ -12,7 +12,12 @@ class AppNavigatorImpl @Inject constructor(
     override fun navigate(command: NavigationCommand) {
         when (command) {
             is NavigationCommand.ToRoute -> {
-                navController.navigate(command.route.route)
+                navController.navigate(
+                    route = command.route.route,
+                    navOptions = navOptions {
+                        popUpTo(command.route.route) { inclusive = false }
+                        launchSingleTop = true
+                    })
             }
 
             is NavigationCommand.ToRouteWithId -> {

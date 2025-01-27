@@ -13,7 +13,7 @@
     <string name="term_privacy_desc">개인 정보 수집 및 이용에 동의합니다.</string>
     <string name="term_all">모든 약관에 동의 합니다.</string>
     <string name="term_start_btn">시작하기</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="setting">설정</string>
     <string name="alert_setting">알림 설정</string>
@@ -68,4 +68,28 @@
     <string name="kor_did_it">했어요</string>
     <string name="tv_if_no_record">기록이 없어요.\n다른 날짜를 선택해주세요!</string>
 
+    <!-- News Create -->
+    <string name="create_top_title">뉴스 생성</string>
+    <string name="create_1_title">뉴스로 만들고 싶은 데이터를 선택해주세요.</string>
+    <string name="create_1_sub_title">추천 기록</string>
+    <string name="create_1_ask_other_keyword">원하는 데이터가 없으신가요?</string>
+    <string name="create_1_do_other_keyword">직접 검색하기</string>
+    <string name="create_2_title">강조할 헤드라인을 선택해주세요.</string>
+    <string name="create_2_type_1">첫 도전</string>
+    <string name="create_2_type_2">오랜만에 다시</string>
+    <string name="create_2_type_3">꾸준히 이어온\n기록</string>
+    <string name="create_2_type_4">끊어낸 습관</string>
+    <string name="create_3_title">뉴스로 만들고 싶은 사진을 선택해주세요.</string>
+    <string name="create_3_sub_title">업로드했던 사진들</string>
+    <string name="create_3_ask_other_img">다른 사진을 선택하시겠어요?</string>
+    <string name="create_3_do_other_img">새로운 사진 등록하기</string>
+    <string name="create_4_title">마음에 드는 헤드라인을 선택해주세요.</string>
+    <string name="create_4_headline_hint">직접 헤드라인을 작성해보세요.</string>
+
+    <!-- news result -->
+    <string name="news_result_step_1">오늘의 특별한 뉴스를 준비하고 있어요.</string>
+    <string name="news_result_step_2">뉴스를 인쇄하고 있어요.</string>
+    <string name="news_result_step_3">기사님이 신문을 배달하고 있어요.</string>
+    <string name="news_result_sub_title">뉴스를 확인해보세요!</string>
+    <string name="news_result_save_image">이미지 저장하기</string>
 </resources>

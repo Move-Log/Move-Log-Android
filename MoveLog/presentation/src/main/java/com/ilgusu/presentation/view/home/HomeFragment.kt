@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.ilgusu.domain.model.MyRecentNewsEntity
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
@@ -39,6 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         setTime()
+        setBottomNav()
     }
 
     private fun setTime() {
@@ -60,51 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         super.initListener()
 
-        val currentTime: Long = System.currentTimeMillis() // ms로 반환
-
-        val dataFormat1 = SimpleDateFormat("yyyy년 MM월 dd일 (E) hh:mm:ss") // 년 월 일
-        binding.tvTime.text = dataFormat1.format(currentTime)
-
-        val data = mutableListOf<MyRecentNewsEntity>()
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-
-        myRecentNewsAdapter = RvMyRecentNewsAdapter()
-        myRecentNewsAdapter.list = data
-        binding.vpMyMoveLog.adapter = myRecentNewsAdapter
-        binding.vpMyMoveLog.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        binding.vpMyMoveLog.offscreenPageLimit = 4
-        // item_view 간의 양 옆 여백을 상쇄할 값
-        val offsetBetweenPages =
-            resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
-        binding.vpMyMoveLog.setPageTransformer { page, position ->
-            val myOffset = position * -(2 * offsetBetweenPages)
-            if (position < -1) {
-                page.translationX = -myOffset
-            } else if (position <= 1) {
-                // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
-                val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
-                page.translationX = myOffset
-                page.scaleY = scaleFactor
-                page.alpha = scaleFactor
-            } else {
-                page.alpha = 0f
-                page.translationX = myOffset
-            }
-        }
-
-        val pageCount = data.size
-        binding.circleIndicator.createDotPanel(
-            pageCount,
-            R.drawable.indicator_dot_off,
-            R.drawable.indicator_dot_on,
-            0
-        )
-
-        binding.vpMyMoveLog.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
+        binding.vpMyMoveLog.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.circleIndicator.selectDot(position)
@@ -202,6 +158,69 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         }
                     }
                 }
+            }
+        }
+
+        viewModel.currentImageState.observe(viewLifecycleOwner){
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> showToast(it.message)
+                is UiState.Success -> {
+                    myRecentNewsAdapter = RvMyRecentNewsAdapter()
+                    myRecentNewsAdapter.list = it.data.toMutableList()
+                    binding.vpMyMoveLog.adapter = myRecentNewsAdapter
+                    binding.vpMyMoveLog.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+                    binding.vpMyMoveLog.offscreenPageLimit = 4
+                    // item_view 간의 양 옆 여백을 상쇄할 값
+                    val offsetBetweenPages =
+                        resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
+                    binding.vpMyMoveLog.setPageTransformer { page, position ->
+                        val myOffset = position * -(2 * offsetBetweenPages)
+                        if (position < -1) {
+                            page.translationX = -myOffset
+                        } else if (position <= 1) {
+                            // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
+                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
+                            page.translationX = myOffset
+                            page.scaleY = scaleFactor
+                            page.alpha = scaleFactor
+                        } else {
+                            page.alpha = 0f
+                            page.translationX = myOffset
+                        }
+                    }
+
+                    binding.circleIndicator.createDotPanel(
+                        myRecentNewsAdapter.itemCount,
+                        R.drawable.indicator_dot_off,
+                        R.drawable.indicator_dot_on,
+                        0
+                    )
+                }
+            }
+        }
+    }
+
+    private fun setBottomNav(){
+        binding.bottomNav.ivHome.setImageResource(R.drawable.ic_home_enabled)
+        binding.bottomNav.tvHome.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
+
+        binding.bottomNav.menuNews.setOnClickListener {
+            timeJob?.cancel()
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.NewsRecent)
+                )
+            }
+        }
+
+        binding.bottomNav.menuChart.setOnClickListener {
+            timeJob?.cancel()
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
+                )
             }
         }
     }
