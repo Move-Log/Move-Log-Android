@@ -40,6 +40,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     override fun initView() {
         setBottomNav()
         setRvAdapter()
+
+        // 구현 필요
+        binding.btnDateNews.visibility = View.INVISIBLE
     }
 
     override fun initListener() {
@@ -169,7 +172,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         binding.bottomNav.menuChart.setOnClickListener {
             lifecycleScope.launch {
                 navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Home)
+                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
                 )
             }
         }

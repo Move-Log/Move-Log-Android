@@ -9,11 +9,12 @@ import com.ilgusu.domain.model.MyRecentNewsEntity
 import com.ilgusu.presentation.databinding.ItemMyRecentNewsRvBinding
 
 class RvMyRecentNewsAdapter : RecyclerView.Adapter<RvMyRecentNewsAdapter.ViewHolder>() {
-    var list = mutableListOf<MyRecentNewsEntity>()
+    var list = mutableListOf<String>()
+
     inner class ViewHolder(private val binding: ItemMyRecentNewsRvBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item : MyRecentNewsEntity) {
+        fun bind(item : String) {
             Glide.with(binding.imgRv)
-                .load(item.id)
+                .load(item)
                 .transform(RoundedCorners(40))
                 .into(binding.imgRv)
         }

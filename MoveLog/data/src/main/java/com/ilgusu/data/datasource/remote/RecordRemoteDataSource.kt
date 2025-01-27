@@ -4,6 +4,7 @@ import com.ilgusu.data.model.BasicResponse
 import com.ilgusu.data.model.OnlyMsgDTO
 import com.ilgusu.data.model.news.GetRecentRecordImageDTO
 import com.ilgusu.data.model.news.SearchRecordDTO
+import com.ilgusu.data.model.record.CurrentImageUrlDTO
 import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import retrofit2.Response
 import java.io.File
@@ -21,4 +22,6 @@ interface RecordRemoteDataSource {
     suspend fun searchRecord(): Response<BasicResponse<List<SearchRecordDTO>>>
 
     suspend fun getRecentRecordImages(keywordId: Int): Response<BasicResponse<List<GetRecentRecordImageDTO>>>
+
+    suspend fun getRecentCurrentImages(): Response<BasicResponse<List<CurrentImageUrlDTO>>>
 }

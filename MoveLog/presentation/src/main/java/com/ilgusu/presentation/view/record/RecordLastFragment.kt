@@ -81,7 +81,7 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
                     timeJob?.cancel()
                     lifecycleScope.launch {
                         navigationManager.navigate(NavigationCommand.ToRouteAndClear(
-                            NavigationRoutes.Home
+                            if(it.data) NavigationRoutes.Home else NavigationRoutes.NewsRecent
                         ))
                     }
                 }
@@ -126,11 +126,11 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         }
 
         binding.btnSave.setOnClickListener {
-            viewModel.doRecord(true)
+            if(viewModel.imageFile != null) viewModel.doRecord(true) else showToast("이미지를 선택해주세요")
         }
 
         binding.btnMakeNews.setOnClickListener {
-            viewModel.doRecord(false)
+            if(viewModel.imageFile != null) viewModel.doRecord(false) else showToast("이미지를 선택해주세요")
         }
 
         binding.btnBack.setOnClickListener {

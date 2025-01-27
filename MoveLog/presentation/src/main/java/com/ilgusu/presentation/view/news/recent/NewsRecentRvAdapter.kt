@@ -14,6 +14,7 @@ import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemRecentNewsDefaultBinding
 import com.ilgusu.presentation.databinding.ItemRecentNewsFirstBinding
 import com.ilgusu.presentation.util.DateUtil
+import com.ilgusu.util.LoggerUtil
 
 class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(newsDiffCallback) {
 
@@ -85,6 +86,9 @@ class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(new
                 .load(item.newsImageUrl)
                 .transform(RoundedCorners(2))
                 .into(binding.ivNewsImage)
+
+            LoggerUtil.i(item.createdAt)
+            LoggerUtil.i(DateUtil.getRelativeTime(item.createdAt))
 
             binding.tvNewsInfo.text = buildSpannedString {
                 append(item.verb + " · " + item.noun + " · ")

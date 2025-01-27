@@ -69,7 +69,8 @@
         android:paddingVertical="18dp"
 
         android:gravity="center"
-        android:background="@drawable/shape_google_login">
+        android:background="@drawable/shape_google_login"
+        android:alpha="0.3">
 
         <ImageView
             android:layout_width="16dp"

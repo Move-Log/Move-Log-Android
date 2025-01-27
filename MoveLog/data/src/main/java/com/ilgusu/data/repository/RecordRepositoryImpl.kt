@@ -97,4 +97,24 @@ class RecordRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun getRecentCurrentImages(): Result<List<String>> {
+        return try {
+            val response = dataSource.getRecentCurrentImages()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(body.body.information.map {
+                        it.imageUrl
+                    })
+                } else {
+                    throw Exception("Body is null")
+                }
+            } else {
+                throw Exception("Request is failure")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package com.ilgusu.presentation.util
 
 import android.icu.text.SimpleDateFormat
+import android.icu.util.TimeZone
+import com.ilgusu.util.LoggerUtil
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -42,23 +44,47 @@ object DateUtil {
         return Triple(hour, minute, second)
     }
 
-    fun getRelativeTime(createdAt: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"): String {
-        val sdf = SimpleDateFormat(dateFormat, Locale.getDefault())
+    fun getRelativeTime(createdAt: String): String {
+        val possibleFormats = listOf(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy-MM-dd"
+        )
+
+        val sdfList = possibleFormats.map { SimpleDateFormat(it, Locale.getDefault()).apply { timeZone = TimeZone.getTimeZone("UTC") } }
+
+        val kstFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault()).apply {
+            timeZone = TimeZone.getTimeZone("Asia/Seoul")
+        }
 
         return try {
-            val createdDate = sdf.parse(createdAt)
-            val now = Date()
+            // 다양한 포맷 시도
+            val createdDate = sdfList.firstNotNullOfOrNull { format ->
+                try {
+                    format.parse(createdAt)
+                } catch (e: Exception) {
+                    null
+                }
+            } ?: throw IllegalArgumentException("지원되지 않는 날짜 형식입니다.")
 
-            val diff = now.time - (createdDate?.time ?: now.time)
+            // KST(한국 표준시)로 변환
+            val kstDate = kstFormat.format(createdDate)
+            val parsedKstDate = kstFormat.parse(kstDate)
+
+            val now = Date()
+            val diff = now.time - (parsedKstDate?.time ?: now.time)
 
             when {
                 diff < TimeUnit.MINUTES.toMillis(1) -> "방금 전"
                 diff < TimeUnit.HOURS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toMinutes(diff)}분 전"
                 diff < TimeUnit.DAYS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toHours(diff)}시간 전"
                 diff < TimeUnit.DAYS.toMillis(7) -> "${TimeUnit.MILLISECONDS.toDays(diff)}일 전"
-                else -> SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(createdDate!!)
+                else -> SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(parsedKstDate!!)
             }
         } catch (e: Exception) {
+            LoggerUtil.e("ERROR", e)
             "알 수 없음"
         }
     }

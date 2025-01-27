@@ -58,44 +58,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         super.initListener()
 
-        val data = mutableListOf<MyRecentNewsEntity>()
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-        data.add(MyRecentNewsEntity("https://picsum.photos/1600/900"))
-
-        myRecentNewsAdapter = RvMyRecentNewsAdapter()
-        myRecentNewsAdapter.list = data
-        binding.vpMyMoveLog.adapter = myRecentNewsAdapter
-        binding.vpMyMoveLog.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        binding.vpMyMoveLog.offscreenPageLimit = 4
-        // item_view 간의 양 옆 여백을 상쇄할 값
-        val offsetBetweenPages =
-            resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
-        binding.vpMyMoveLog.setPageTransformer { page, position ->
-            val myOffset = position * -(2 * offsetBetweenPages)
-            if (position < -1) {
-                page.translationX = -myOffset
-            } else if (position <= 1) {
-                // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
-                val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
-                page.translationX = myOffset
-                page.scaleY = scaleFactor
-                page.alpha = scaleFactor
-            } else {
-                page.alpha = 0f
-                page.translationX = myOffset
-            }
-        }
-
-        val pageCount = data.size
-        binding.circleIndicator.createDotPanel(
-            pageCount,
-            R.drawable.indicator_dot_off,
-            R.drawable.indicator_dot_on,
-            0
-        )
-
         binding.vpMyMoveLog.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -180,6 +142,46 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 }
             }
         }
+
+        viewModel.currentImageState.observe(viewLifecycleOwner){
+            when(it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> showToast(it.message)
+                is UiState.Success -> {
+                    myRecentNewsAdapter = RvMyRecentNewsAdapter()
+                    myRecentNewsAdapter.list = it.data.toMutableList()
+                    binding.vpMyMoveLog.adapter = myRecentNewsAdapter
+                    binding.vpMyMoveLog.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+                    binding.vpMyMoveLog.offscreenPageLimit = 4
+                    // item_view 간의 양 옆 여백을 상쇄할 값
+                    val offsetBetweenPages =
+                        resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
+                    binding.vpMyMoveLog.setPageTransformer { page, position ->
+                        val myOffset = position * -(2 * offsetBetweenPages)
+                        if (position < -1) {
+                            page.translationX = -myOffset
+                        } else if (position <= 1) {
+                            // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
+                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
+                            page.translationX = myOffset
+                            page.scaleY = scaleFactor
+                            page.alpha = scaleFactor
+                        } else {
+                            page.alpha = 0f
+                            page.translationX = myOffset
+                        }
+                    }
+
+                    binding.circleIndicator.createDotPanel(
+                        myRecentNewsAdapter.itemCount,
+                        R.drawable.indicator_dot_off,
+                        R.drawable.indicator_dot_on,
+                        0
+                    )
+                }
+            }
+        }
     }
 
     private fun setBottomNav(){
@@ -199,7 +201,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             timeJob?.cancel()
             lifecycleScope.launch {
                 navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Home)
+                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
                 )
             }
         }

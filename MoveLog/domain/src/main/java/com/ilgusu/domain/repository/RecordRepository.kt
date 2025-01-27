@@ -13,4 +13,6 @@ interface RecordRepository {
     suspend fun searchRecord(): Result<List<RecommendKeyword>>
 
     suspend fun getRecentRecordImages(keywordId: Int): Result<List<ImageInfo>>
+
+    suspend fun getRecentCurrentImages(): Result<List<String>>
 }
