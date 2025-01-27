@@ -5,6 +5,7 @@ import com.ilgusu.data.model.OnlyMsgDTO
 import com.ilgusu.data.model.news.GetRecentRecordImageDTO
 import com.ilgusu.data.model.news.SearchRecordDTO
 import com.ilgusu.data.model.record.CurrentImageUrlDTO
+import com.ilgusu.data.model.record.GetDateRecordCalendarResponseDTO
 import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -15,6 +16,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RecordService {
 
@@ -46,4 +48,12 @@ interface RecordService {
     suspend fun getRecentCurrentImages(
         @Header("Authorization") accessToken: String
     ): Response<BasicResponse<List<CurrentImageUrlDTO>>>
+
+    @GET("/api/v1/record/calendar/{date}")
+    suspend fun getCalendarRecords(
+        @Header("Authorization") accessToken: String,
+        @Path("date") date: String,
+        @Query("page") page: Int = 0
+    ): Response<BasicResponse<GetDateRecordCalendarResponseDTO>>
+
 }

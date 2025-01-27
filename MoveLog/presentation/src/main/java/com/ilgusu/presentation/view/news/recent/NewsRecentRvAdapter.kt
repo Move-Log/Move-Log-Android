@@ -87,9 +87,6 @@ class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(new
                 .transform(RoundedCorners(2))
                 .into(binding.ivNewsImage)
 
-            LoggerUtil.i(item.createdAt)
-            LoggerUtil.i(DateUtil.getRelativeTime(item.createdAt))
-
             binding.tvNewsInfo.text = buildSpannedString {
                 append(item.verb + " · " + item.noun + " · ")
                 color(itemView.context.getColor(R.color.primary)) {

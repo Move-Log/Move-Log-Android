@@ -204,7 +204,6 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         viewModel.selectedKeyword.observe(viewLifecycleOwner) { setButtonColor(it != null) }
         viewModel.headlineType.observe(viewLifecycleOwner) { setButtonColor(it != null) }
         viewModel.selectedFile.observe(viewLifecycleOwner) {
-            LoggerUtil.i("IMAGE: ${it}")
             setButtonColor(it != null)
         }
         viewModel.selectedHeadline.observe(viewLifecycleOwner) {

@@ -17,7 +17,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/ic_logo" />
+            android:background="@drawable/ic_logo"
+            android:contentDescription="@string/logo" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -40,7 +41,8 @@
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/ic_setting" />
+            android:background="@drawable/ic_setting"
+            android:contentDescription="@string/setting" />
     </Toolbar>
 
     <ScrollView
@@ -66,13 +68,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="34dp"
                     android:backgroundTint="@color/gray_f3"
-                    android:text="나의 일거수일투족 현황"
+                    android:text="@string/my_move_log"
                     android:textColor="@color/gray_1c"
                     android:textSize="15sp"
                     style="@style/ibm_plex_h2"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_choose_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="34dp"
+                    android:backgroundTint="@color/gray_f3"
+                    android:text="@string/select_date"
+                    android:textColor="@color/gray_66"
+                    android:textSize="13sp"
+                    android:clickable="true"
+                    style="@style/ibm_plex_l5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="36dp"
+                    android:background="@drawable/ic_right_arrow"
+                    android:contentDescription="@string/right_arrow"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -101,7 +129,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:text="뉴스 생성 현황"
+                android:text="@string/recent_news"
                 android:textColor="@color/gray_1c"
                 android:textSize="15sp"
                 style="@style/ibm_plex_h2"
@@ -115,6 +143,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/ic_stamp_red"
+                android:contentDescription="@string/complete"
                 android:elevation="10dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/btn2"
@@ -129,7 +158,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/btn_round"
                 android:fontFamily="@font/ibm_plex_sans_kr"
-                android:text="1"
+                android:text="@string/_1"
                 android:textColor="@color/gray_1c"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/btn2"
@@ -142,6 +171,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/ic_stamp_orange"
+                android:contentDescription="@string/complete"
                 android:elevation="10dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/btn3"
@@ -155,7 +185,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/btn_round"
                 android:fontFamily="@font/ibm_plex_sans_kr"
-                android:text="2"
+                android:text="@string/_2"
                 android:textColor="@color/gray_1c"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/btn3"
@@ -168,6 +198,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/ic_stamp_green"
+                android:contentDescription="@string/complete"
                 android:elevation="10dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/btn4"
@@ -181,7 +212,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/btn_round"
                 android:fontFamily="@font/ibm_plex_sans_kr"
-                android:text="3"
+                android:text="@string/_3"
                 android:textColor="@color/gray_1c"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/btn4"
@@ -194,6 +225,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/ic_stamp_blue"
+                android:contentDescription="@string/complete"
                 android:elevation="10dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/btn5"
@@ -207,7 +239,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/btn_round"
                 android:fontFamily="@font/ibm_plex_sans_kr"
-                android:text="4"
+                android:text="@string/_4"
                 android:textColor="@color/gray_1c"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/btn5"
@@ -221,6 +253,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/ic_stamp_purple"
+                android:contentDescription="@string/complete"
                 android:elevation="10dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -235,7 +268,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/btn_round"
                 android:fontFamily="@font/ibm_plex_sans_kr"
-                android:text="5"
+                android:text="@string/_5"
                 android:textColor="@color/gray_1c"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -285,7 +318,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:text="오늘까지의 기록 현황"
+                android:text="@string/record_until_today"
                 android:textColor="@color/gray_1c"
                 android:textSize="15sp"
                 style="@style/ibm_plex_h2"
@@ -418,7 +451,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_record"
         style="@style/ibm_plex_l1"
-        android:text="+  기록하기"
+        android:text="@string/record_news"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -27,7 +27,7 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 @AndroidEntryPoint
-class HomeFragment: BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
     private var timeJob: Job? = null
@@ -45,7 +45,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         timeJob = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
                 val currentTime =
-                    SimpleDateFormat("yyyy년 MM월 dd일 (E) hh:mm:ss", Locale.getDefault()).format(Date())
+                    SimpleDateFormat(
+                        "yyyy년 MM월 dd일 (E) hh:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date())
                 binding.tvTime.text = currentTime
 
                 delay(1000)
@@ -60,7 +63,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         binding.vpMyMoveLog.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.circleIndicator.selectDot(position) // Update the indicator
+                binding.circleIndicator.selectDot(position)
             }
         })
 
@@ -71,20 +74,13 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             0
         )
 
-        binding.btn1.setOnClickListener {
-            binding.imgComplete1.visibility = View.VISIBLE
-        }
-        binding.btn2.setOnClickListener {
-            binding.imgComplete2.visibility = View.VISIBLE
-        }
-        binding.btn3.setOnClickListener {
-            binding.imgComplete3.visibility = View.VISIBLE
-        }
-        binding.btn4.setOnClickListener {
-            binding.imgComplete4.visibility = View.VISIBLE
-        }
-        binding.btn5.setOnClickListener {
-            binding.imgComplete5.visibility = View.VISIBLE
+        binding.tvChooseDate.setOnClickListener {
+            timeJob?.cancel()
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.Calendar)
+                )
+            }
         }
 
         val wiseSayings = listOf(
@@ -125,18 +121,41 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun setObserver() {
         super.setObserver()
 
-        viewModel.recordState.observe(viewLifecycleOwner){
-            when(it) {
+        viewModel.recordState.observe(viewLifecycleOwner) {
+            when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> showToast(it.message)
                 is UiState.Success -> {
                     val secondaryColor = ContextCompat.getColor(requireContext(), R.color.secondary)
                     it.data.forEach { type ->
-                         when(type) {
-                             0 -> binding.ivType0.imageTintList = ColorStateList.valueOf(secondaryColor)
-                             1 -> binding.ivType1.imageTintList = ColorStateList.valueOf(secondaryColor)
-                             2 -> binding.ivType2.imageTintList = ColorStateList.valueOf(secondaryColor)
-                         }
+                        when (type) {
+                            0 -> binding.ivType0.imageTintList =
+                                ColorStateList.valueOf(secondaryColor)
+
+                            1 -> binding.ivType1.imageTintList =
+                                ColorStateList.valueOf(secondaryColor)
+
+                            2 -> binding.ivType2.imageTintList =
+                                ColorStateList.valueOf(secondaryColor)
+                        }
+                    }
+                }
+            }
+        }
+
+        viewModel.newsRecordState.observe(viewLifecycleOwner) {
+            when (it) {
+                is UiState.Loading -> {}
+                is UiState.Error -> showToast(it.message)
+                is UiState.Success -> {
+                    for (i in 1..it.data) {
+                        when (i) {
+                            1 -> binding.imgComplete1.visibility = View.VISIBLE
+                            2 -> binding.imgComplete2.visibility = View.VISIBLE
+                            3 -> binding.imgComplete3.visibility = View.VISIBLE
+                            4 -> binding.imgComplete4.visibility = View.VISIBLE
+                            5 -> binding.imgComplete5.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

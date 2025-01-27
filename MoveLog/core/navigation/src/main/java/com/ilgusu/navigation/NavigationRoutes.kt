@@ -9,4 +9,5 @@ sealed class NavigationRoutes(val route: String) {
     data object NewsRecent : NavigationRoutes("news_recent")
     data object NewsCreate : NavigationRoutes("news_create")
     data object NewsResult : NavigationRoutes("news_result")
+    data object Calendar : NavigationRoutes("calendar")
 }
