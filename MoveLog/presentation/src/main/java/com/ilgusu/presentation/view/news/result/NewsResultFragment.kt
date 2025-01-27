@@ -13,7 +13,6 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.fragment.app.viewModels

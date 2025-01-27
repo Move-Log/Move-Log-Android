@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilgusu.domain.model.news.NewsContent
-import com.ilgusu.domain.usecase.news.GetWeekNewsRecordUseCase
 import com.ilgusu.domain.usecase.news.PostNewsUseCase
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel

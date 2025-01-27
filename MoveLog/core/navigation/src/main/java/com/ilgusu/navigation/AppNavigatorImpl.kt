@@ -1,7 +1,6 @@
 package com.ilgusu.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.ilgusu.navigation.extension.printBackStack
 import javax.inject.Inject

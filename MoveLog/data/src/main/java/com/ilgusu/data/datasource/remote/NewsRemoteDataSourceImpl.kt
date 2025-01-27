@@ -7,17 +7,12 @@ import com.ilgusu.data.model.news.CreateNewsHeadLineResponseDTO
 import com.ilgusu.data.model.news.GetDateNewsRecordResponseDTO
 import com.ilgusu.data.model.news.GetTodayNewsRecordResponseDTO
 import com.ilgusu.data.model.news.GetWeekNewsRecordResponseDTO
-import com.ilgusu.data.model.news.NewsContentDTO
 import com.ilgusu.data.model.news.RecommendNewsKeywordResponseDTO
-import com.ilgusu.data.model.record.TodayRecordResponseDTO
 import com.ilgusu.data.service.NewsService
-import com.ilgusu.data.service.RecordService
 import com.ilgusu.domain.repository.TokenRepository
-import com.ilgusu.util.LoggerUtil
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response

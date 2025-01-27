@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.ilgusu.domain.model.MyRecentNewsEntity
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
