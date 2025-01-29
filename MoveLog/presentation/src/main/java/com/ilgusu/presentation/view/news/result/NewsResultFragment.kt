@@ -58,10 +58,13 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>() {
     override fun setObserver() {
         super.setObserver()
 
-        viewModel.uiState.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            when (it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> { showToast(it.message) }
+                is UiState.Error -> {
+                    showToast(it.message)
+                }
+
                 is UiState.Success -> {
                     lifecycleScope.launch {
                         navigationManager.navigate(
@@ -108,14 +111,19 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>() {
 
     private fun createSpannableHeadline(colorId: Int) {
         var splitHeadline = headline.split(",")
-        if (splitHeadline.size == 2) splitHeadline =
-            listOf(splitHeadline[0] + ",", splitHeadline[1])
+        if (splitHeadline.size == 2) {
+            splitHeadline = listOf(splitHeadline[0] + ",", splitHeadline[1])
+        } else {
+            splitHeadline = if (headline.length > 12) {
+                listOf(headline.substring(0, 11), headline.substring(11))
+            } else {
+                listOf("", headline)
+            }
+        }
 
-        if (splitHeadline.size != 2 && headline.length > 12) splitHeadline =
-            listOf(headline.substring(0, 11), headline.substring(11))
         splitHeadline = splitHeadline.map { it.trim() }
         val newHeadline = buildSpannedString {
-            append(splitHeadline[0] + "\n")
+            append(splitHeadline[0] + if (splitHeadline[1].isNotBlank()) "\n" else "")
             color(ContextCompat.getColor(requireContext(), colorId)) {
                 append(splitHeadline[1])
             }
