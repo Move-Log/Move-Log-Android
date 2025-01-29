@@ -57,7 +57,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         }
 
         chips.forEachIndexed { index, item ->
-            item.third.setOnClickListener { setVerbTypeChip(index) }
+            item.third.setOnClickListener {
+                setVerbTypeChip(index)
+                newsRvAdapter.filterByVerb(if(item.first.text != "전체") item.first.text.toString() else "")
+            }
         }
 
         binding.rvRecentNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -138,8 +141,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 }
 
                 is UiState.Success -> {
-                    newsRvAdapter.submitList(it.data)
-
+                    newsRvAdapter.submitNewsList(it.data)
 
                     binding.tvEmptyView.visibility =
                         if (it.data.isEmpty() && newsRvAdapter.itemCount == 0) {
