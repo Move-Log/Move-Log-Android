@@ -3,6 +3,8 @@ package com.ilgusu.presentation.view.home
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +27,7 @@ import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.random.Random
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -33,12 +36,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private var timeJob: Job? = null
     private lateinit var myRecentNewsAdapter: RvMyRecentNewsAdapter
 
+    private var backPressedTime: Long = 0
+    private val backPressInterval = 2000
+
     override fun initView() {
         requireActivity().window?.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         setTime()
         setBottomNav()
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - backPressedTime < backPressInterval) {
+                    finishAffinity(requireActivity())
+                    exitProcess(0)
+                } else {
+                    backPressedTime = currentTime
+                    showToast("한 번 더 누르면 종료됩니다")
+                }
+            }
+        })
     }
 
     private fun setTime() {
