@@ -14,9 +14,10 @@ import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemRecentNewsDefaultBinding
 import com.ilgusu.presentation.databinding.ItemRecentNewsFirstBinding
 import com.ilgusu.presentation.util.DateUtil
-import com.ilgusu.util.LoggerUtil
 
-class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(newsDiffCallback) {
+class NewsRecentRvAdapter : ListAdapter<NewsContent, RecyclerView.ViewHolder>(newsDiffCallback) {
+
+    private var totalItems = listOf<NewsContent>()
 
     companion object {
         private const val VIEW_TYPE_FIRST = 0
@@ -34,13 +35,13 @@ class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(new
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 0) 0 else 1
+        return if (position == 0) VIEW_TYPE_FIRST else VIEW_TYPE_DEFAULT
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
+        return when (viewType) {
             VIEW_TYPE_FIRST -> FirstViewHolder.from(parent)
-            VIEW_TYPE_DEFAULT-> DefaultViewHolder.from(parent)
+            VIEW_TYPE_DEFAULT -> DefaultViewHolder.from(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -52,7 +53,21 @@ class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(new
         }
     }
 
-    class FirstViewHolder private constructor(private val binding: ItemRecentNewsFirstBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun submitNewsList(list: List<NewsContent>) {
+        val temp = totalItems.toMutableList()
+        temp.addAll(list)
+        totalItems = temp
+
+        submitList(list)
+    }
+
+    fun filterByVerb(verb: String) {
+        val filteredList = if (verb.isEmpty()) totalItems else totalItems.filter { it.verb == verb }
+        submitList(filteredList)
+    }
+
+    class FirstViewHolder private constructor(private val binding: ItemRecentNewsFirstBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: NewsContent) {
             binding.tvNewsTitle.text = item.headLine
@@ -78,7 +93,8 @@ class NewsRecentRvAdapter: ListAdapter<NewsContent, RecyclerView.ViewHolder>(new
         }
     }
 
-    class DefaultViewHolder private constructor(private val binding: ItemRecentNewsDefaultBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DefaultViewHolder private constructor(private val binding: ItemRecentNewsDefaultBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: NewsContent) {
             binding.tvNewsTitle.text = item.headLine

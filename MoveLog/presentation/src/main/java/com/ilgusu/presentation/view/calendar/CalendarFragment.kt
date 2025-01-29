@@ -18,12 +18,12 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
+class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
     private lateinit var monthAdapter: MonthAdapter
     private lateinit var recordRvAdapter: RecordRvAdapter
     private lateinit var monthListManager: LinearLayoutManager
-    private val viewModel : CalendarViewModel by viewModels()
+    private val viewModel: CalendarViewModel by viewModels()
 
     private val calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
@@ -62,20 +62,14 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun setObserver() {
         viewModel.monthState.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Error -> LoggerUtil.e("해당 달 정보 조회 실패: ${it.message}")
                 is UiState.Loading -> {}
                 is UiState.Success -> {
-                    if (it.data.isEmpty()) {
-                        binding.tvIfNoRecord.visibility = View.VISIBLE
-                    }
-                    else {
-                        binding.tvIfNoRecord.visibility = View.GONE
-                        recordRvAdapter.submitList(it.data)
-                    }
+                    binding.tvIfNoRecord.visibility = if (it.data.isEmpty()) View.VISIBLE else View.GONE
+                    recordRvAdapter.submitList(it.data)
                 }
             }
         }
@@ -124,7 +118,8 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding>() {
         // RecordRvAdapter 설정
         recordRvAdapter = RecordRvAdapter()
         binding.rvRecord.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = recordRvAdapter
         }
     }

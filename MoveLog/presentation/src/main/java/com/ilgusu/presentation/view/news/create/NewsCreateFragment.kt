@@ -129,16 +129,20 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         binding.viewCreate4.tvOption1.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            viewModel.setHeadline(
-                binding.viewCreate4.tvOption1.text.toString()
-            )
+            if(binding.viewCreate4.tvOption1.text.isNotBlank()) {
+                viewModel.setHeadline(
+                    binding.viewCreate4.tvOption1.text.toString()
+                )
+            }
         }
 
         binding.viewCreate4.tvOption2.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            viewModel.setHeadline(
-                binding.viewCreate4.tvOption2.text.toString()
-            )
+            if(binding.viewCreate4.tvOption2.text.isNotBlank()) {
+                viewModel.setHeadline(
+                    binding.viewCreate4.tvOption2.text.toString()
+                )
+            }
         }
 
         binding.viewCreate4.root.setOnClickListener { binding.viewCreate4.etHeadline.clearFocus() }
