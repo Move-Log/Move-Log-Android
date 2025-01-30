@@ -92,4 +92,5 @@
     <string name="news_result_step_3">기사님이 신문을 배달하고 있어요.</string>
     <string name="news_result_sub_title">뉴스를 확인해보세요!</string>
     <string name="news_result_save_image">이미지 저장하기</string>
+    <string name="news_result_share">인스타그램 공유하기</string>
 </resources>

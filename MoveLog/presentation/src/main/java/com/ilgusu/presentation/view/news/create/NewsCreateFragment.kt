@@ -93,15 +93,6 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 if (currentStep == 4) {
-                    LoggerUtil.i(
-                        """
-                        Keyword: ${viewModel.selectedKeyword.value}
-                        HeadlineType: ${viewModel.headlineType.value}
-                        Image: ${viewModel.selectedFile.value?.path}
-                        Headline: ${viewModel.selectedHeadline.value}
-                    """.trimIndent()
-                    )
-
                     createNews()
                 } else {
                     viewModel.setCurrentStep(currentStep + 1)
@@ -172,7 +163,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         val bundle = Bundle().apply {
             putInt("keywordId", viewModel.selectedKeyword.value?.keywordId!!)
             putString("headline", viewModel.selectedHeadline.value)
-            putSerializable("path", viewModel.selectedFile.value?.absolutePath)
+            putString("path", viewModel.selectedFile.value?.absolutePath)
         }
 
         lifecycleScope.launch {
@@ -376,6 +367,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             }
 
             4 -> {
+                viewModel.setHeadline(null)
                 viewModel.recommendHeadlines()
                 binding.newsOverlay.visibility = View.VISIBLE
                 binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
