@@ -4,15 +4,19 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.ContentValues
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
+import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.fragment.app.viewModels
@@ -24,8 +28,10 @@ import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentNewsResultBinding
+import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.presentation.util.dpToPx
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -86,6 +92,16 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>() {
         }
 
         binding.llSaveNews.setOnClickListener { saveLayoutAsImage(binding.clNewsResult) }
+        binding.llShare.setOnClickListener {
+            saveLayoutAsImageAndGetFile(binding.clNewsResult)?.let {
+                val uri = FileProvider.getUriForFile(requireContext(), "com.ilgusu.movelog.provider", it)
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_STREAM, uri)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                startActivity(Intent.createChooser(intent, "일거수일투족 공유하기"))
+            }
+        }
 
         binding.flColorMint.setOnClickListener {
             binding.tvHeadliner.setImageResource(R.drawable.headliner_type_1)

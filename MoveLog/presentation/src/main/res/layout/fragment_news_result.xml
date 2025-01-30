@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="fl_color_mint, fl_color_red, fl_color_yellow, fl_color_green, fl_color_pink"/>
+        app:constraint_referenced_ids="fl_color_mint, fl_color_red, fl_color_yellow, fl_color_green, fl_color_pink" />
 
     <FrameLayout
         android:id="@+id/fl_color_mint"
@@ -206,13 +206,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
             android:layout_marginBottom="8dp"
+            android:ellipsize="none"
             android:fontFamily="@font/gmarket_sans_medium"
             android:lineHeight="36dp"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:translationZ="3dp"
-            android:maxLines="2"
-            android:ellipsize="none"
             app:layout_constraintBottom_toBottomOf="@id/iv_news_result"
             app:layout_constraintEnd_toEndOf="@id/iv_news_result"
             app:layout_constraintStart_toStartOf="@id/iv_news_result"
@@ -231,13 +231,13 @@
             android:id="@+id/iv_gradient_overlay"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:translationZ="2dp"
-            app:layout_constraintStart_toStartOf="@id/iv_news_result"
-            app:layout_constraintEnd_toEndOf="@id/iv_news_result"
-            app:layout_constraintTop_toTopOf="@id/tv_headline"
-            app:layout_constraintBottom_toBottomOf="@id/iv_news_result"
             android:background="@drawable/gradient_overlay"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_news_result"
+            app:layout_constraintEnd_toEndOf="@id/iv_news_result"
+            app:layout_constraintStart_toStartOf="@id/iv_news_result"
+            app:layout_constraintTop_toTopOf="@id/tv_headline" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -248,9 +248,10 @@
         android:background="@drawable/shape_recommend_keyword"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ll_share"
         app:layout_constraintDimensionRatio="328:60"
-        app:layout_constraintTop_toBottomOf="@id/cl_news_result">
+        app:layout_constraintTop_toBottomOf="@id/cl_news_result"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <ImageView
             android:layout_width="24dp"
@@ -269,12 +270,44 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_share"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_recommend_keyword"
+        android:backgroundTint="@color/primary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="328:60"
+        app:layout_constraintTop_toBottomOf="@id/ll_save_news">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_instagram" />
+
+        <TextView
+            style="@style/ibm_plex_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/news_result_share"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:constraint_referenced_ids="tb_news_result, tv_news_result_sub_title, ll_save_news, cl_news_result" />
+        app:constraint_referenced_ids="tb_news_result, tv_news_result_sub_title, ll_save_news, ll_share, cl_news_result" />
 
     <ImageView
         android:id="@+id/iv_logo"
