@@ -126,7 +126,7 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         }
 
         binding.btnSave.setOnClickListener {
-            if(viewModel.imageFile != null) viewModel.doRecord(true) else showToast("이미지를 선택해주세요")
+            viewModel.doRecord(true)
         }
 
         binding.btnMakeNews.setOnClickListener {

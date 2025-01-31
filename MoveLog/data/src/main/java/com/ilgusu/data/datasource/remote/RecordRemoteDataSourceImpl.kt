@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -20,17 +22,18 @@ import javax.inject.Inject
 class RecordRemoteDataSourceImpl @Inject constructor(
     private val service: RecordService,
     private val tokenRepository: TokenRepository
-): RecordRemoteDataSource {
+) : RecordRemoteDataSource {
 
-    private suspend fun getAccessTokenWithPrefix(): String = "Bearer ${tokenRepository.getTokens().first().accessToken}"
+    private suspend fun getAccessTokenWithPrefix(): String =
+        "Bearer ${tokenRepository.getTokens().first().accessToken}"
 
     override suspend fun record(
         file: File?,
         type: String,
         word: String
     ): Response<BasicResponse<OnlyMsgDTO>> {
-        val requestFile = if(file != null) RequestBody.create("image/jpeg".toMediaTypeOrNull(), file) else null
-        val body = if (requestFile != null)MultipartBody.Part.createFormData("img", file?.name, requestFile) else null
+        val requestFile = file?.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = if (requestFile != null) MultipartBody.Part.createFormData("img", file.name, requestFile) else MultipartBody.Part.createFormData("img", "", RequestBody.create("image/*".toMediaTypeOrNull(), ""))
 
         val createRecordReqJson = """
             {
@@ -38,7 +41,8 @@ class RecordRemoteDataSourceImpl @Inject constructor(
                 "noun":"$word"
             }
         """
-        val createRecordReq = RequestBody.create("application/json".toMediaTypeOrNull(), createRecordReqJson)
+        val createRecordReq =
+            createRecordReqJson.toRequestBody("application/json".toMediaTypeOrNull())
 
         return service.record(getAccessTokenWithPrefix(), body, createRecordReq)
     }
