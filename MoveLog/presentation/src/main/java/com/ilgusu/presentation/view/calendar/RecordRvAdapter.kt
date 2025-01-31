@@ -2,6 +2,7 @@ package com.ilgusu.presentation.view.calendar
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -55,40 +56,49 @@ class RecordRvAdapter :
             binding.tvRecordTime.text = DateUtil.extractTimeFlexible(item.createdAt)
 
             binding.tvChip.text = item.verb
-            if (item.verb == "했어요") {
-                binding.ivChip.setBackgroundResource(R.drawable.ic_hand_peace)
+            when (item.verb) {
+                "했어요" -> {
+                    binding.ivChip.setBackgroundResource(R.drawable.ic_hand_peace)
+                }
+                "먹었어요" -> {
+                    binding.ivChip.setBackgroundResource(R.drawable.ic_fork_knife)
+                }
+                "갔어요" -> {
+                    binding.ivChip.setBackgroundResource(R.drawable.ic_foot_prints)
+                }
             }
-            else if (item.verb == "먹었어요") {
-                binding.ivChip.setBackgroundResource(R.drawable.ic_fork_knife)
-            }
-            else {
-                binding.ivChip.setBackgroundResource(R.drawable.ic_foot_prints)
-            }
-            Glide.with(binding.ivNewsImg)
-                .load(item.recordImageUrl)
-                .listener(object:RequestListener<Drawable>{
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return true
-                    }
 
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        model: Any,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.ivNewsImg.setBackgroundResource(0)
-                        return false
-                    }
-                })
-                .transform(RoundedCorners(itemView.context.dpToPx(8f).toInt()))
-                .into(binding.ivNewsImg)
+            if(item.recordImageUrl != null) {
+                Glide.with(binding.ivNewsImg)
+                    .load(item.recordImageUrl)
+                    .listener(object:RequestListener<Drawable>{
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return true
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            model: Any,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            binding.ivNewsImg.setBackgroundResource(0)
+                            return false
+                        }
+                    })
+                    .transform(RoundedCorners(itemView.context.dpToPx(8f).toInt()))
+                    .into(binding.ivNewsImg)
+            } else {
+                binding.ivDots.visibility = View.GONE
+                binding.ivNewsImg.visibility = View.GONE
+            }
+
         }
     }
 }
