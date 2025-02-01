@@ -1,5 +1,6 @@
 package com.ilgusu.presentation.view.stats.main
 
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
@@ -13,8 +14,19 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class StatsFragment: BaseFragment<FragmentStatsBinding>() {
 
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRouteAndClear(NavigationRoutes.Home)
+                )
+            }
+        }
+    }
+
     override fun initView() {
         setBottomNav()
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setBottomNav(){
@@ -48,5 +60,10 @@ class StatsFragment: BaseFragment<FragmentStatsBinding>() {
                 )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        callback.remove()
     }
 }

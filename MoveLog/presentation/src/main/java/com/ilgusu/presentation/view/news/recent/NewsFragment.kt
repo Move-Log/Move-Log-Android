@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,11 +36,22 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         )
     }
 
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRouteAndClear(NavigationRoutes.Home)
+                )
+            }
+        }
+    }
+
     private var isLoading = false
 
     override fun initView() {
         setBottomNav()
         setRvAdapter()
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 
         // 구현 필요
         binding.btnDateNews.visibility = View.INVISIBLE
@@ -178,5 +190,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        callback.remove()
     }
 }
