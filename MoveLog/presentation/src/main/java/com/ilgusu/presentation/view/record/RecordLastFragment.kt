@@ -74,16 +74,18 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         }
 
         viewModel.uiState.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> { showToast(it.message) }
+                is UiState.Error -> {
+                    showToast(it.message)
+                }
+
                 is UiState.Success -> {
-                    timeJob?.cancel()
-                    lifecycleScope.launch {
-                        navigationManager.navigate(NavigationCommand.ToRouteAndClear(
-                            if(it.data) NavigationRoutes.Home else NavigationRoutes.NewsRecent
-                        ))
-                    }
+                    RecordResultDialog(
+                        requireContext(),
+                        onMoveHome = { navigate(NavigationRoutes.Home) },
+                        onMoveNews = { navigate(NavigationRoutes.NewsRecent) }
+                    ).show()
                 }
             }
         }
@@ -126,19 +128,28 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
         }
 
         binding.btnSave.setOnClickListener {
-            viewModel.doRecord(true)
-        }
-
-        binding.btnMakeNews.setOnClickListener {
-            if(viewModel.imageFile != null) viewModel.doRecord(false) else showToast("이미지를 선택해주세요")
+            RecordDialog(
+                requireContext(),
+                onConfirm = { viewModel.doRecord(true) },
+                onCancel = {}
+            ).show()
         }
 
         binding.btnBack.setOnClickListener {
             timeJob?.cancel()
-            
+
             lifecycleScope.launch {
                 navigationManager.navigate(NavigationCommand.Back)
             }
+        }
+    }
+
+    private fun navigate(routes: NavigationRoutes) {
+        timeJob?.cancel()
+        lifecycleScope.launch {
+            navigationManager.navigate(
+                NavigationCommand.ToRouteAndClear(routes)
+            )
         }
     }
 
