@@ -8,6 +8,8 @@ import com.ilgusu.data.datasource.remote.NewsRemoteDataSource
 import com.ilgusu.data.datasource.remote.NewsRemoteDataSourceImpl
 import com.ilgusu.data.datasource.remote.RecordRemoteDataSource
 import com.ilgusu.data.datasource.remote.RecordRemoteDataSourceImpl
+import com.ilgusu.data.datasource.remote.StatsRemoteDataSource
+import com.ilgusu.data.datasource.remote.StatsRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -41,4 +43,10 @@ abstract class DataSourceModule {
     abstract fun bindNewsRemoteDataSource(
         impl: NewsRemoteDataSourceImpl
     ): NewsRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindStatsRemoteDataSource(
+        impl: StatsRemoteDataSourceImpl
+    ): StatsRemoteDataSource
 }

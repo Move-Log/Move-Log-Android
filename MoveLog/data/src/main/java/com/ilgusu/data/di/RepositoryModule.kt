@@ -3,10 +3,12 @@ package com.ilgusu.data.di
 import com.ilgusu.data.repository.AuthRepositoryImpl
 import com.ilgusu.data.repository.NewsRepositoryImpl
 import com.ilgusu.data.repository.RecordRepositoryImpl
+import com.ilgusu.data.repository.StatsRepositoryImpl
 import com.ilgusu.data.repository.TokenRepositoryImpl
 import com.ilgusu.domain.repository.AuthRepository
 import com.ilgusu.domain.repository.NewsRepository
 import com.ilgusu.domain.repository.RecordRepository
+import com.ilgusu.domain.repository.StatsRepository
 import com.ilgusu.domain.repository.TokenRepository
 import dagger.Binds
 import dagger.Module
@@ -33,4 +35,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsNewsRepository(impl: NewsRepositoryImpl): NewsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsStatsRepository(impl: StatsRepositoryImpl): StatsRepository
 }
