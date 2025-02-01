@@ -1,4 +1,4 @@
-package com.ilgusu.presentation.view.calendar
+package com.ilgusu.presentation.view.news.calendar
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentCalendarBinding
@@ -19,12 +20,12 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
+class NewsCalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
-    private lateinit var monthAdapter: MonthAdapter
-    private lateinit var recordRvAdapter: RecordRvAdapter
+    private lateinit var monthAdapter: NewsMonthAdapter
+    private lateinit var newsRvAdapter: NewsRecordRvAdapter
     private lateinit var monthListManager: LinearLayoutManager
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: NewsCalendarViewModel by viewModels()
 
     private val calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
@@ -70,7 +71,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         })
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initCalendarListener() {
         binding.ivPrevMonth.setOnClickListener {
             updateMonth(-1)
@@ -88,8 +88,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
                 is UiState.Error -> LoggerUtil.e("해당 달 정보 조회 실패: ${it.message}")
                 is UiState.Loading -> {}
                 is UiState.Success -> {
-                    binding.tvIfNoRecord.visibility = if (it.data.isEmpty()) View.VISIBLE else View.GONE
-                    recordRvAdapter.submitList(it.data)
+                    binding.tvIfNoRecord.visibility =
+                        if (it.data.isEmpty()) View.VISIBLE else View.GONE
+                    newsRvAdapter.submitList(it.data)
+                    isLoading = false
                 }
             }
         }
@@ -109,12 +111,14 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
     private fun setCalendar() {
         val today = Calendar.getInstance().time
 
-        monthAdapter = MonthAdapter(0, today)
-        monthAdapter.setOnDateSelectedListener(object : MonthAdapter.OnDateSelectedListener {
+        monthAdapter = NewsMonthAdapter(0, today)
+        monthAdapter.setOnDateSelectedListener(object :
+            NewsMonthAdapter.OnDateSelectedListener {
+
             override fun onDateSelected(date: Date) {
                 val formattedDate = dateFormat.format(date)
                 val dateFormat = dateFormatForTv.format(date)
-                if(binding.tvCalendarDate.text != dateFormat) recordRvAdapter.submitList(emptyList(), true)
+                if(binding.tvCalendarDate.text != dateFormat) newsRvAdapter.submitList(emptyList(), true)
                 binding.tvCalendarDate.text = dateFormat
 
                 viewModel.fetchData(formattedDate)
@@ -128,18 +132,16 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
             adapter = monthAdapter
             scrollToPosition(Int.MAX_VALUE / 2)
 
-            // 좌우 스크롤 막기
             setOnTouchListener { _, _ -> true }
         }
     }
 
     private fun setupRecyclerView() {
-        // RecordRvAdapter 설정
-        recordRvAdapter = RecordRvAdapter()
+        newsRvAdapter = NewsRecordRvAdapter()
         binding.rvRecord.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = recordRvAdapter
+            adapter = newsRvAdapter
         }
     }
 }

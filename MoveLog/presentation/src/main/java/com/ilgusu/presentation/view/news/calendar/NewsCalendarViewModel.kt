@@ -1,10 +1,13 @@
-package com.ilgusu.presentation.view.calendar
+package com.ilgusu.presentation.view.news.calendar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.model.RecordCalendarContent
+import com.ilgusu.domain.model.news.NewsContent
+import com.ilgusu.domain.usecase.news.GetDateNewsRecordUseCase
+import com.ilgusu.domain.usecase.news.GetTodayNewsRecordUseCase
 import com.ilgusu.domain.usecase.record.GetTodayRecordListUseCase
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
@@ -13,11 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CalendarViewModel @Inject constructor(
-    private val getTodayRecordListUseCase: GetTodayRecordListUseCase
+class NewsCalendarViewModel @Inject constructor(
+    private val getDateNewsRecordUseCase: GetDateNewsRecordUseCase
 ) : ViewModel() {
-    private val _monthState = MutableLiveData<UiState<List<RecordCalendarContent>>>()
-    val monthState: LiveData<UiState<List<RecordCalendarContent>>> get() = _monthState
+    private val _monthState = MutableLiveData<UiState<List<NewsContent>>>()
+    val monthState: LiveData<UiState<List<NewsContent>>> get() = _monthState
 
     private var page = 0
     private var pageIsFinish = false
@@ -34,7 +37,7 @@ class CalendarViewModel @Inject constructor(
         }
         _monthState.value = UiState.Loading
         viewModelScope.launch {
-            getTodayRecordListUseCase.invoke(date.ifBlank { lastDate }, page)
+            getDateNewsRecordUseCase.invoke(date.ifBlank { lastDate }, page)
                 .onSuccess {
                     _monthState.value = UiState.Success(it.content)
                     page++

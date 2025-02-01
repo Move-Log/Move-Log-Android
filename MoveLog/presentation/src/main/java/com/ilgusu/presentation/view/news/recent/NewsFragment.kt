@@ -52,9 +52,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         setBottomNav()
         setRvAdapter()
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-
-        // 구현 필요
-        binding.btnDateNews.visibility = View.INVISIBLE
     }
 
     override fun initListener() {
@@ -64,6 +61,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
             lifecycleScope.launch {
                 navigationManager.navigate(
                     NavigationCommand.ToRoute(NavigationRoutes.NewsCreate)
+                )
+            }
+        }
+
+        binding.btnDateNews.setOnClickListener {
+            lifecycleScope.launch {
+                navigationManager.navigate(
+                    NavigationCommand.ToRoute(NavigationRoutes.NewsCalendar)
                 )
             }
         }
@@ -154,6 +159,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
                 is UiState.Success -> {
                     newsRvAdapter.submitNewsList(it.data)
+                    isLoading = true
 
                     binding.tvEmptyView.visibility =
                         if (it.data.isEmpty() && newsRvAdapter.itemCount == 0) {

@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_newsFragment_to_statsFragment"
             app:destination="@id/statsFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_newsCalendarFragment"
+            app:destination="@id/newsCalendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsCreateFragment"
@@ -146,4 +149,10 @@
         android:label="WordStatsFragment"
         app:route="word_stats"
         tools:layout="@layout/fragment_stats_word"/>
+    <fragment
+        android:id="@+id/newsCalendarFragment"
+        android:name="com.ilgusu.presentation.view.news.calendar.NewsCalendarFragment"
+        android:label="NewsCalendarFragment"
+        app:route="news_calendar"
+        tools:layout="@layout/fragment_calendar"/>
 </navigation>
