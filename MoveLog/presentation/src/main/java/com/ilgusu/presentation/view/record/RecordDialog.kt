@@ -7,7 +7,6 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.core.content.ContextCompat
 import com.ilgusu.presentation.databinding.DialogRecordSaveBinding
 import com.ilgusu.presentation.util.dpToPx
-import com.ilgusu.presentation.util.pxToDp
 
 class RecordDialog(
     context: Context,

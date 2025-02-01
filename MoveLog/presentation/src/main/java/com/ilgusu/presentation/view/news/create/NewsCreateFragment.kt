@@ -23,7 +23,6 @@ import com.ilgusu.presentation.databinding.FragmentNewsCreateBinding
 import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.OnClickRvItemListener
 import com.ilgusu.presentation.util.UiState
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
