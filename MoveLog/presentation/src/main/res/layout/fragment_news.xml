@@ -28,9 +28,8 @@
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/ic_title_for_time"
             android:gravity="center"
-            android:textColor="@color/gray_1c"
-            android:textSize="12sp"
-            tools:text="test text" />
+            android:textColor="@color/gray_7f"
+            android:text="일상 속 특별한 기록을 찾아 보세요" />
 
     </Toolbar>
 

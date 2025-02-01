@@ -238,7 +238,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             timeJob?.cancel()
             lifecycleScope.launch {
                 navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
+                    NavigationCommand.ToRoute(NavigationRoutes.Stats)
                 )
             }
         }

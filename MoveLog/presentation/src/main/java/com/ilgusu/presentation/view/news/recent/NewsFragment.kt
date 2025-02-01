@@ -174,7 +174,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         binding.bottomNav.menuChart.setOnClickListener {
             lifecycleScope.launch {
                 navigationManager.navigate(
-                    NavigationCommand.ToRoute(NavigationRoutes.Setting)
+                    NavigationCommand.ToRoute(NavigationRoutes.Stats)
                 )
             }
         }
