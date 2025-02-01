@@ -1,8 +1,7 @@
-package com.ilgusu.presentation.view.calendar
+package com.ilgusu.presentation.view.news.calendar
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,26 +12,25 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ilgusu.domain.model.RecordCalendarContent
+import com.ilgusu.domain.model.news.NewsContent
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemRecordedNewsBinding
 import com.ilgusu.presentation.util.DateUtil
 import com.ilgusu.presentation.util.dpToPx
 
-class RecordRvAdapter :
-    ListAdapter<RecordCalendarContent, RecyclerView.ViewHolder>(recordDiffCallback) {
+class NewsRecordRvAdapter : ListAdapter<NewsContent, RecyclerView.ViewHolder>(recordDiffCallback) {
     companion object {
-        private val recordDiffCallback = object : DiffUtil.ItemCallback<RecordCalendarContent>() {
+        private val recordDiffCallback = object : DiffUtil.ItemCallback<NewsContent>() {
             override fun areItemsTheSame(
-                oldItem: RecordCalendarContent,
-                newItem: RecordCalendarContent
+                oldItem: NewsContent,
+                newItem: NewsContent
             ): Boolean {
-                return oldItem.recordId == newItem.recordId
+                return oldItem.newsId == newItem.newsId
             }
 
             override fun areContentsTheSame(
-                oldItem: RecordCalendarContent,
-                newItem: RecordCalendarContent
+                oldItem: NewsContent,
+                newItem: NewsContent
             ): Boolean {
                 return oldItem == newItem
             }
@@ -51,7 +49,7 @@ class RecordRvAdapter :
 
     inner class RecordCalendarViewHolder(private val binding: ItemRecordedNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: RecordCalendarContent) {
+        fun bind(item: NewsContent) {
             binding.tvTitle.text = item.noun
             binding.tvRecordTime.text = DateUtil.extractTimeFlexible(item.createdAt)
 
@@ -60,52 +58,48 @@ class RecordRvAdapter :
                 "했어요" -> {
                     binding.ivChip.setBackgroundResource(R.drawable.ic_hand_peace)
                 }
+
                 "먹었어요" -> {
                     binding.ivChip.setBackgroundResource(R.drawable.ic_fork_knife)
                 }
+
                 "갔어요" -> {
                     binding.ivChip.setBackgroundResource(R.drawable.ic_foot_prints)
                 }
             }
 
-            if(item.recordImageUrl != null) {
-                Glide.with(binding.ivNewsImg)
-                    .load(item.recordImageUrl)
-                    .listener(object:RequestListener<Drawable>{
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            return true
-                        }
+            Glide.with(binding.ivNewsImg)
+                .load(item.newsImageUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return true
+                    }
 
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            binding.ivNewsImg.setBackgroundResource(0)
-                            return false
-                        }
-                    })
-                    .transform(RoundedCorners(itemView.context.dpToPx(8f).toInt()))
-                    .into(binding.ivNewsImg)
-            } else {
-                binding.ivDots.visibility = View.GONE
-                binding.ivNewsImg.visibility = View.GONE
-            }
-
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.ivNewsImg.setBackgroundResource(0)
+                        return false
+                    }
+                })
+                .transform(RoundedCorners(itemView.context.dpToPx(8f).toInt()))
+                .into(binding.ivNewsImg)
         }
     }
 
-    fun submitList(list: List<RecordCalendarContent>, doClear: Boolean = false) {
+    fun submitList(list: List<NewsContent>, doClear: Boolean = false) {
         val temp = currentList.toMutableList()
         temp.addAll(list)
 
-        super.submitList(if(doClear) emptyList() else temp.distinct())
+        submitList(if(doClear) emptyList() else temp.distinct())
     }
 }

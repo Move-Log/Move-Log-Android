@@ -65,8 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             while (isActive) {
                 val currentTime =
                     SimpleDateFormat(
-                        "yyyy년 MM월 dd일 (E) hh:mm:ss",
-                        Locale.getDefault()
+                        "yyyy년 MM월 dd일 (E) HH:mm:ss", Locale.KOREAN
                     ).format(Date())
                 binding.tvTime.text = currentTime
 
