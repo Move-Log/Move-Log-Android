@@ -14,7 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.ilgusu.domain.model.RecordCalendarContent
-import com.ilgusu.domain.model.news.NewsContent
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemRecordedNewsBinding
 import com.ilgusu.presentation.util.DateUtil

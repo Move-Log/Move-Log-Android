@@ -4,11 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilgusu.domain.model.RecordCalendarContent
 import com.ilgusu.domain.model.news.NewsContent
 import com.ilgusu.domain.usecase.news.GetDateNewsRecordUseCase
-import com.ilgusu.domain.usecase.news.GetTodayNewsRecordUseCase
-import com.ilgusu.domain.usecase.record.GetTodayRecordListUseCase
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.lifecycle.HiltViewModel

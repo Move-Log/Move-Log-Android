@@ -1,12 +1,10 @@
 package com.ilgusu.presentation.view.news.calendar
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentCalendarBinding
