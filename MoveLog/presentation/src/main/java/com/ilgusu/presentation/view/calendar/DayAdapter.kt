@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.databinding.ItemDayBinding
-import com.ilgusu.util.LoggerUtil
 import java.util.Calendar
 import java.util.Date
 

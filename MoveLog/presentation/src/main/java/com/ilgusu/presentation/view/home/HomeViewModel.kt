@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilgusu.domain.usecase.record.GetRecentCurrentImagesUseCase
 import com.ilgusu.domain.usecase.news.GetTodayNewsRecordUseCase
+import com.ilgusu.domain.usecase.record.GetRecentCurrentImagesUseCase
 import com.ilgusu.domain.usecase.record.GetTodayRecordUseCase
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel

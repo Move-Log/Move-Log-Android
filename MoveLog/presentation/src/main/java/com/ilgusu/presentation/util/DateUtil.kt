@@ -1,10 +1,12 @@
 package com.ilgusu.presentation.util
 
 import android.icu.text.SimpleDateFormat
-import com.ilgusu.util.LoggerUtil
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 object DateUtil {

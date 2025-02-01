@@ -6,10 +6,8 @@ import android.animation.ObjectAnimator
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
-import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageView
@@ -28,10 +26,8 @@ import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentNewsResultBinding
-import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.presentation.util.dpToPx
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
