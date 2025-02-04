@@ -20,26 +20,10 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val socialLoginUseCase: SocialLoginUseCase,
     private val loginUseCase: LoginUseCase,
-    private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
-
-    private val _uiState = MutableLiveData<UiState<Boolean>>()
-    val uiState: LiveData<UiState<Boolean>> get() = _uiState
 
     private val _loginState = MutableLiveData<UiState<Boolean>>()
     val loginState: LiveData<UiState<Boolean>> get() = _loginState
-
-    init {
-        viewModelScope.launch {
-            val tokens = getTokenUseCase.invoke().first()
-
-            if(tokens.accessToken.isNotBlank()) {
-                _uiState.value = UiState.Success(true)
-            } else {
-                _uiState.value = UiState.Success(false)
-            }
-        }
-    }
 
     fun login(context: Context, provider: AuthProvider) {
         if(provider == AuthProvider.GOOGLE) {

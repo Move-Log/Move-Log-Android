@@ -2,6 +2,7 @@ package com.ilgusu.presentation.view.home
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -41,8 +42,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initView() {
         requireActivity().window?.apply {
+            this.statusBarColor = resources.getColor(R.color.white, null)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+
         setTime()
         setBottomNav()
 
