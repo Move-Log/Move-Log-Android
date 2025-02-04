@@ -27,14 +27,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
     private val viewModel: NewsViewModel by viewModels()
     private val newsRvAdapter: NewsRecentRvAdapter by lazy { NewsRecentRvAdapter() }
-    private val chips: List<Triple<TextView, ImageView?, LinearLayout>> by lazy {
-        listOf(
-            Triple(binding.tvChipAll, null, binding.chipAll),
-            Triple(binding.tvChipDo, binding.ivChipDo, binding.chipDo),
-            Triple(binding.tvChipGo, binding.ivChipGo, binding.chipGo),
-            Triple(binding.tvChipEat, binding.ivChipEat, binding.chipEat)
-        )
-    }
+    private lateinit var chips: List<Triple<TextView, ImageView?, LinearLayout>>
 
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -49,9 +42,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     private var isLoading = false
 
     override fun initView() {
+        initChips()
         setBottomNav()
         setRvAdapter()
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private fun initChips() {
+        chips = listOf(
+            Triple(binding.tvChipAll, null, binding.chipAll),
+            Triple(binding.tvChipDo, binding.ivChipDo, binding.chipDo),
+            Triple(binding.tvChipGo, binding.ivChipGo, binding.chipGo),
+            Triple(binding.tvChipEat, binding.ivChipEat, binding.chipEat)
+        )
     }
 
     override fun initListener() {
