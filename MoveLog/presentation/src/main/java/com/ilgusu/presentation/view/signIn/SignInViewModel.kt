@@ -6,13 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.model.AuthProvider
-import com.ilgusu.domain.usecase.auth.GetTokenUseCase
 import com.ilgusu.domain.usecase.auth.LoginUseCase
 import com.ilgusu.domain.usecase.auth.SocialLoginUseCase
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,26 +18,10 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val socialLoginUseCase: SocialLoginUseCase,
     private val loginUseCase: LoginUseCase,
-    private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
-
-    private val _uiState = MutableLiveData<UiState<Boolean>>()
-    val uiState: LiveData<UiState<Boolean>> get() = _uiState
 
     private val _loginState = MutableLiveData<UiState<Boolean>>()
     val loginState: LiveData<UiState<Boolean>> get() = _loginState
-
-    init {
-        viewModelScope.launch {
-            val tokens = getTokenUseCase.invoke().first()
-
-            if(tokens.accessToken.isNotBlank()) {
-                _uiState.value = UiState.Success(true)
-            } else {
-                _uiState.value = UiState.Success(false)
-            }
-        }
-    }
 
     fun login(context: Context, provider: AuthProvider) {
         if(provider == AuthProvider.GOOGLE) {

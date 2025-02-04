@@ -1,7 +1,6 @@
 package com.ilgusu.presentation.view.stats.word
 
 import android.annotation.SuppressLint
-import android.text.style.StyleSpan
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
@@ -9,18 +8,14 @@ import androidx.core.text.color
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.tabs.TabLayout
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentWordStatsResultBinding
-import com.ilgusu.presentation.util.DateUtil
 import com.ilgusu.presentation.util.UiState
 import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @AndroidEntryPoint
 class WordStatsResultFragment : BaseFragment<FragmentWordStatsResultBinding>() {

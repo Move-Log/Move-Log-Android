@@ -41,8 +41,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initView() {
         requireActivity().window?.apply {
+            this.statusBarColor = resources.getColor(R.color.white, null)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+
         setTime()
         setBottomNav()
 

@@ -44,18 +44,6 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
     override fun setObserver() {
         super.setObserver()
 
-        viewModel.uiState.observe(viewLifecycleOwner) {
-            when(it) {
-                is UiState.Loading -> {}
-                is UiState.Error -> { showToast(it.message) }
-                is UiState.Success -> {
-                    if(it.data) {
-                        moveToNext(NavigationRoutes.Home)
-                    }
-                }
-            }
-        }
-
         viewModel.loginState.observe(viewLifecycleOwner) {
             when(it) {
                 is UiState.Loading -> {}
