@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -11,11 +12,11 @@
         android:layout_height="24dp"
         android:layout_margin="16dp"
         android:background="@drawable/ic_logo"
+        android:contentDescription="@string/logo"
         app:layout_constraintBottom_toTopOf="@id/sv_home"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_time"
-        android:contentDescription="@string/logo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -24,14 +25,14 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
 
-        app:layout_constraintTop_toTopOf="@id/iv_logo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_logo"
-        app:layout_constraintStart_toEndOf="@id/iv_logo"
-        app:layout_constraintEnd_toStartOf="@id/btn_setting"
         android:background="@drawable/ic_title_for_time"
         android:gravity="center"
         android:textColor="@color/gray_1c"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_logo"
+        app:layout_constraintEnd_toStartOf="@id/btn_setting"
+        app:layout_constraintStart_toEndOf="@id/iv_logo"
+        app:layout_constraintTop_toTopOf="@id/iv_logo"
         tools:text="test text" />
 
     <ImageButton
@@ -40,11 +41,11 @@
         android:layout_height="24dp"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/ic_setting"
-        app:layout_constraintStart_toEndOf="@id/tv_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_logo"
+        android:contentDescription="@string/setting"
         app:layout_constraintBottom_toBottomOf="@id/iv_logo"
-        android:contentDescription="@string/setting" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_time"
+        app:layout_constraintTop_toTopOf="@id/iv_logo" />
 
 
     <ScrollView

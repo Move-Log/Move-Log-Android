@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:layout_marginTop="16dp"
+    android:background="@color/white"
     android:paddingHorizontal="16dp">
 
     <TextView
@@ -41,8 +41,8 @@
         android:gravity="center"
         android:text="@string/create_2_type_2"
         android:textColor="@color/gray_1c"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="@id/tv_headline_type_1"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_headline_type_1"
         app:layout_constraintTop_toTopOf="@id/tv_headline_type_1" />
@@ -58,8 +58,8 @@
         android:gravity="center"
         android:text="@string/create_2_type_3"
         android:textColor="@color/gray_1c"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/tv_headline_type_4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_headline_type_1" />
@@ -73,8 +73,8 @@
         android:gravity="center"
         android:text="@string/create_2_type_4"
         android:textColor="@color/gray_1c"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="@id/tv_headline_type_3"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_headline_type_3"
         app:layout_constraintTop_toTopOf="@id/tv_headline_type_3" />
