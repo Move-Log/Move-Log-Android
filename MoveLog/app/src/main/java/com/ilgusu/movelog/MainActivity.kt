@@ -13,7 +13,6 @@ import com.ilgusu.movelog.databinding.ActivityMainBinding
 import com.ilgusu.navigation.AppNavigatorImpl
 import com.ilgusu.navigation.NavigationManager
 import com.ilgusu.presentation.util.UiState
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

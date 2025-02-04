@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.model.stats.WordIdStats
-import com.ilgusu.domain.model.stats.WordStats
-import com.ilgusu.domain.usecase.stats.GetAllWordStatsUseCase
-import com.ilgusu.domain.usecase.stats.GetMyWordStatsUseCase
 import com.ilgusu.domain.usecase.stats.GetRecentRecordWordsUseCase
 import com.ilgusu.domain.usecase.stats.SearchWordsUseCase
 import com.ilgusu.presentation.util.UiState

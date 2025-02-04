@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ilgusu.domain.model.stats.WordIdStats
-import com.ilgusu.domain.model.stats.WordStats
 import com.ilgusu.presentation.databinding.ItemSearchResultBinding
 import com.ilgusu.presentation.util.OnClickRvItemListener
 
