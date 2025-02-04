@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingVertical="6dp">
+
+    <TextView
+        android:id="@+id/tv_noun"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/gray_35"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ll_chip"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="테스트" />
+
+    <LinearLayout
+        android:id="@+id/ll_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/shape_chip_disable"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/tv_noun"
+        app:layout_constraintEnd_toStartOf="@id/ib_arrow"
+        app:layout_constraintStart_toEndOf="@id/tv_noun"
+        app:layout_constraintTop_toTopOf="@id/tv_noun">
+
+        <ImageView
+            android:id="@+id/iv_chip"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_hand_peace"
+            app:tint="@color/gray_66" />
+
+        <TextView
+            android:id="@+id/tv_chip"
+            style="@style/ibm_plex_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            tools:text="했어요"
+            android:textColor="@color/gray_4d" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ib_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_arrow_right"
+        android:contentDescription="@null"
+        android:rotation="-135"
+        app:layout_constraintBottom_toBottomOf="@id/tv_noun"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_noun"
+        app:tint="@color/primary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

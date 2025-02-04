@@ -45,11 +45,6 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
     override fun initView() {
         binding.stepProgressView.setCurrentStep(viewModel.currentStep.value!!, 4)
-
-        // 추가 작업 필요
-        binding.viewCreate1.tvDirectTitle.visibility = View.GONE
-        binding.viewCreate1.tvSelectedData.visibility = View.GONE
-        binding.viewCreate1.ivSelectedData.visibility = View.GONE
     }
 
     override fun initListener() {
@@ -97,6 +92,13 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                     viewModel.setCurrentStep(currentStep + 1)
                 }
             }
+        }
+
+        binding.viewCreate1.tvSelectedData.setOnClickListener {
+            showNounSearchDialog()
+        }
+        binding.viewCreate1.ivSelectedData.setOnClickListener {
+            showNounSearchDialog()
         }
 
 
@@ -156,6 +158,16 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
             }
         })
+    }
+
+    private fun showNounSearchDialog(){
+        NounSearchDialog(
+            onConfirm = {
+                newsKeywordRvAdapter.resetSelectedItem()
+                binding.viewCreate1.tvSelectedData.text = it.noun
+                viewModel.setKeyword(it)
+            }
+        ).show(requireActivity().supportFragmentManager, "")
     }
 
     private fun createNews() {
@@ -290,6 +302,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                     viewModel.recommendKeyword()
                 } else {
                     newsKeywordRvAdapter.resetSelectedItem()
+                    binding.viewCreate1.tvSelectedData.text = "직접 검색하기"
                 }
 
                 binding.tvNoun.visibility = View.GONE

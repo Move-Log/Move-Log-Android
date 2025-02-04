@@ -20,7 +20,7 @@ interface RecordRemoteDataSource {
 
     suspend fun getTodayRecord(): Response<BasicResponse<TodayRecordResponseDTO>>
 
-    suspend fun searchRecord(): Response<BasicResponse<List<SearchRecordDTO>>>
+    suspend fun searchRecord(keyword: String): Response<BasicResponse<List<SearchRecordDTO>>>
 
     suspend fun getRecentRecordImages(keywordId: Int): Response<BasicResponse<List<GetRecentRecordImageDTO>>>
 

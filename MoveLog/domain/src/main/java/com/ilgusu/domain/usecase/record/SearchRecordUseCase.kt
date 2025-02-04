@@ -8,7 +8,7 @@ class SearchRecordUseCase @Inject constructor(
     private val repository: RecordRepository
 ) {
 
-    suspend operator fun invoke(): Result<List<RecommendKeyword>> {
-        return repository.searchRecord()
+    suspend operator fun invoke(keyword: String): Result<List<RecommendKeyword>> {
+        return repository.searchRecord(keyword)
     }
 }

@@ -36,6 +36,7 @@ interface RecordService {
     @GET("/api/v1/record/search")
     suspend fun searchRecord(
         @Header("Authorization") accessToken: String,
+        @Query("keyword") keyword: String
     ): Response<BasicResponse<List<SearchRecordDTO>>>
 
     @GET("/api/v1/record/image/{keywordId}")

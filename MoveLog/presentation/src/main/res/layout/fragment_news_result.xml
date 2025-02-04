@@ -227,6 +227,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/gray_f3" />
 
+        <View
+            android:id="@+id/guide_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@null"
+            app:layout_constraintBottom_toTopOf="@id/tv_headline"
+            android:layout_marginBottom="8dp"/>
+
         <ImageView
             android:id="@+id/iv_gradient_overlay"
             android:layout_width="0dp"
@@ -237,7 +245,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_news_result"
             app:layout_constraintEnd_toEndOf="@id/iv_news_result"
             app:layout_constraintStart_toStartOf="@id/iv_news_result"
-            app:layout_constraintTop_toTopOf="@id/tv_headline" />
+            app:layout_constraintTop_toTopOf="@id/guide_line" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
