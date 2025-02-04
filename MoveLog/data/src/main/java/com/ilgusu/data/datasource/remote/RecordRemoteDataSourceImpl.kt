@@ -51,8 +51,8 @@ class RecordRemoteDataSourceImpl @Inject constructor(
         return service.getTodayRecord(getAccessTokenWithPrefix())
     }
 
-    override suspend fun searchRecord(): Response<BasicResponse<List<SearchRecordDTO>>> {
-        return service.searchRecord(getAccessTokenWithPrefix())
+    override suspend fun searchRecord(keyword: String): Response<BasicResponse<List<SearchRecordDTO>>> {
+        return service.searchRecord(getAccessTokenWithPrefix(), keyword)
     }
 
     override suspend fun getRecentRecordImages(keywordId: Int): Response<BasicResponse<List<GetRecentRecordImageDTO>>> {

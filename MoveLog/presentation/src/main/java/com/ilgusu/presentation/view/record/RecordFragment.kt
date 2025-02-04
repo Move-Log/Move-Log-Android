@@ -55,7 +55,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     }
 
     private fun updateTimeDisplay() {
-        binding.tvToday.text = DateUtil.getKoreanDateWithDay()
+        binding.tvToday.text = DateUtil.getCurrentDate("yyyy년 MM월 dd일 E요일")
         val currentTime = getFormattedTime()
 
         binding.icTodayBoard.apply {

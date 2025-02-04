@@ -100,6 +100,6 @@ class NewsRecordRvAdapter : ListAdapter<NewsContent, RecyclerView.ViewHolder>(re
         val temp = currentList.toMutableList()
         temp.addAll(list)
 
-        submitList(if(doClear) emptyList() else temp.distinct())
+        super.submitList(if(doClear) emptyList() else temp.distinct())
     }
 }

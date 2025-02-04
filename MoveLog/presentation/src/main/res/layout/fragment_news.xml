@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <Toolbar
         android:id="@+id/tb_news_recent"
@@ -28,8 +29,8 @@
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/ic_title_for_time"
             android:gravity="center"
-            android:textColor="@color/gray_7f"
-            android:text="일상 속 특별한 기록을 찾아 보세요" />
+            android:text="일상 속 특별한 기록을 찾아 보세요"
+            android:textColor="@color/gray_7f" />
 
     </Toolbar>
 

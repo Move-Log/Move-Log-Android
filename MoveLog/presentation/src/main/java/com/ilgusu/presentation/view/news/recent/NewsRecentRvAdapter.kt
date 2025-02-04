@@ -56,7 +56,7 @@ class NewsRecentRvAdapter : ListAdapter<NewsContent, RecyclerView.ViewHolder>(ne
     fun submitNewsList(list: List<NewsContent>) {
         val temp = totalItems.toMutableList()
         temp.addAll(list)
-        totalItems = temp
+        totalItems = temp.distinct()
 
         submitList(list)
     }

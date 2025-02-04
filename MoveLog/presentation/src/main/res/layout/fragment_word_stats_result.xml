@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_word_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cl_word_result"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -12,94 +13,94 @@
         android:layout_height="24dp"
         android:layout_margin="16dp"
         android:background="@drawable/ic_arrow"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/logo"
         app:layout_constraintEnd_toStartOf="@id/tv_search"
-        android:contentDescription="@string/logo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_search"
+        style="@style/ibm_plex_l3"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        style="@style/ibm_plex_l3"
-        android:textColor="@color/gray_35"
-        android:textColorHint="@color/gray_7f"
-        android:paddingHorizontal="16dp"
-        android:gravity="center_vertical|start"
-        app:layout_constraintStart_toEndOf="@id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_back"
-        app:layout_constraintBottom_toBottomOf="@id/iv_back"
         android:layout_marginEnd="16dp"
         android:background="@drawable/selector_word_input"
+        android:gravity="center_vertical|start"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/gray_35"
+        android:textColorHint="@color/gray_7f"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
+        app:layout_constraintTop_toTopOf="@id/iv_back"
         tools:ignore="Autofill" />
 
     <ImageButton
         android:id="@+id/ib_search"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_search"
+        android:layout_margin="16dp"
         android:background="@null"
         android:contentDescription="@null"
-        app:layout_constraintTop_toTopOf="@id/tv_search"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/tv_search"
         app:layout_constraintEnd_toEndOf="@id/tv_search"
-        android:layout_margin="16dp"
-        android:visibility="visible"/>
+        app:layout_constraintTop_toTopOf="@id/tv_search" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tv_search" >
+        app:layout_constraintTop_toBottomOf="@+id/tv_search">
 
         <TextView
             android:id="@+id/tv_my_stats"
+            style="@style/ibm_plex_l1"
             android:layout_width="0dp"
             android:layout_height="56dp"
+            android:clickable="true"
             android:gravity="center"
             android:text="나의 통계"
             android:textColor="@color/gray_1c"
-            android:clickable="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_total_stats"
-            style="@style/ibm_plex_l1" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/under_bar_my_stats"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:background="@color/gray_1c"
             android:layout_marginStart="16dp"
+            android:background="@color/gray_1c"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/under_bar_total_stats"/>
+            app:layout_constraintEnd_toStartOf="@id/under_bar_total_stats"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_total_stats"
+            style="@style/ibm_plex_l1"
             android:layout_width="0dp"
             android:layout_height="56dp"
+            android:clickable="true"
             android:gravity="center"
             android:text="전체 통계"
             android:textColor="@color/gray_1c"
-            android:clickable="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_my_stats"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/ibm_plex_l1" />
+            app:layout_constraintStart_toEndOf="@+id/tv_my_stats"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/under_bar_total_stats"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:background="@color/gray_1c"
             android:layout_marginEnd="16dp"
+            android:background="@color/gray_1c"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/under_bar_my_stats"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/under_bar_my_stats" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,13 +124,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintHorizontal_chainStyle="packed"
         android:gravity="center"
         android:textColor="@color/secondary"
+        app:layout_constraintBottom_toBottomOf="@id/bg_search"
         app:layout_constraintEnd_toStartOf="@id/tv_word_description"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/bg_search"
         app:layout_constraintTop_toTopOf="@+id/bg_search"
-        app:layout_constraintBottom_toBottomOf="@id/bg_search"
         tools:text="test" />
 
     <TextView
@@ -140,10 +141,10 @@
         android:gravity="center"
         android:text="(이)라는 단어는"
         android:textColor="@color/gray_35"
+        app:layout_constraintBottom_toBottomOf="@id/tv_searched_word"
         app:layout_constraintEnd_toEndOf="@id/bg_search"
         app:layout_constraintStart_toEndOf="@+id/tv_searched_word"
-        app:layout_constraintTop_toTopOf="@+id/tv_searched_word"
-        app:layout_constraintBottom_toBottomOf="@id/tv_searched_word"/>
+        app:layout_constraintTop_toTopOf="@+id/tv_searched_word" />
 
     <TextView
         android:id="@+id/tv_my_record_count"

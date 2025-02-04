@@ -56,9 +56,9 @@ class RecordRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchRecord(): Result<List<RecommendKeyword>> {
+    override suspend fun searchRecord(keyword: String): Result<List<RecommendKeyword>> {
         return try {
-            val response = dataSource.searchRecord()
+            val response = dataSource.searchRecord(keyword)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
@@ -84,9 +84,11 @@ class RecordRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    Result.success(body.body.information.map {
+                    val temp = body.body.information.filter { it.imageUrl != null }
+
+                    Result.success(temp.map {
                         ImageInfo(
-                            it.imageUrl, it.createAt
+                            it.imageUrl ?: "", it.createAt
                         )
                     })
                 } else {

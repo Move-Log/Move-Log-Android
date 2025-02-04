@@ -12,7 +12,7 @@ interface RecordRepository {
 
     suspend fun getTodayRecord(): Result<List<Int>>
 
-    suspend fun searchRecord(): Result<List<RecommendKeyword>>
+    suspend fun searchRecord(keyword: String): Result<List<RecommendKeyword>>
 
     suspend fun getRecentRecordImages(keywordId: Int): Result<List<ImageInfo>>
 
