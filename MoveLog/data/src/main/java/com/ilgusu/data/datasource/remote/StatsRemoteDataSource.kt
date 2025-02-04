@@ -10,7 +10,7 @@ interface StatsRemoteDataSource {
 
     suspend fun getRecentRecordWord(): Response<List<WordIdStatsResponseDTO>>
 
-    suspend fun myWordStats(): Response<WordStatsResponseDTO>
+    suspend fun myWordStats(keywordId: Int): Response<WordStatsResponseDTO>
 
-    suspend fun allWordStats(): Response<WordStatsResponseDTO>
+    suspend fun allWordStats(keyword: String): Response<WordStatsResponseDTO>
 }

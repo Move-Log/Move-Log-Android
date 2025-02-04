@@ -4,6 +4,6 @@ data class WordStats(
     val avgDailyRecord: Double,
     val avgWeeklyRecord: Double,
     val count: Int,
-    val lastRecordedAt: String,
+    val lastRecordedAt: String?,
     val noun: String
 )

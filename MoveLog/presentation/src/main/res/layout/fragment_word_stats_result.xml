@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cl_word_result"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_search"
+        android:contentDescription="@string/logo" />
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        style="@style/ibm_plex_l3"
+        android:textColor="@color/gray_35"
+        android:textColorHint="@color/gray_7f"
+        android:paddingHorizontal="16dp"
+        android:gravity="center_vertical|start"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_back"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector_word_input"
+        tools:ignore="Autofill" />
+
+    <ImageButton
+        android:id="@+id/ib_search"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_search"
+        android:background="@null"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@id/tv_search"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search"
+        app:layout_constraintEnd_toEndOf="@id/tv_search"
+        android:layout_margin="16dp"
+        android:visibility="visible"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search" >
+
+        <TextView
+            android:id="@+id/tv_my_stats"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="나의 통계"
+            android:textColor="@color/gray_1c"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_total_stats"
+            style="@style/ibm_plex_l1" />
+
+        <View
+            android:id="@+id/under_bar_my_stats"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gray_1c"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/under_bar_total_stats"/>
+
+        <TextView
+            android:id="@+id/tv_total_stats"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="전체 통계"
+            android:textColor="@color/gray_1c"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_my_stats"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/ibm_plex_l1" />
+
+        <View
+            android:id="@+id/under_bar_total_stats"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gray_1c"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/under_bar_my_stats"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e1"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_tab" />
+
+    <View
+        android:id="@+id/bg_search"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="@color/gray_f3"
+        app:layout_constraintTop_toBottomOf="@id/cl_tab"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tv_searched_word"
+        style="@style/ibm_plex_t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:gravity="center"
+        android:textColor="@color/secondary"
+        app:layout_constraintEnd_toStartOf="@id/tv_word_description"
+        app:layout_constraintStart_toStartOf="@+id/bg_search"
+        app:layout_constraintTop_toTopOf="@+id/bg_search"
+        app:layout_constraintBottom_toBottomOf="@id/bg_search"
+        tools:text="test" />
+
+    <TextView
+        android:id="@+id/tv_word_description"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="(이)라는 단어는"
+        android:textColor="@color/gray_35"
+        app:layout_constraintEnd_toEndOf="@id/bg_search"
+        app:layout_constraintStart_toEndOf="@+id/tv_searched_word"
+        app:layout_constraintTop_toTopOf="@+id/tv_searched_word"
+        app:layout_constraintBottom_toBottomOf="@id/tv_searched_word"/>
+
+    <TextView
+        android:id="@+id/tv_my_record_count"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="내가 기록한 횟수"
+        android:textColor="@color/gray_35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bg_search" />
+
+    <TextView
+        android:id="@+id/tv_last_record_time"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="마지막 기록 일시"
+        android:textColor="@color/gray_35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_my_record_count" />
+
+    <TextView
+        android:id="@+id/tv_average_record"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="평균 일간 기록"
+        android:textColor="@color/gray_35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_record_time" />
+
+    <TextView
+        android:id="@+id/tv_recent_week_record"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="최근 7일 평균 기록"
+        android:textColor="@color/gray_35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_average_record" />
+
+    <TextView
+        android:id="@+id/tv_my_record_count_num"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="N 건"
+        android:textColor="@color/gray_35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bg_search" />
+
+    <TextView
+        android:id="@+id/tv_last_record_time_real"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="yyyy-mm-dd hh:mm"
+        android:textColor="@color/gray_35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_my_record_count_num" />
+
+    <TextView
+        android:id="@+id/tv_average_record_num"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="N.n 건"
+        android:textColor="@color/gray_35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_record_time_real" />
+
+    <TextView
+        android:id="@+id/tv_recent_week_record_num"
+        style="@style/ibm_plex_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="N 건"
+        android:textColor="@color/gray_35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_average_record_num" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        style="@style/ibm_plex_h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="48dp"
+        android:text="검색 결과가 없습니다.\n다른 단어를 입력 보세요!"
+        android:textColor="@color/gray_4d"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/bg_search" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
