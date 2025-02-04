@@ -24,11 +24,11 @@ class StatsRemoteDataSourceImpl @Inject constructor(
         return service.getRecentRecordWord(getAccessTokenWithPrefix())
     }
 
-    override suspend fun myWordStats(): Response<WordStatsResponseDTO> {
-        return service.myWordStats(getAccessTokenWithPrefix())
+    override suspend fun myWordStats(keywordId: Int): Response<WordStatsResponseDTO> {
+        return service.myWordStats(getAccessTokenWithPrefix(), keywordId)
     }
 
-    override suspend fun allWordStats(): Response<WordStatsResponseDTO> {
-        return service.allWordStats(getAccessTokenWithPrefix())
+    override suspend fun allWordStats(keyword: String): Response<WordStatsResponseDTO> {
+        return service.allWordStats(getAccessTokenWithPrefix(), keyword)
     }
 }

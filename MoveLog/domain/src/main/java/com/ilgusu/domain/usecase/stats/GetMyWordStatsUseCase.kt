@@ -8,7 +8,7 @@ class GetMyWordStatsUseCase @Inject constructor(
     private val repository: StatsRepository
 ) {
 
-    suspend operator fun invoke(): Result<WordStats> {
-        return repository.myWordStats()
+    suspend operator fun invoke(keywordId: Int): Result<WordStats> {
+        return repository.myWordStats(keywordId)
     }
 }

@@ -148,11 +148,26 @@
         android:name="com.ilgusu.presentation.view.stats.word.WordStatsFragment"
         android:label="WordStatsFragment"
         app:route="word_stats"
-        tools:layout="@layout/fragment_stats_word"/>
+        tools:layout="@layout/fragment_stats_word">
+        <action
+            android:id="@+id/action_wordStatsFragment_to_wordStatsResultFragment"
+            app:destination="@id/wordStatsResultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsCalendarFragment"
         android:name="com.ilgusu.presentation.view.news.calendar.NewsCalendarFragment"
         android:label="NewsCalendarFragment"
         app:route="news_calendar"
         tools:layout="@layout/fragment_calendar"/>
+    <fragment
+        android:id="@+id/wordStatsResultFragment"
+        android:name="com.ilgusu.presentation.view.stats.word.WordStatsResultFragment"
+        android:label="WordStatsResultFragment"
+        app:route="word_stats_result"
+        tools:layout="@layout/fragment_word_stats_result"
+        >
+        <action
+            android:id="@+id/action_wordStatsResultFragment_to_wordStatsFragment"
+            app:destination="@id/wordStatsFragment" />
+    </fragment>
 </navigation>

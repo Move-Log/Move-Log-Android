@@ -48,9 +48,9 @@ class StatsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun myWordStats(): Result<WordStats> {
+    override suspend fun myWordStats(keywordId: Int): Result<WordStats> {
         return try {
-            val response = dataSource.myWordStats()
+            val response = dataSource.myWordStats(keywordId)
 
             if (response.isSuccessful) {
                 val body = response.body()
@@ -75,9 +75,9 @@ class StatsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun allWordStats(): Result<WordStats> {
+    override suspend fun allWordStats(keyword: String): Result<WordStats> {
         return try {
-            val response = dataSource.allWordStats()
+            val response = dataSource.allWordStats(keyword)
 
             if (response.isSuccessful) {
                 val body = response.body()

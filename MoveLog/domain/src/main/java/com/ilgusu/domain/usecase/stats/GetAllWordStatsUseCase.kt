@@ -8,7 +8,7 @@ class GetAllWordStatsUseCase @Inject constructor(
     private val repository: StatsRepository
 ) {
 
-    suspend operator fun invoke(): Result<WordStats> {
-        return repository.allWordStats()
+    suspend operator fun invoke(keyword: String): Result<WordStats> {
+        return repository.allWordStats(keyword)
     }
 }

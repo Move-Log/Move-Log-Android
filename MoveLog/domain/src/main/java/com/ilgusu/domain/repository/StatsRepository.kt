@@ -9,7 +9,7 @@ interface StatsRepository {
 
     suspend fun getRecentRecordWord(): Result<List<WordIdStats>>
 
-    suspend fun myWordStats(): Result<WordStats>
+    suspend fun myWordStats(keywordId: Int): Result<WordStats>
 
-    suspend fun allWordStats(): Result<WordStats>
+    suspend fun allWordStats(keyword: String): Result<WordStats>
 }
