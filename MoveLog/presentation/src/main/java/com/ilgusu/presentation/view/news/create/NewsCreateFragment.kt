@@ -226,7 +226,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {
@@ -239,7 +239,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {
@@ -252,7 +252,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {

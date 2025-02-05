@@ -56,7 +56,7 @@ class WordStatsResultFragment : BaseFragment<FragmentWordStatsResultBinding>() {
         viewModel.getMyWordStatsState.observe(viewLifecycleOwner) {
             binding.tvMyStats.performClick()
             when (it) {
-                is UiState.Error -> LoggerUtil.e("최근 검색 기록 조회 실패: ${it.message}")
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {}
             }
@@ -65,7 +65,7 @@ class WordStatsResultFragment : BaseFragment<FragmentWordStatsResultBinding>() {
         viewModel.getAllWordStatsState.observe(viewLifecycleOwner) {
             binding.tvMyStats.performClick()
             when (it) {
-                is UiState.Error -> LoggerUtil.e("전체 단어 검색 기록 조회 실패: ${it.message}")
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {}
             }

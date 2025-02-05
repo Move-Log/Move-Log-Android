@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ilgusu.navigation.NavigationManager
+import com.ilgusu.presentation.custom.CustomToast
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
@@ -43,7 +44,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         _binding = inflateBinding()
         return binding.root
@@ -79,10 +80,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected open fun setObserver() {}
 
-    protected fun showToast(msg: String) {
+    protected fun showToast(msg: String, type: Int = 0) {
         currentToast?.cancel()
-//        currentToast = CustomToast.makeToast(requireContext(), msg)
-        currentToast = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
+        currentToast = CustomToast.makeToast(requireContext(), msg, type)
         currentToast?.show()
     }
 

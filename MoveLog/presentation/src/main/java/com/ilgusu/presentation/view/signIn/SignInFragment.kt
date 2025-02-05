@@ -47,7 +47,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
         viewModel.loginState.observe(viewLifecycleOwner) {
             when(it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> { showToast(it.message) }
+                is UiState.Error -> { showToast(it.message, 2) }
                 is UiState.Success -> {
                     val route = if(it.data) NavigationRoutes.Home else NavigationRoutes.Terms
                     moveToNext(route)

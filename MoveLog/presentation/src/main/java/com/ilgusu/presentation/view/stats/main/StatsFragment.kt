@@ -150,7 +150,7 @@ class StatsFragment : BaseFragment<FragmentStatsBinding>() {
         viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> showToast(it.message)
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
                     binding.tvTotalCount.text = changeTextColor(it.data.totalRecords.toString())
                     binding.tvAvgDailyCount.text =

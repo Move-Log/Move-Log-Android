@@ -83,7 +83,7 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
     override fun setObserver() {
         viewModel.getRecentRecordWordState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Error -> LoggerUtil.e("최근 검색 기록 조회 실패: ${it.message}")
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {
                     recommendWordRvAdapter.list = it.data.toMutableList()
@@ -94,7 +94,7 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
 
         viewModel.searchWordState.observe(viewLifecycleOwner) {
             when(it) {
-                is UiState.Error -> LoggerUtil.e("전체 단어 검색 기록 조회 실패: ${it.message}")
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {
                     binding.tvSearchResult.visibility = if (it.data.isEmpty()) View.GONE else View.VISIBLE

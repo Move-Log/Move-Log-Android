@@ -83,7 +83,7 @@ class NewsCalendarFragment : BaseFragment<FragmentCalendarBinding>() {
     override fun setObserver() {
         viewModel.monthState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Error -> LoggerUtil.e("해당 달 정보 조회 실패: ${it.message}")
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {
                     binding.tvIfNoRecord.visibility =

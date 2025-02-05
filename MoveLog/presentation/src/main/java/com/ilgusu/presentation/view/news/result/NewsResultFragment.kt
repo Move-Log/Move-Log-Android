@@ -64,7 +64,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {
