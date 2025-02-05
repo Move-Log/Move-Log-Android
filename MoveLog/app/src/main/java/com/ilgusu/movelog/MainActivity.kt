@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> setNavGraph(false)
-                is UiState.Success -> setNavGraph(false)
+                is UiState.Success -> setNavGraph(true)
             }
         }
 

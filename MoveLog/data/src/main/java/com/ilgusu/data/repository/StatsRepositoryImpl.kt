@@ -1,6 +1,8 @@
 package com.ilgusu.data.repository
 
 import com.ilgusu.data.datasource.remote.StatsRemoteDataSource
+import com.ilgusu.domain.model.stats.AllRecordStats
+import com.ilgusu.domain.model.stats.TopRecord
 import com.ilgusu.domain.model.stats.WordIdStats
 import com.ilgusu.domain.model.stats.WordStats
 import com.ilgusu.domain.repository.StatsRepository
@@ -91,6 +93,45 @@ class StatsRepositoryImpl @Inject constructor(
                             lastRecordedAt = it.lastRecordedAt
                         )
                     })
+                } else {
+                    throw Exception("Body is null")
+                }
+            } else {
+                throw Exception("Request is failure")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getAllRecordStats(
+        category: String,
+        period: String,
+        month: String?,
+    ): Result<AllRecordStats> {
+        return try {
+            val response = dataSource.getAllRecordStats(category, period, month)
+
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(
+                        AllRecordStats(
+                            category = body.category,
+                            totalRecords = body.totalRecords,
+                            avgDailyRecord = body.avgDailyRecord,
+                            topRecords = body.topRecords.map {
+                                TopRecord(
+                                    count = it.count,
+                                    keyword = it.keyword,
+                                    rank = it.rank,
+                                    trend = it.trend
+                                )
+                            },
+                            maxDailyRecord = body.maxDailyRecord,
+                            maxConsecutiveDays = body.maxConsecutiveDays
+                        )
+                    )
                 } else {
                     throw Exception("Body is null")
                 }

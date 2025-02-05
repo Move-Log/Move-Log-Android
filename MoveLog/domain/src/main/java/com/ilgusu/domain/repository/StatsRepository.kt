@@ -1,5 +1,6 @@
 package com.ilgusu.domain.repository
 
+import com.ilgusu.domain.model.stats.AllRecordStats
 import com.ilgusu.domain.model.stats.WordIdStats
 import com.ilgusu.domain.model.stats.WordStats
 
@@ -12,4 +13,10 @@ interface StatsRepository {
     suspend fun myWordStats(keywordId: Int): Result<WordStats>
 
     suspend fun allWordStats(keyword: String): Result<WordStats>
+
+    suspend fun getAllRecordStats(
+        category: String,
+        period: String,
+        month: String? = null,
+    ): Result<AllRecordStats>
 }

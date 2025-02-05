@@ -1,5 +1,6 @@
 package com.ilgusu.data.service
 
+import com.ilgusu.data.model.stats.GetAllRecordStatsResponseDTO
 import com.ilgusu.data.model.stats.WordIdStatsResponseDTO
 import com.ilgusu.data.model.stats.WordStatsResponseDTO
 import retrofit2.Response
@@ -32,4 +33,12 @@ interface StatsService {
         @Header("Authorization") accessToken: String,
         @Query("keyword") keyword: String
     ): Response<WordStatsResponseDTO>
+
+    @GET("/api/v1/stats/record/all")
+    suspend fun getAllRecordStats(
+        @Header("Authorization") accessToken: String,
+        @Query("category") category: String,
+        @Query("period") period: String,
+        @Query("month") month: String? = null,
+    ): Response<GetAllRecordStatsResponseDTO>
 }
