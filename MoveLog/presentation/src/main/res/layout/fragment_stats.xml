@@ -1,37 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <Toolbar
-        android:id="@+id/tb_news_recent"
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_logo"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toStartOf="@id/tv_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_search"
+        style="@style/ibm_plex_l3"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector_word_input"
+        android:gravity="center_vertical|start"
+        android:paddingHorizontal="16dp"
+        android:text="원하는 단어를 검색해 보세요."
+        android:textColor="@color/gray_7f"
+        app:layout_constraintBottom_toBottomOf="@id/iv_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_logo"
+        app:layout_constraintTop_toTopOf="@id/iv_logo" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_search"
+        android:tint="@color/gray_66"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search"
+        app:layout_constraintEnd_toEndOf="@id/tv_search"
+        app:layout_constraintTop_toTopOf="@id/tv_search" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintTop_toBottomOf="@id/tv_search">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/ic_logo"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:id="@+id/tv_search"
-            style="@style/ibm_plex_l3"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/ic_title_for_time"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:text="원하는 단어를 검색해 보세요"
-            android:textColor="@color/gray_7f" />
+            android:layout_height="match_parent">
 
-    </Toolbar>
+            <View
+                android:id="@+id/bg_selector"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/selector_word_input"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintDimensionRatio="328:48"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_do"
+                style="@style/ibm_plex_h2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="했어요"
+                android:textColor="@color/gray_1c"
+                app:layout_constraintBottom_toBottomOf="@id/bg_selector"
+                app:layout_constraintEnd_toStartOf="@id/divider_1"
+                app:layout_constraintStart_toStartOf="@id/bg_selector"
+                app:layout_constraintTop_toTopOf="@id/bg_selector" />
+
+            <View
+                android:id="@+id/divider_1"
+                android:layout_width="1.5dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/gray_e1"
+                app:layout_constraintBottom_toBottomOf="@id/bg_selector"
+                app:layout_constraintEnd_toStartOf="@id/tv_go"
+                app:layout_constraintStart_toEndOf="@id/tv_do"
+                app:layout_constraintTop_toTopOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_go"
+                style="@style/ibm_plex_h2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="갔어요"
+                android:textColor="@color/gray_7f"
+                app:layout_constraintBottom_toBottomOf="@id/bg_selector"
+                app:layout_constraintEnd_toStartOf="@id/divider_2"
+                app:layout_constraintStart_toEndOf="@id/divider_1"
+                app:layout_constraintTop_toTopOf="@id/bg_selector" />
+
+            <View
+                android:id="@+id/divider_2"
+                android:layout_width="1.5dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/gray_e1"
+                app:layout_constraintBottom_toBottomOf="@id/bg_selector"
+                app:layout_constraintEnd_toStartOf="@id/tv_eat"
+                app:layout_constraintStart_toEndOf="@id/tv_go"
+                app:layout_constraintTop_toTopOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_eat"
+                style="@style/ibm_plex_h2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="먹었어요"
+                android:textColor="@color/gray_7f"
+                app:layout_constraintBottom_toBottomOf="@id/bg_selector"
+                app:layout_constraintEnd_toEndOf="@id/bg_selector"
+                app:layout_constraintStart_toEndOf="@id/divider_2"
+                app:layout_constraintTop_toTopOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_chip_total"
+                style="@style/ibm_plex_l3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/shape_chip"
+                android:paddingHorizontal="16dp"
+                android:text="누적"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@id/tv_chip_daily"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_chip_daily"
+                style="@style/ibm_plex_l3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/shape_chip_disable"
+                android:backgroundTint="@color/gray_e1"
+                android:paddingHorizontal="16dp"
+                android:text="일간"
+                android:textColor="@color/gray_4d"
+                app:layout_constraintEnd_toStartOf="@id/tv_chip_weekly"
+                app:layout_constraintStart_toEndOf="@id/tv_chip_total"
+                app:layout_constraintTop_toBottomOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_chip_weekly"
+                style="@style/ibm_plex_l3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/shape_chip_disable"
+                android:backgroundTint="@color/gray_e1"
+                android:paddingHorizontal="16dp"
+                android:text="주간"
+                android:textColor="@color/gray_4d"
+                app:layout_constraintEnd_toStartOf="@id/tv_chip_monthly"
+                app:layout_constraintStart_toEndOf="@id/tv_chip_daily"
+                app:layout_constraintTop_toBottomOf="@id/bg_selector" />
+
+            <TextView
+                android:id="@+id/tv_chip_monthly"
+                style="@style/ibm_plex_l3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/shape_chip_disable"
+                android:backgroundTint="@color/gray_e1"
+                android:paddingHorizontal="16dp"
+                android:text="월간"
+                android:textColor="@color/gray_4d"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_chip_weekly"
+                app:layout_constraintTop_toBottomOf="@id/bg_selector" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:minHeight="200dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_chip_total"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_rank" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray_f3"
+                app:layout_constraintTop_toBottomOf="@id/rv_rank" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="총 기록 생성 건수"
+                android:textColor="@color/gray_35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/divider" />
+
+            <TextView
+                android:id="@+id/tv_total_count"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/gray_35"
+                app:layout_constraintBottom_toBottomOf="@id/tv_total"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_total"
+                tools:text="N건" />
+
+            <TextView
+                android:id="@+id/tv_max_consecutive"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="최고 연속 기록"
+                android:textColor="@color/gray_35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_total" />
+
+            <TextView
+                android:id="@+id/tv_max_consecutive_count"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/gray_35"
+                app:layout_constraintBottom_toBottomOf="@id/tv_max_consecutive"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_max_consecutive"
+                tools:text="N건" />
+
+            <TextView
+                android:id="@+id/tv_avg_daily"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="평균 일간 기록"
+                android:textColor="@color/gray_35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_max_consecutive" />
+
+            <TextView
+                android:id="@+id/tv_avg_daily_count"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/gray_35"
+                app:layout_constraintBottom_toBottomOf="@id/tv_avg_daily"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_avg_daily"
+                tools:text="N건" />
+
+            <TextView
+                android:id="@+id/tv_max_daily"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="일일 최다 기록"
+                android:textColor="@color/gray_35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_avg_daily" />
+
+            <TextView
+                android:id="@+id/tv_max_daily_count"
+                style="@style/ibm_plex_h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/gray_35"
+                app:layout_constraintBottom_toBottomOf="@id/tv_max_daily"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_max_daily"
+                tools:text="N건" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
 
     <include
         android:id="@+id/bottom_nav"

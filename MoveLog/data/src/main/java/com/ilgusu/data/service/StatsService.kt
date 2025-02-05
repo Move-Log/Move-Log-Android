@@ -1,5 +1,6 @@
 package com.ilgusu.data.service
 
+import com.ilgusu.data.model.stats.GetAllRecordStatsResponseDTO
 import com.ilgusu.data.model.stats.WordIdStatsResponseDTO
 import com.ilgusu.data.model.stats.WordStatsResponseDTO
 import retrofit2.Response
