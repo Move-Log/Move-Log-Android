@@ -1,5 +1,6 @@
 package com.ilgusu.data.datasource.remote
 
+import com.ilgusu.data.model.stats.GetAllRecordStatsResponseDTO
 import com.ilgusu.data.model.stats.WordIdStatsResponseDTO
 import com.ilgusu.data.model.stats.WordStatsResponseDTO
 import com.ilgusu.data.service.StatsService
@@ -30,5 +31,13 @@ class StatsRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun allWordStats(keyword: String): Response<WordStatsResponseDTO> {
         return service.allWordStats(getAccessTokenWithPrefix(), keyword)
+    }
+
+    override suspend fun getAllRecordStats(
+        category: String,
+        period: String,
+        month: String?
+    ): Response<GetAllRecordStatsResponseDTO> {
+        return service.getAllRecordStats(getAccessTokenWithPrefix(), category, period, month)
     }
 }

@@ -32,4 +32,12 @@ interface StatsService {
         @Header("Authorization") accessToken: String,
         @Query("keyword") keyword: String
     ): Response<WordStatsResponseDTO>
+
+    @GET("/api/v1/stats/record/all")
+    suspend fun getAllRecordStats(
+        @Header("Authorization") accessToken: String,
+        @Query("category") category: String,
+        @Query("period") period: String,
+        @Query("month") month: String? = null,
+    ): Response<GetAllRecordStatsResponseDTO>
 }
