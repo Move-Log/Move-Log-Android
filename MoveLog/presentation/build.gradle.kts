@@ -60,4 +60,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
+
+    implementation("com.github.ybq:Android-SpinKit:1.4.0")
 }

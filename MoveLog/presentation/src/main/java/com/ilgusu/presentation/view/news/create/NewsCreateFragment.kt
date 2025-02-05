@@ -226,7 +226,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {
@@ -239,7 +239,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
 
                 is UiState.Success -> {
@@ -250,14 +250,16 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         viewModel.headlineState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> {}
+                is UiState.Loading -> { showLoadingDialog() }
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
+                    dismissLoadingDialog()
                 }
 
                 is UiState.Success -> {
                     binding.viewCreate4.tvOption1.text = it.data[0]
                     binding.viewCreate4.tvOption2.text = it.data[1]
+                    dismissLoadingDialog()
                 }
             }
         }

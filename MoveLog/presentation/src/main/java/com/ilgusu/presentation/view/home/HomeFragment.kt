@@ -144,7 +144,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.recordState.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> showToast(it.message)
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
                     val secondaryColor = ContextCompat.getColor(requireContext(), R.color.secondary)
                     it.data.forEach { type ->
@@ -166,7 +166,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.newsRecordState.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> showToast(it.message)
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
                     for (i in 1..it.data) {
                         when (i) {
@@ -184,7 +184,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.currentImageState.observe(viewLifecycleOwner){
             when(it) {
                 is UiState.Loading -> {}
-                is UiState.Error -> showToast(it.message)
+                is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
                     myRecentNewsAdapter = RvMyRecentNewsAdapter()
                     myRecentNewsAdapter.list = it.data.toMutableList()

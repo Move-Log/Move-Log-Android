@@ -83,7 +83,7 @@ class TermsFragment : BaseFragment<FragmentTermsBinding>() {
         viewModel.uiState.observe(viewLifecycleOwner){
             when(it){
                 is UiState.Error -> {
-                    showToast(it.message)
+                    showToast(it.message, 2)
                 }
                 is UiState.Loading -> {}
                 is UiState.Success -> {

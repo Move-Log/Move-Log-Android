@@ -1,5 +1,6 @@
 package com.ilgusu.presentation.base
 
+import android.R
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
@@ -8,19 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.ilgusu.navigation.NavigationManager
+import com.ilgusu.presentation.custom.CustomToast
+import com.ilgusu.presentation.custom.LoadingDialog
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
+
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
     private var currentToast: Toast? = null
+    private lateinit var mLoadingDialog: LoadingDialog
 
     @Inject
     lateinit var navigationManager: NavigationManager
@@ -43,7 +50,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         _binding = inflateBinding()
         return binding.root
@@ -79,11 +86,21 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected open fun setObserver() {}
 
-    protected fun showToast(msg: String) {
+    protected fun showToast(msg: String, type: Int = 0) {
         currentToast?.cancel()
-//        currentToast = CustomToast.makeToast(requireContext(), msg)
-        currentToast = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
+        currentToast = CustomToast.makeToast(requireContext(), msg, type)
         currentToast?.show()
+    }
+
+    fun showLoadingDialog() {
+        mLoadingDialog = LoadingDialog(requireContext())
+        mLoadingDialog.show()
+    }
+
+    fun dismissLoadingDialog() {
+        if (mLoadingDialog.isShowing) {
+            mLoadingDialog.dismiss()
+        }
     }
 
     protected open fun onKeyboardVisibilityChanged(isVisible: Boolean) {}
