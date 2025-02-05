@@ -4,8 +4,6 @@ import com.ilgusu.data.model.stats.GetAllRecordStatsResponseDTO
 import com.ilgusu.data.model.stats.WordIdStatsResponseDTO
 import com.ilgusu.data.model.stats.WordStatsResponseDTO
 import retrofit2.Response
-import retrofit2.http.Header
-import retrofit2.http.Query
 
 interface StatsRemoteDataSource {
 
