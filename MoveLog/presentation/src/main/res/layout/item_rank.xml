@@ -10,45 +10,44 @@
         style="@style/ibm_plex_h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_noun"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_noun"
-        android:layout_marginEnd="16dp"
         tools:text="1" />
 
     <TextView
         android:id="@+id/tv_noun"
+        style="@style/ibm_plex_h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="키워드"
-        style="@style/ibm_plex_h2"
         android:textColor="@color/gray_35"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_rank"
+        app:layout_constraintEnd_toStartOf="@id/iv_trend"
         app:layout_constraintStart_toEndOf="@id/tv_rank"
-        app:layout_constraintEnd_toStartOf="@id/iv_trend"/>
+        app:layout_constraintTop_toTopOf="@id/tv_rank"
+        tools:text="키워드" />
 
     <ImageView
         android:id="@+id/iv_trend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_rank_same"
-        android:tint="@color/gray_b0"
         android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_noun"/>
+        app:layout_constraintStart_toEndOf="@id/tv_noun"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_triangle" />
 
     <TextView
         android:id="@+id/tv_count"
+        style="@style/ibm_plex_h3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="N건"
-        style="@style/ibm_plex_h3"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/gray_35"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/gray_35"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="N건" />
 </androidx.constraintlayout.widget.ConstraintLayout>

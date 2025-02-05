@@ -56,7 +56,7 @@ class AllStatsRankRvAdapter : ListAdapter<TopRecord, RecyclerView.ViewHolder>(ne
 
             val trendResourceId = when (item.trend) {
                 "up", "down" -> R.drawable.ic_triangle
-                else -> R.drawable.ic_rank_same
+                else -> 0
             }
 
             binding.ivTrend.setImageResource(trendResourceId)
@@ -72,12 +72,6 @@ class AllStatsRankRvAdapter : ListAdapter<TopRecord, RecyclerView.ViewHolder>(ne
 
                     binding.ivTrend.imageTintList = ColorStateList.valueOf(
                         ContextCompat.getColor(itemView.context, R.color.secondary)
-                    )
-                }
-
-                else -> {
-                    binding.ivTrend.imageTintList = ColorStateList.valueOf(
-                        ContextCompat.getColor(itemView.context, R.color.gray_b0)
                     )
                 }
             }

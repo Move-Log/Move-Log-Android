@@ -55,20 +55,10 @@ class WordStatsResultFragment : BaseFragment<FragmentWordStatsResultBinding>() {
     override fun setObserver() {
         viewModel.getMyWordStatsState.observe(viewLifecycleOwner) {
             binding.tvMyStats.performClick()
-            when (it) {
-                is UiState.Error -> showToast(it.message, 2)
-                is UiState.Loading -> {}
-                is UiState.Success -> {}
-            }
         }
 
         viewModel.getAllWordStatsState.observe(viewLifecycleOwner) {
             binding.tvMyStats.performClick()
-            when (it) {
-                is UiState.Error -> showToast(it.message, 2)
-                is UiState.Loading -> {}
-                is UiState.Success -> {}
-            }
         }
 
         viewModel.tabState.observe(viewLifecycleOwner) {
