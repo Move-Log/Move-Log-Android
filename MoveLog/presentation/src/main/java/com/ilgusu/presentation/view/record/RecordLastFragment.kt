@@ -75,12 +75,14 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
 
         viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> {}
+                is UiState.Loading -> { showLoadingDialog() }
                 is UiState.Error -> {
                     showToast(it.message, 2)
+                    dismissLoadingDialog()
                 }
 
                 is UiState.Success -> {
+                    dismissLoadingDialog()
                     RecordResultDialog(
                         requireContext(),
                         onMoveHome = { navigate(NavigationRoutes.Home) },

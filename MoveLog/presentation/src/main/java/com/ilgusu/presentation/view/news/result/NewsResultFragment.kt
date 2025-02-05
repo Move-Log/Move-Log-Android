@@ -62,12 +62,14 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>() {
 
         viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> {}
+                is UiState.Loading -> { showLoadingDialog() }
                 is UiState.Error -> {
                     showToast(it.message, 2)
+                    dismissLoadingDialog()
                 }
 
                 is UiState.Success -> {
+                    dismissLoadingDialog()
                     lifecycleScope.launch {
                         navigationManager.navigate(
                             NavigationCommand.ToRouteAndClear(NavigationRoutes.Home)
