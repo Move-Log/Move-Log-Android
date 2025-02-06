@@ -15,8 +15,8 @@ android {
         applicationId = "com.ilgusu.movelog"
         minSdk = 29
         targetSdk = 34
-        versionCode = 8
-        versionName = "1.0.3"
+        versionCode = 10
+        versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

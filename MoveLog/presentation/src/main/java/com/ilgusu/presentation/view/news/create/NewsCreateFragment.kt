@@ -25,13 +25,11 @@ import com.ilgusu.presentation.databinding.FragmentNewsCreateBinding
 import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.OnClickRvItemListener
 import com.ilgusu.presentation.util.UiState
-import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.io.IOException
 
 @AndroidEntryPoint
 class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
@@ -231,13 +229,6 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
     override fun setObserver() {
         super.setObserver()
-
-        viewModel.toastState.observe(viewLifecycleOwner) {
-            if (it) {
-                showToast("이미지 크기는 최대 5MB입니다")
-                viewModel.setToastState()
-            }
-        }
 
         viewModel.currentStep.observe(viewLifecycleOwner) {
             binding.stepProgressView.setCurrentStep(it, 4)
