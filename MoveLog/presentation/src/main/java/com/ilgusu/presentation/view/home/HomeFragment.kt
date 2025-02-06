@@ -204,10 +204,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             page.translationX = -myOffset
                         } else if (position <= 1) {
                             // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
-//                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
+                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
                             page.translationX = myOffset
-//                            page.scaleY = scaleFactor
-//                            page.alpha = scaleFactor
+                            page.scaleY = scaleFactor
+                            page.alpha = scaleFactor
                         } else {
                             page.alpha = 0f
                             page.translationX = myOffset
