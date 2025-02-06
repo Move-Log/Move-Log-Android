@@ -243,6 +243,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 is UiState.Success -> {
+                    binding.viewCreate3.tvEmpty.visibility = if(it.data.any { data -> data.imageUrl.isNotBlank() }) View.GONE else View.VISIBLE
                     newsImageRvAdapter.submitList(it.data)
                 }
             }
