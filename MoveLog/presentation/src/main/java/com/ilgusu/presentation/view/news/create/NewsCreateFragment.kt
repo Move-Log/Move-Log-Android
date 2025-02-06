@@ -28,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import java.io.IOException
 
 @AndroidEntryPoint
 class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
@@ -38,8 +39,16 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     private val imagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                viewModel.setFile(ImageUtil.createImageFile(requireContext(), uri))
-                binding.viewCreate3.tvSelectedData.text = uri.path?.substringAfterLast("/")
+                try {
+                    viewModel.setFile(ImageUtil.createImageFile(requireContext(), uri))
+                    binding.viewCreate3.tvSelectedData.text = uri.path?.substringAfterLast("/")
+                } catch (e: ImageUtil.ImageSizeExceededException) {
+                    showToast("이미지가 너무 커요")
+                } catch (e: IOException) {
+                    showToast("유효하지 않는 URI")
+                } catch (e: IllegalArgumentException) {
+                    showToast("EXIF 정보 일기 오류")
+                }
             }
         }
 
@@ -121,7 +130,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         binding.viewCreate4.tvOption1.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            if(binding.viewCreate4.tvOption1.text.isNotBlank()) {
+            if (binding.viewCreate4.tvOption1.text.isNotBlank()) {
                 viewModel.setHeadline(
                     binding.viewCreate4.tvOption1.text.toString()
                 )
@@ -130,7 +139,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         binding.viewCreate4.tvOption2.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            if(binding.viewCreate4.tvOption2.text.isNotBlank()) {
+            if (binding.viewCreate4.tvOption2.text.isNotBlank()) {
                 viewModel.setHeadline(
                     binding.viewCreate4.tvOption2.text.toString()
                 )
@@ -160,7 +169,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         })
     }
 
-    private fun showNounSearchDialog(){
+    private fun showNounSearchDialog() {
         NounSearchDialog(
             onConfirm = {
                 newsKeywordRvAdapter.resetSelectedItem()
@@ -243,7 +252,8 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 is UiState.Success -> {
-                    binding.viewCreate3.tvEmpty.visibility = if(it.data.any { data -> data.imageUrl.isNotBlank() }) View.GONE else View.VISIBLE
+                    binding.viewCreate3.tvEmpty.visibility =
+                        if (it.data.any { data -> data.imageUrl.isNotBlank() }) View.GONE else View.VISIBLE
                     newsImageRvAdapter.submitList(it.data)
                 }
             }
@@ -251,7 +261,10 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         viewModel.headlineState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> { showLoadingDialog() }
+                is UiState.Loading -> {
+                    showLoadingDialog()
+                }
+
                 is UiState.Error -> {
                     showToast(it.message, 2)
                     dismissLoadingDialog()
