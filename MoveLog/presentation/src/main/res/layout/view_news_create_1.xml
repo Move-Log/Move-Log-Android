@@ -72,4 +72,17 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_selected_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_selected_data" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뉴스로 만들 수 있는 기록이 없어요"
+        android:textColor="@color/gray_4d"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/tv_direct_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recommend_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

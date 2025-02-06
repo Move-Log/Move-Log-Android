@@ -17,6 +17,7 @@ import com.ilgusu.domain.enum.RecordOption
 import com.ilgusu.domain.model.news.ImageInfo
 import com.ilgusu.domain.model.news.RecommendKeyword
 import com.ilgusu.navigation.NavigationCommand
+import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentNewsCreateBinding
@@ -104,12 +105,24 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         }
 
         binding.viewCreate1.tvSelectedData.setOnClickListener {
-            showNounSearchDialog()
+            if(newsKeywordRvAdapter.currentList.isEmpty()) {
+                lifecycleScope.launch {
+                    navigationManager.navigate(NavigationCommand.ToRoute(NavigationRoutes.Record))
+                }
+            } else {
+                showNounSearchDialog()
+            }
+
         }
         binding.viewCreate1.ivSelectedData.setOnClickListener {
-            showNounSearchDialog()
+            if(newsKeywordRvAdapter.currentList.isEmpty()) {
+                lifecycleScope.launch {
+                    navigationManager.navigate(NavigationCommand.ToRoute(NavigationRoutes.Record))
+                }
+            } else {
+                showNounSearchDialog()
+            }
         }
-
 
         binding.viewCreate2.tvHeadlineType1.setOnClickListener { setHeadlineType("첫 도전") }
         binding.viewCreate2.tvHeadlineType2.setOnClickListener { setHeadlineType("오랜만에 다시") }
@@ -239,6 +252,9 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 is UiState.Success -> {
+                    binding.viewCreate1.tvEmpty.visibility = if(it.data.isEmpty()) View.VISIBLE else View.GONE
+                    binding.viewCreate1.tvSelectedData.text = if(it.data.isEmpty()) "일거수일투족 기록하기" else "직접 검색하기"
+                    binding.viewCreate1.tvDirectTitle.text = if(it.data.isEmpty()) "지금 기록하여 뉴스를 생성해 보세요" else "원하는 데이터가 없으신가요?"
                     newsKeywordRvAdapter.submitList(it.data)
                 }
             }

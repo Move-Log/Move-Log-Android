@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_newsCreateFragment_to_newsResultFragment"
             app:destination="@id/newsResultFragment" />
+        <action
+            android:id="@+id/action_newsCreateFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsResultFragment"
