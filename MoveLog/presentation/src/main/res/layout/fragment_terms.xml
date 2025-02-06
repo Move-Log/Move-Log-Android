@@ -61,7 +61,7 @@
         android:gravity="center_vertical"
 
         android:paddingHorizontal="16dp"
-        app:layout_constraintBottom_toTopOf="@id/ll_cb_all"
+        app:layout_constraintBottom_toTopOf="@id/ll_cb_service"
         app:layout_constraintTop_toBottomOf="@id/tv_term_sub_title">
 
         <androidx.appcompat.widget.AppCompatCheckBox
@@ -78,7 +78,37 @@
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
-            android:text="@string/term_privacy_desc"
+            android:text="개인정보 수집 및 이용약관"
+            android:textColor="@color/gray_1c" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_cb_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_cb_all"
+        app:layout_constraintTop_toBottomOf="@id/ll_cb_privacy">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_service"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/selector_checkbox"
+            android:button="@null"
+            android:clickable="false" />
+
+        <TextView
+            style="@style/ibm_plex_h1"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="일거수일투족 서비스 이용 약관"
             android:textColor="@color/gray_1c" />
     </LinearLayout>
 
@@ -92,7 +122,7 @@
 
         android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_cb_privacy">
+        app:layout_constraintTop_toBottomOf="@id/ll_cb_service">
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/cb_all"
@@ -111,6 +141,34 @@
             android:text="@string/term_all"
             android:textColor="@color/gray_1c" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_privacy_move"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="@id/ll_cb_privacy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_cb_privacy"
+        app:tint="@color/primary"/>
+
+    <ImageButton
+        android:id="@+id/ib_service_move"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="@id/ll_cb_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_cb_service"
+        app:tint="@color/primary"/>
 
     <View
         android:id="@+id/divider"

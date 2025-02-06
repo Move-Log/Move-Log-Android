@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -14,6 +16,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "SERVICE_URL", "\"${properties.getProperty("SERVICE_URL")}\"")
+        manifestPlaceholders["SERVICE_URL"] = properties.getProperty("SERVICE_URL")
+
+        buildConfigField("String", "PRIVACY_URL", "\"${properties.getProperty("PRIVACY_URL")}\"")
+        manifestPlaceholders["PRIVACY_URL"] = properties.getProperty("PRIVACY_URL")
     }
 
     buildTypes {
@@ -34,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
