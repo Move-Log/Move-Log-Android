@@ -48,18 +48,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTime()
         setBottomNav()
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - backPressedTime < backPressInterval) {
-                    finishAffinity(requireActivity())
-                    exitProcess(0)
-                } else {
-                    backPressedTime = currentTime
-                    showToast("한 번 더 누르면 종료됩니다")
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - backPressedTime < backPressInterval) {
+                        finishAffinity(requireActivity())
+                        exitProcess(0)
+                    } else {
+                        backPressedTime = currentTime
+                        showToast("한 번 더 누르면 종료됩니다")
+                    }
                 }
-            }
-        })
+            })
     }
 
     private fun setTime() {
@@ -80,7 +82,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         super.initListener()
 
-        binding.vpMyMoveLog.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.vpMyMoveLog.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.circleIndicator.selectDot(position)
@@ -168,21 +171,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 is UiState.Loading -> {}
                 is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
-                    for (i in 1..it.data) {
+                    for (i in 0..it.data) {
                         when (i) {
-                            1 -> binding.imgComplete1.visibility = View.VISIBLE
-                            2 -> binding.imgComplete2.visibility = View.VISIBLE
-                            3 -> binding.imgComplete3.visibility = View.VISIBLE
-                            4 -> binding.imgComplete4.visibility = View.VISIBLE
-                            5 -> binding.imgComplete5.visibility = View.VISIBLE
+                            0 -> binding.imgComplete1.visibility = View.VISIBLE
+                            1 -> binding.imgComplete2.visibility = View.VISIBLE
+                            2 -> binding.imgComplete3.visibility = View.VISIBLE
+                            3 -> binding.imgComplete4.visibility = View.VISIBLE
+                            4 -> binding.imgComplete5.visibility = View.VISIBLE
                         }
                     }
                 }
             }
         }
 
-        viewModel.currentImageState.observe(viewLifecycleOwner){
-            when(it) {
+        viewModel.currentImageState.observe(viewLifecycleOwner) {
+            when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
@@ -201,10 +204,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             page.translationX = -myOffset
                         } else if (position <= 1) {
                             // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
-                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
+//                            val scaleFactor = 0.85f.coerceAtLeast(1 - abs(position))
                             page.translationX = myOffset
-                            page.scaleY = scaleFactor
-                            page.alpha = scaleFactor
+//                            page.scaleY = scaleFactor
+//                            page.alpha = scaleFactor
                         } else {
                             page.alpha = 0f
                             page.translationX = myOffset
@@ -222,9 +225,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun setBottomNav(){
+    private fun setBottomNav() {
         binding.bottomNav.ivHome.setImageResource(R.drawable.ic_home_enabled)
-        binding.bottomNav.tvHome.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
+        binding.bottomNav.tvHome.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray_1c
+            )
+        )
 
         binding.bottomNav.menuNews.setOnClickListener {
             timeJob?.cancel()
