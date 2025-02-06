@@ -12,6 +12,7 @@ import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentRecordLastBinding
 import com.ilgusu.presentation.util.DateUtil
+import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -20,6 +21,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -36,8 +38,17 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
                     .load(uri)
                     .into(binding.ivPhoto)
 
-                binding.ivPhoto.visibility = View.VISIBLE
-                viewModel.setImageFile(requireContext(), uri)
+                try {
+                    val degrees = ImageUtil.getOrientationOfImage(requireContext(), uri)
+                    binding.ivPhoto.visibility = View.VISIBLE
+                    viewModel.setImageFile(requireContext(), uri, degrees = degrees.toFloat())
+                } catch (e: ImageUtil.ImageSizeExceededException) {
+                    showToast("이미지가 너무 커요")
+                } catch (e: IOException) {
+                    showToast("유효하지 않는 URI")
+                } catch (e: IllegalArgumentException) {
+                    showToast("EXIF 정보 일기 오류")
+                }
             }
         }
 
@@ -75,7 +86,10 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
 
         viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> { showLoadingDialog() }
+                is UiState.Loading -> {
+                    showLoadingDialog()
+                }
+
                 is UiState.Error -> {
                     showToast(it.message, 2)
                     dismissLoadingDialog()

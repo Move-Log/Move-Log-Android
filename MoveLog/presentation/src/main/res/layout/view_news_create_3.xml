@@ -32,12 +32,26 @@
         android:id="@+id/rv_recommend_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:paddingVertical="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/tv_direct_title"
         app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
-        tools:itemCount="1"
+        tools:itemCount="0"
         tools:listitem="@layout/item_upload_image" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        style="@style/ibm_plex_h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="해당 단어로 업로드한 사진이 없어요"
+        android:textColor="@color/gray_4d"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/tv_direct_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rv_recommend_data" />
 
     <TextView
         android:id="@+id/tv_direct_title"
@@ -61,6 +75,36 @@
         android:text="@string/create_3_do_other_img"
         android:textColor="@color/gray_7f"
         app:layout_constraintTop_toBottomOf="@id/tv_direct_title" />
+
+    <View
+        android:id="@+id/bg_selected_data"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_direct_search_bg"
+        app:layout_constraintTop_toTopOf="@id/tv_selected_data" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_select_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="bg_selected_data, iv_select_image" />
+
+    <ImageView
+        android:id="@+id/iv_select_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="12dp"
+        android:scaleType="fitCenter"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/bg_selected_data"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="@id/bg_selected_data"
+        app:layout_constraintStart_toStartOf="@id/bg_selected_data"
+        app:layout_constraintTop_toTopOf="@id/bg_selected_data"
+        tools:src="@drawable/icon_check" />
+
 
     <ImageView
         android:id="@+id/iv_selected_data"

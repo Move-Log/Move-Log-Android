@@ -97,8 +97,9 @@ class WordStatsResultFragment : BaseFragment<FragmentWordStatsResultBinding>() {
 
     private fun toggleStats(isMyStatsSelected: Boolean) {
         binding.underBarMyStats.visibility = if (isMyStatsSelected) View.VISIBLE else View.INVISIBLE
-        binding.underBarTotalStats.visibility =
-            if (isMyStatsSelected) View.INVISIBLE else View.VISIBLE
+        binding.underBarTotalStats.visibility = if (isMyStatsSelected) View.INVISIBLE else View.VISIBLE
+
+        binding.tvMyRecordCount.text = if(isMyStatsSelected) "내가 기록한 횟수" else "전체 기록 개수"
     }
 
     private fun changeTextColor(text: String) = buildSpannedString {

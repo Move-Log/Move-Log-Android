@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
+import com.ilgusu.presentation.BuildConfig
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentSettingBinding
 import com.ilgusu.presentation.util.UiState
@@ -16,14 +17,7 @@ import kotlinx.coroutines.launch
 class SettingFragment : BaseFragment<FragmentSettingBinding>() {
 
     private val viewModel: SettingViewModel by viewModels()
-    private val serviceUrl =
-        "https://amusing-consonant-8d3.notion.site/172968a00fd180f09f15eea77cd519a8?pvs=4"
-    private val privacyUrl =
-        "https://amusing-consonant-8d3.notion.site/16f968a00fd180d2b951d7d1c8604be1?pvs=4"
-
-    override fun initView() {
-
-    }
+    override fun initView() {}
 
     override fun initListener() {
         super.initListener()
@@ -34,16 +28,16 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             }
         }
         binding.tvAboutService.setOnClickListener {
-            moveInternet(serviceUrl)
+            moveInternet(BuildConfig.SERVICE_URL)
         }
         binding.tvAboutPrivacy.setOnClickListener {
-            moveInternet(privacyUrl)
+            moveInternet(BuildConfig.PRIVACY_URL)
         }
         binding.btnAboutService.setOnClickListener {
-            moveInternet(serviceUrl)
+            moveInternet(BuildConfig.SERVICE_URL)
         }
         binding.btnAboutPrivacy.setOnClickListener {
-            moveInternet(privacyUrl)
+            moveInternet(BuildConfig.PRIVACY_URL)
         }
 
         binding.btnDeleteAccount.setOnClickListener {

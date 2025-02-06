@@ -1,5 +1,7 @@
 package com.ilgusu.presentation.view.term
 
+import android.content.Intent
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -7,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ilgusu.navigation.NavigationCommand
 import com.ilgusu.navigation.NavigationRoutes
+import com.ilgusu.presentation.BuildConfig
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentTermsBinding
@@ -32,15 +35,27 @@ class TermsFragment : BaseFragment<FragmentTermsBinding>() {
                 binding.cbAll.isChecked = false
             } else {
                 binding.cbPrivacy.isChecked = true
-                binding.cbAll.isChecked = true
+                binding.cbAll.isChecked = binding.cbService.isChecked
+            }
+        }
+
+        binding.llCbService.setOnClickListener {
+            if (binding.cbService.isChecked) {
+                binding.cbService.isChecked = false
+                binding.cbAll.isChecked = false
+            } else {
+                binding.cbService.isChecked = true
+                binding.cbAll.isChecked = binding.cbPrivacy.isChecked
             }
         }
 
         binding.llCbAll.setOnClickListener {
             if (binding.cbAll.isChecked) {
                 binding.cbPrivacy.isChecked = false
+                binding.cbService.isChecked = false
                 binding.cbAll.isChecked = false
             } else {
+                binding.cbService.isChecked = true
                 binding.cbPrivacy.isChecked = true
                 binding.cbAll.isChecked = true
             }
@@ -59,6 +74,15 @@ class TermsFragment : BaseFragment<FragmentTermsBinding>() {
         binding.btnStart.setOnClickListener {
             viewModel.signUp()
         }
+
+        binding.ibPrivacyMove.setOnClickListener { moveInternet(BuildConfig.PRIVACY_URL) }
+
+        binding.ibServiceMove.setOnClickListener { moveInternet(BuildConfig.SERVICE_URL) }
+    }
+
+    private fun moveInternet(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun setTextViewHighlighting() {
@@ -80,11 +104,12 @@ class TermsFragment : BaseFragment<FragmentTermsBinding>() {
     override fun setObserver() {
         super.setObserver()
 
-        viewModel.uiState.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            when (it) {
                 is UiState.Error -> {
                     showToast(it.message, 2)
                 }
+
                 is UiState.Loading -> {}
                 is UiState.Success -> {
                     lifecycleScope.launch {

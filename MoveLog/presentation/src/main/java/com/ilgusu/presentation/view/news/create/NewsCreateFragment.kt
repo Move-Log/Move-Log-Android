@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,17 +18,20 @@ import com.ilgusu.domain.enum.RecordOption
 import com.ilgusu.domain.model.news.ImageInfo
 import com.ilgusu.domain.model.news.RecommendKeyword
 import com.ilgusu.navigation.NavigationCommand
+import com.ilgusu.navigation.NavigationRoutes
 import com.ilgusu.presentation.R
 import com.ilgusu.presentation.base.BaseFragment
 import com.ilgusu.presentation.databinding.FragmentNewsCreateBinding
 import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.OnClickRvItemListener
 import com.ilgusu.presentation.util.UiState
+import com.ilgusu.util.LoggerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import java.io.IOException
 
 @AndroidEntryPoint
 class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
@@ -38,8 +42,22 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     private val imagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                viewModel.setFile(ImageUtil.createImageFile(requireContext(), uri))
-                binding.viewCreate3.tvSelectedData.text = uri.path?.substringAfterLast("/")
+                try {
+                    Glide.with(requireContext())
+                        .load(uri)
+                        .into(binding.viewCreate3.ivSelectImage)
+
+                    viewModel.setFile(ImageUtil.createImageFile(requireContext(), uri))
+                    binding.viewCreate3.groupSelectData.isVisible = uri.path != null
+                    newsImageRvAdapter.resetSelectedItem()
+
+                } catch (e: ImageUtil.ImageSizeExceededException) {
+                    showToast("이미지가 너무 커요")
+                } catch (e: IOException) {
+                    showToast("유효하지 않는 URI")
+                } catch (e: IllegalArgumentException) {
+                    showToast("EXIF 정보 일기 오류")
+                }
             }
         }
 
@@ -95,12 +113,24 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         }
 
         binding.viewCreate1.tvSelectedData.setOnClickListener {
-            showNounSearchDialog()
+            if (newsKeywordRvAdapter.currentList.isEmpty()) {
+                lifecycleScope.launch {
+                    navigationManager.navigate(NavigationCommand.ToRoute(NavigationRoutes.Record))
+                }
+            } else {
+                showNounSearchDialog()
+            }
+
         }
         binding.viewCreate1.ivSelectedData.setOnClickListener {
-            showNounSearchDialog()
+            if (newsKeywordRvAdapter.currentList.isEmpty()) {
+                lifecycleScope.launch {
+                    navigationManager.navigate(NavigationCommand.ToRoute(NavigationRoutes.Record))
+                }
+            } else {
+                showNounSearchDialog()
+            }
         }
-
 
         binding.viewCreate2.tvHeadlineType1.setOnClickListener { setHeadlineType("첫 도전") }
         binding.viewCreate2.tvHeadlineType2.setOnClickListener { setHeadlineType("오랜만에 다시") }
@@ -121,7 +151,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         binding.viewCreate4.tvOption1.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            if(binding.viewCreate4.tvOption1.text.isNotBlank()) {
+            if (binding.viewCreate4.tvOption1.text.isNotBlank()) {
                 viewModel.setHeadline(
                     binding.viewCreate4.tvOption1.text.toString()
                 )
@@ -130,7 +160,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         binding.viewCreate4.tvOption2.setOnClickListener {
             binding.viewCreate4.etHeadline.clearFocus()
-            if(binding.viewCreate4.tvOption2.text.isNotBlank()) {
+            if (binding.viewCreate4.tvOption2.text.isNotBlank()) {
                 viewModel.setHeadline(
                     binding.viewCreate4.tvOption2.text.toString()
                 )
@@ -160,7 +190,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         })
     }
 
-    private fun showNounSearchDialog(){
+    private fun showNounSearchDialog() {
         NounSearchDialog(
             onConfirm = {
                 newsKeywordRvAdapter.resetSelectedItem()
@@ -230,6 +260,12 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 is UiState.Success -> {
+                    binding.viewCreate1.tvEmpty.visibility =
+                        if (it.data.isEmpty()) View.VISIBLE else View.GONE
+                    binding.viewCreate1.tvSelectedData.text =
+                        if (it.data.isEmpty()) "일거수일투족 기록하기" else "직접 검색하기"
+                    binding.viewCreate1.tvDirectTitle.text =
+                        if (it.data.isEmpty()) "지금 기록하여 뉴스를 생성해 보세요" else "원하는 데이터가 없으신가요?"
                     newsKeywordRvAdapter.submitList(it.data)
                 }
             }
@@ -243,6 +279,8 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 }
 
                 is UiState.Success -> {
+                    binding.viewCreate3.tvEmpty.visibility =
+                        if (it.data.any { data -> data.imageUrl.isNotBlank() }) View.GONE else View.VISIBLE
                     newsImageRvAdapter.submitList(it.data)
                 }
             }
@@ -250,7 +288,10 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
 
         viewModel.headlineState.observe(viewLifecycleOwner) {
             when (it) {
-                is UiState.Loading -> { showLoadingDialog() }
+                is UiState.Loading -> {
+                    showLoadingDialog()
+                }
+
                 is UiState.Error -> {
                     showToast(it.message, 2)
                     dismissLoadingDialog()
@@ -282,6 +323,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     }
 
     private fun setStepView(step: Int) {
+        LoggerUtil.d(step.toString())
         binding.viewCreate1.root.visibility = if (step == 1) View.VISIBLE else View.GONE
         binding.viewCreate2.root.visibility = if (step == 2) View.VISIBLE else View.GONE
         binding.viewCreate3.root.visibility = if (step == 3) View.VISIBLE else View.GONE
@@ -353,6 +395,7 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                         setOnRvItemClickListener(object : OnClickRvItemListener<ImageInfo> {
                             override fun onClick(item: ImageInfo) {
                                 setButtonColor(item.imageUrl.isNotBlank())
+                                binding.viewCreate3.groupSelectData.visibility = View.GONE
                             }
                         })
                     }
@@ -365,33 +408,27 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                     newsImageRvAdapter.resetSelectedItem()
                 }
 
-                binding.tvNoun.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.gray_1c
-                    )
-                )
+                binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
+                binding.tvHeadline.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+
+                setButtonColor(viewModel.selectedFile.value != null)
 
                 binding.tvHeadline.visibility = View.VISIBLE
                 binding.newsOverlay.visibility = View.INVISIBLE
                 binding.ivNews.setImageResource(0)
                 viewModel.setHeadline(null)
 
-                binding.tvHeadline.text = viewModel.headlineType.value
+                binding.tvHeadline.text = "\"${viewModel.headlineType.value}\""
+
             }
 
             4 -> {
                 viewModel.setHeadline(null)
                 viewModel.recommendHeadlines()
                 binding.newsOverlay.visibility = View.VISIBLE
-                binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
-                binding.tvHeadline.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white
-                    )
-                )
+                binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.tvHeadline.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                 Glide.with(requireContext())
                     .load(viewModel.selectedFile.value)

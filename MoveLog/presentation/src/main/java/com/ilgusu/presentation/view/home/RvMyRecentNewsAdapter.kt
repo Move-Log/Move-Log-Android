@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ilgusu.presentation.databinding.ItemMyRecentNewsRvBinding
+import com.ilgusu.presentation.util.dpToPx
 
 class RvMyRecentNewsAdapter : RecyclerView.Adapter<RvMyRecentNewsAdapter.ViewHolder>() {
     var list = mutableListOf<String>()
@@ -14,7 +15,7 @@ class RvMyRecentNewsAdapter : RecyclerView.Adapter<RvMyRecentNewsAdapter.ViewHol
         fun bind(item : String) {
             Glide.with(binding.imgRv)
                 .load(item)
-                .transform(RoundedCorners(40))
+                .transform(RoundedCorners(itemView.context.dpToPx(8f).toInt()))
                 .into(binding.imgRv)
         }
     }

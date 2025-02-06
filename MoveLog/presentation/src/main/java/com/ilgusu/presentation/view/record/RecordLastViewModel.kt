@@ -33,10 +33,10 @@ class RecordLastViewModel @Inject constructor(
         _recordType.value = type
     }
 
-    var imageFile: File? = null
+    private var imageFile: File? = null
 
-    fun setImageFile(context: Context, uri: Uri) {
-        imageFile = ImageUtil.createImageFile(context, uri)
+    fun setImageFile(context: Context, uri: Uri, degrees: Float) {
+        imageFile = ImageUtil.createImageFile(context, uri, degrees = degrees)
     }
 
     private val _uiState = MutableLiveData<UiState<Boolean>>()

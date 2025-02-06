@@ -48,18 +48,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTime()
         setBottomNav()
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - backPressedTime < backPressInterval) {
-                    finishAffinity(requireActivity())
-                    exitProcess(0)
-                } else {
-                    backPressedTime = currentTime
-                    showToast("한 번 더 누르면 종료됩니다")
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - backPressedTime < backPressInterval) {
+                        finishAffinity(requireActivity())
+                        exitProcess(0)
+                    } else {
+                        backPressedTime = currentTime
+                        showToast("한 번 더 누르면 종료됩니다")
+                    }
                 }
-            }
-        })
+            })
     }
 
     private fun setTime() {
@@ -80,7 +82,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initListener() {
         super.initListener()
 
-        binding.vpMyMoveLog.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.vpMyMoveLog.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.circleIndicator.selectDot(position)
@@ -181,8 +184,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
 
-        viewModel.currentImageState.observe(viewLifecycleOwner){
-            when(it) {
+        viewModel.currentImageState.observe(viewLifecycleOwner) {
+            when (it) {
                 is UiState.Loading -> {}
                 is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
@@ -222,9 +225,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun setBottomNav(){
+    private fun setBottomNav() {
         binding.bottomNav.ivHome.setImageResource(R.drawable.ic_home_enabled)
-        binding.bottomNav.tvHome.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
+        binding.bottomNav.tvHome.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray_1c
+            )
+        )
 
         binding.bottomNav.menuNews.setOnClickListener {
             timeJob?.cancel()

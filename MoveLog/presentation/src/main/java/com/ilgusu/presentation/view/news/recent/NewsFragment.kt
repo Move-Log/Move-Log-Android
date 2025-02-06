@@ -178,7 +178,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     private fun setBottomNav() {
-        binding.bottomNav.ivNews.setImageResource(R.drawable.ic_pencil_enabled)
+        binding.bottomNav.ivNews.setImageResource(R.drawable.ic_news_enabled)
         binding.bottomNav.tvNews.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
