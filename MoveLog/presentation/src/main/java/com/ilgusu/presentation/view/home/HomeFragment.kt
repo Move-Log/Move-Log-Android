@@ -171,13 +171,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 is UiState.Loading -> {}
                 is UiState.Error -> showToast(it.message, 2)
                 is UiState.Success -> {
-                    for (i in 0..it.data) {
+                    for (i in 1..it.data) {
                         when (i) {
-                            0 -> binding.imgComplete1.visibility = View.VISIBLE
-                            1 -> binding.imgComplete2.visibility = View.VISIBLE
-                            2 -> binding.imgComplete3.visibility = View.VISIBLE
-                            3 -> binding.imgComplete4.visibility = View.VISIBLE
-                            4 -> binding.imgComplete5.visibility = View.VISIBLE
+                            1 -> binding.imgComplete1.visibility = View.VISIBLE
+                            2 -> binding.imgComplete2.visibility = View.VISIBLE
+                            3 -> binding.imgComplete3.visibility = View.VISIBLE
+                            4 -> binding.imgComplete4.visibility = View.VISIBLE
+                            5 -> binding.imgComplete5.visibility = View.VISIBLE
                         }
                     }
                 }
