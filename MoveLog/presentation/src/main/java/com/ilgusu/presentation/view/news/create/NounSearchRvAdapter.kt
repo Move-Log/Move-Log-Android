@@ -47,7 +47,7 @@ class NounSearchRvAdapter :
 
         fun bind(item: RecommendKeyword) {
             binding.tvNoun.text = item.noun
-            binding.tvChip.text = item.noun
+            binding.tvChip.text = item.verb
 
             val imageResource = when (item.verb) {
                 RecordOption.GO.koValue -> R.drawable.ic_foot_prints

@@ -1,6 +1,7 @@
 package com.ilgusu.presentation.view.stats.main
 
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
@@ -82,7 +83,13 @@ class StatsFragment : BaseFragment<FragmentStatsBinding>() {
         rvAdapter = AllStatsRankRvAdapter().apply {
             setOnRvItemClickListener(object : OnClickRvItemListener<String> {
                 override fun onClick(item: String) {
-
+                    lifecycleScope.launch {
+                        navigationManager.navigate(
+                            NavigationCommand.ToRouteWithId(
+                                R.id.action_statsFragment_to_wordStatsFragment,
+                                Bundle().apply { putString("searchKeyword", item) })
+                        )
+                    }
                 }
             })
         }

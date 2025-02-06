@@ -58,7 +58,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
+                val itemTotalCount = recyclerView.adapter?.itemCount?.minus(1) ?: 0
 
                 if (lastVisibleItemPos >= itemTotalCount - 5) {
                     if (!isLoading) {
@@ -70,7 +70,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         })
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initCalendarListener() {
         binding.ivPrevMonth.setOnClickListener {
             updateMonth(-1)
@@ -88,8 +87,11 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
                 is UiState.Error -> LoggerUtil.e("해당 달 정보 조회 실패: ${it.message}")
                 is UiState.Loading -> {}
                 is UiState.Success -> {
-                    binding.tvIfNoRecord.visibility = if (it.data.isEmpty()) View.VISIBLE else View.GONE
+                    binding.tvIfNoRecord.visibility =
+                        if (it.data.isEmpty()) View.VISIBLE else View.GONE
                     recordRvAdapter.submitList(it.data)
+
+                    isLoading = false
                 }
             }
         }
@@ -114,7 +116,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
             override fun onDateSelected(date: Date) {
                 val formattedDate = dateFormat.format(date)
                 val dateFormat = dateFormatForTv.format(date)
-                if(binding.tvCalendarDate.text != dateFormat) recordRvAdapter.submitList(emptyList(), true)
+                if (binding.tvCalendarDate.text != dateFormat) recordRvAdapter.submitList(
+                    emptyList(),
+                    true
+                )
                 binding.tvCalendarDate.text = dateFormat
 
                 viewModel.fetchData(formattedDate)

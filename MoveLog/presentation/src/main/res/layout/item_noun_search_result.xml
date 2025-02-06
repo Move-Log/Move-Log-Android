@@ -57,7 +57,7 @@
         android:id="@+id/ib_arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@drawable/ic_arrow_right"
+        android:src="@drawable/ic_arrow_right"
         android:contentDescription="@null"
         android:rotation="-135"
         app:layout_constraintBottom_toBottomOf="@id/tv_noun"

@@ -22,12 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
+class WordStatsFragment : BaseFragment<FragmentStatsWordBinding>() {
 
     private lateinit var recommendWordRvAdapter: RecommendWordRvAdapter
     private lateinit var searchResultRvAdapter: SearchResultRvAdapter
 
-    private val viewModel : WordStatsViewModel by viewModels()
+    private val viewModel: WordStatsViewModel by viewModels()
 
     override fun initView() {
         viewModel.fetchRecentRecordWords()
@@ -38,13 +38,8 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
         super.initListener()
 
         binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrBlank()) {
@@ -58,8 +53,7 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
             if (hasFocus) {
                 binding.ibClear.visibility = View.VISIBLE
                 binding.ibSearch.visibility = View.GONE
-            }
-            else {
+            } else {
                 binding.ibClear.visibility = View.GONE
                 binding.ibSearch.visibility = View.VISIBLE
             }
@@ -78,6 +72,10 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
                 navigationManager.navigate(NavigationCommand.Back)
             }
         }
+
+        arguments?.let {
+            binding.etSearch.setText(it.getString("searchKeyword"))
+        }
     }
 
     override fun setObserver() {
@@ -93,11 +91,12 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
         }
 
         viewModel.searchWordState.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is UiState.Error -> showToast(it.message, 2)
                 is UiState.Loading -> {}
                 is UiState.Success -> {
-                    binding.tvSearchResult.visibility = if (it.data.isEmpty()) View.GONE else View.VISIBLE
+                    binding.tvSearchResult.visibility =
+                        if (it.data.isEmpty()) View.GONE else View.VISIBLE
                     searchResultRvAdapter.list = it.data.toMutableList()
                     searchResultRvAdapter.notifyDataSetChanged()
                 }
@@ -124,10 +123,12 @@ class WordStatsFragment: BaseFragment<FragmentStatsWordBinding>() {
                 override fun onClick(item: WordIdStats) {
                     lifecycleScope.launch {
                         navigationManager.navigate(
-                            NavigationCommand.ToRouteWithId(R.id.action_wordStatsFragment_to_wordStatsResultFragment, Bundle().apply {
-                                putInt("keywordId", item.keywordId)
-                                putString("noun", item.noun)
-                            })
+                            NavigationCommand.ToRouteWithId(
+                                R.id.action_wordStatsFragment_to_wordStatsResultFragment,
+                                Bundle().apply {
+                                    putInt("keywordId", item.keywordId)
+                                    putString("noun", item.noun)
+                                })
                         )
                     }
                 }

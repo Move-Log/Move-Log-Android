@@ -57,7 +57,7 @@ class NewsCalendarFragment : BaseFragment<FragmentCalendarBinding>() {
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
+                val itemTotalCount = recyclerView.adapter?.itemCount?.minus(1) ?: 0
 
                 if (lastVisibleItemPos >= itemTotalCount - 5) {
                     if (!isLoading) {
@@ -116,7 +116,10 @@ class NewsCalendarFragment : BaseFragment<FragmentCalendarBinding>() {
             override fun onDateSelected(date: Date) {
                 val formattedDate = dateFormat.format(date)
                 val dateFormat = dateFormatForTv.format(date)
-                if(binding.tvCalendarDate.text != dateFormat) newsRvAdapter.submitList(emptyList(), true)
+                if (binding.tvCalendarDate.text != dateFormat) newsRvAdapter.submitList(
+                    emptyList(),
+                    true
+                )
                 binding.tvCalendarDate.text = dateFormat
 
                 viewModel.fetchData(formattedDate)
