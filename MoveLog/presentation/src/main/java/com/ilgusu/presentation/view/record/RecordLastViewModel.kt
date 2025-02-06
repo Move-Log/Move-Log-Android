@@ -1,13 +1,10 @@
 package com.ilgusu.presentation.view.record
 
-import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ilgusu.domain.usecase.record.RecordUseCase
-import com.ilgusu.presentation.util.ImageUtil
 import com.ilgusu.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,8 +32,8 @@ class RecordLastViewModel @Inject constructor(
 
     private var imageFile: File? = null
 
-    fun setImageFile(context: Context, uri: Uri, degrees: Float) {
-        imageFile = ImageUtil.createImageFile(context, uri, degrees = degrees)
+    fun setImageFile(file: File?) {
+        imageFile = file
     }
 
     private val _uiState = MutableLiveData<UiState<Boolean>>()

@@ -42,21 +42,21 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     private val imagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                try {
-                    Glide.with(requireContext())
-                        .load(uri)
-                        .into(binding.viewCreate3.ivSelectImage)
+                showLoadingDialog()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        val degrees = ImageUtil.getOrientationOfImage(requireContext(), uri)
+                        val file = ImageUtil.createImageFile(requireContext(), uri, degrees = degrees.toFloat())
 
-                    viewModel.setFile(ImageUtil.createImageFile(requireContext(), uri))
-                    binding.viewCreate3.groupSelectData.isVisible = uri.path != null
-                    newsImageRvAdapter.resetSelectedItem()
-
-                } catch (e: ImageUtil.ImageSizeExceededException) {
-                    showToast("이미지가 너무 커요")
-                } catch (e: IOException) {
-                    showToast("유효하지 않는 URI")
-                } catch (e: IllegalArgumentException) {
-                    showToast("EXIF 정보 일기 오류")
+                        launch(Dispatchers.Main) {
+                            viewModel.setFile(file)
+                        }
+                    } catch (e: ImageUtil.ImageSizeExceededException) {
+                        launch(Dispatchers.Main) {
+                            dismissLoadingDialog()
+                            showToast("최대 이미지 크기는 5MB 입니다", 2)
+                        }
+                    }
                 }
             }
         }
@@ -232,6 +232,13 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     override fun setObserver() {
         super.setObserver()
 
+        viewModel.toastState.observe(viewLifecycleOwner) {
+            if (it) {
+                showToast("이미지 크기는 최대 5MB입니다")
+                viewModel.setToastState()
+            }
+        }
+
         viewModel.currentStep.observe(viewLifecycleOwner) {
             binding.stepProgressView.setCurrentStep(it, 4)
             setStepView(it)
@@ -241,6 +248,15 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
         viewModel.headlineType.observe(viewLifecycleOwner) { setButtonColor(it != null) }
         viewModel.selectedFile.observe(viewLifecycleOwner) {
             setButtonColor(it != null)
+            binding.viewCreate3.groupSelectData.isVisible = it != null
+            it?.let {
+                dismissLoadingDialog()
+                newsImageRvAdapter.resetSelectedItem()
+
+                Glide.with(requireContext())
+                    .load(it.path)
+                    .into(binding.viewCreate3.ivSelectImage)
+            }
         }
         viewModel.selectedHeadline.observe(viewLifecycleOwner) {
             val selectedRes = R.drawable.shape_recommend_keyword_selected
@@ -323,7 +339,6 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
     }
 
     private fun setStepView(step: Int) {
-        LoggerUtil.d(step.toString())
         binding.viewCreate1.root.visibility = if (step == 1) View.VISIBLE else View.GONE
         binding.viewCreate2.root.visibility = if (step == 2) View.VISIBLE else View.GONE
         binding.viewCreate3.root.visibility = if (step == 3) View.VISIBLE else View.GONE
@@ -408,8 +423,18 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                     newsImageRvAdapter.resetSelectedItem()
                 }
 
-                binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_1c))
-                binding.tvHeadline.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondary))
+                binding.tvNoun.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.gray_1c
+                    )
+                )
+                binding.tvHeadline.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.secondary
+                    )
+                )
 
                 setButtonColor(viewModel.selectedFile.value != null)
 
@@ -428,7 +453,12 @@ class NewsCreateFragment : BaseFragment<FragmentNewsCreateBinding>() {
                 binding.newsOverlay.visibility = View.VISIBLE
 
                 binding.tvNoun.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.tvHeadline.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.tvHeadline.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
 
                 Glide.with(requireContext())
                     .load(viewModel.selectedFile.value)

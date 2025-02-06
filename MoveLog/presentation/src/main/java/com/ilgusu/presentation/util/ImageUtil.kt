@@ -13,7 +13,7 @@ import java.io.IOException
 
 object ImageUtil {
     private const val MAX_FILE_SIZE_MB = 5
-    private const val BYTES_PER_MB = 1920 * 1080
+    private const val BYTES_PER_MB = 1024 * 1024
     private const val DEFAULT_COMPRESS_QUALITY = 100
 
     class ImageSizeExceededException : Exception("Image size exceeds ${MAX_FILE_SIZE_MB}MB limit")
@@ -24,7 +24,7 @@ object ImageUtil {
         format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG,
         quality: Int = DEFAULT_COMPRESS_QUALITY,
         degrees: Float = 0F,
-    ): File? {
+    ): File {
         return try {
             val bitmap = getBitmapFromUri(context, uri)
             val byteArray = convertBitmapToByteArray(
@@ -34,10 +34,6 @@ object ImageUtil {
             )
 
             if (byteArray.size > MAX_FILE_SIZE_MB * BYTES_PER_MB) {
-                val reducedQuality = quality * MAX_FILE_SIZE_MB * BYTES_PER_MB / byteArray.size
-                if (reducedQuality > 0) {
-                    return createImageFile(context, uri, format, reducedQuality)
-                }
                 throw ImageSizeExceededException()
             }
 
@@ -55,7 +51,7 @@ object ImageUtil {
             file
         } catch (e: Exception) {
             e.printStackTrace()
-            null
+            throw e
         }
     }
 

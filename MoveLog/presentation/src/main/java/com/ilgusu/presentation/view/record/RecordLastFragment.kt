@@ -34,20 +34,27 @@ class RecordLastFragment : BaseFragment<FragmentRecordLastBinding>() {
     private val imagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                Glide.with(this)
-                    .load(uri)
-                    .into(binding.ivPhoto)
+                showLoadingDialog()
 
-                try {
-                    val degrees = ImageUtil.getOrientationOfImage(requireContext(), uri)
-                    binding.ivPhoto.visibility = View.VISIBLE
-                    viewModel.setImageFile(requireContext(), uri, degrees = degrees.toFloat())
-                } catch (e: ImageUtil.ImageSizeExceededException) {
-                    showToast("이미지가 너무 커요")
-                } catch (e: IOException) {
-                    showToast("유효하지 않는 URI")
-                } catch (e: IllegalArgumentException) {
-                    showToast("EXIF 정보 일기 오류")
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        val degrees = ImageUtil.getOrientationOfImage(requireContext(), uri)
+                        val file = ImageUtil.createImageFile(requireContext(), uri, degrees = degrees.toFloat())
+
+                        launch(Dispatchers.Main) {
+                            viewModel.setImageFile(file)
+                            binding.ivPhoto.visibility = View.VISIBLE
+                            Glide.with(requireContext())
+                                .load(uri)
+                                .into(binding.ivPhoto)
+                            dismissLoadingDialog()
+                        }
+                    } catch (e: ImageUtil.ImageSizeExceededException) {
+                        launch(Dispatchers.Main) {
+                            dismissLoadingDialog()
+                            showToast("최대 이미지 크기는 5MB 입니다", 2)
+                        }
+                    }
                 }
             }
         }
