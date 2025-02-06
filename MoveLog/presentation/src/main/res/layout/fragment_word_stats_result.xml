@@ -259,7 +259,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingVertical="48dp"
-        android:text="검색 결과가 없습니다.\n다른 단어를 입력 보세요!"
+        android:text="이 단어는 아직 제 기록에 없네요\n언젠가 당신의 기록에도 남겨보세요!"
         android:textColor="@color/gray_4d"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/bg_search" />
